@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Чирик</title>
+<meta name="description" content="Английский для детей с попугаем Чириком">
+<meta name="theme-color" content="#7A5CFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Чирик">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/nunito-cyrillic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/balsamiq-sans-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+<style>
+@font-face{font-family:'Balsamiq Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/balsamiq-sans-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Balsamiq Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/balsamiq-sans-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Balsamiq Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/balsamiq-sans-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Balsamiq Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/balsamiq-sans-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/nunito-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/nunito-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/nunito-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/nunito-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:900;font-display:swap;src:url(fonts/nunito-cyrillic-900-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:900;font-display:swap;src:url(fonts/nunito-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+html{min-height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:linear-gradient(180deg,#7A5CFF 0%,#7FB2FF 60%,#A9DAFF 100%) #7A5CFF}
+body{background:transparent!important}
+body{margin:0;overscroll-behavior-y:none}
+[hidden]{display:none!important}
+img{max-width:100%}
+button,.cell,.tile,.opt,.isle{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.app,.card{-webkit-user-select:none;user-select:none}
+.parents{-webkit-user-select:text;user-select:text}
+
+/* Layout: a winding path of 60 English lessons in 12 colourful units; hero Чирик the parrot lives on top; audio-first, pictures instead of text. Single bright look on purpose. */
+:root{
+  --ink:#1F2A5C; --muted:#5A6499; --coral:#FF5A5F; --sun:#FFC530; --grass:#2FD07A; --grape:#8B5CFF; --sea:#12C6E0; --pink:#FF5FB0; --orange:#FF8A3D;
+  --card:#FFFFFF; --soft:#F0F4FF; --line:#DCE3FB;
+  --display:"Balsamiq Sans","Comic Sans MS","Trebuchet MS",sans-serif;
+  --body:"Nunito","Trebuchet MS",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body.novoice .say{display:none}
+html,body{min-height:100%}
+body{background:#45B4FF;color:var(--ink);font-family:var(--body);font-size:16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:14px 40px;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.sky{position:fixed;inset:0;z-index:0;overflow:hidden;transition:background .8s;background:linear-gradient(180deg,#45B4FF 0%,#8FDCFF 55%,#7EE08F 100%)}
+body.w2 .sky{background:linear-gradient(180deg,#14A8E0 0%,#6FE0F0 55%,#FFE09A 100%)}
+body.w3 .sky{background:linear-gradient(180deg,#FF7A9C 0%,#B06BE0 55%,#5A4FCF 100%)}
+body.w4 .sky{background:radial-gradient(circle at 20% 15%,#7B4DFF 0,transparent 40%),linear-gradient(180deg,#1E1260 0%,#4A2399 60%,#8E3FD6 100%)}
+body.w5 .sky{background:linear-gradient(180deg,#FFA62B 0%,#FFD45E 55%,#FFF0B0 100%)}
+.deco span{position:absolute;font-size:34px;opacity:.6;animation:floaty 8s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-26px) rotate(12deg)}}
+.app{position:relative;z-index:1;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+button{font:inherit;color:inherit;border:0;cursor:pointer;background:none}
+button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+
+/* bar */
+.bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:700;font-size:30px;color:#fff;letter-spacing:.5px;text-shadow:0 3px 0 rgba(31,42,92,.28);margin-right:auto}
+.logo b{color:var(--sun)}
+.chip{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.95);border-radius:999px;padding:6px 12px 6px 8px;font-weight:900;font-size:17px;box-shadow:0 3px 0 rgba(31,42,92,.18);font-variant-numeric:tabular-nums}
+.chip i{font-style:normal;font-size:19px}
+.chip.bump{animation:win .5s}
+.iconbtn{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.95);font-size:19px;box-shadow:0 3px 0 rgba(31,42,92,.18);display:grid;place-items:center;font-weight:900;flex:none}
+.iconbtn.off{opacity:.55}
+
+/* hero */
+.hero-w{position:relative;flex:none}
+.hero-w svg{width:100%;height:100%;overflow:visible;display:block;transform-origin:50% 100%;animation:breathe 2.6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.04,.96)}}
+.hero-w .f1{fill:var(--h1,#4FB3FF)} .hero-w .f2{fill:var(--h2,#2C86E8)}
+.hero-w .horn{fill:#FFD66B}.hero-w .belly{fill:#fff;opacity:.38}
+.hero-w .eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.hero-w .m,.hero-w .eyes-happy{display:none}
+.hero-w .m-smile{display:inline}
+.hero-w.eat .m-smile,.hero-w.happy .m-smile,.hero-w.sad .m-smile{display:none}
+.hero-w.eat .m-open,.hero-w.happy .m-open{display:inline}
+.hero-w.happy .eyes{display:none}.hero-w.happy .eyes-happy{display:inline}
+.hero-w.sad .m-sad{display:inline}
+.hero-w.eat svg{animation:chomp .45s ease}
+.hero-w.happy svg{animation:jump .6s ease}
+.hero-w.sad svg{animation:shake .45s}
+@keyframes chomp{30%{transform:scale(1.18,.85)}60%{transform:scale(.92,1.08)}}
+@keyframes jump{40%{transform:translateY(-22%) rotate(-6deg)}}
+.hero-w.rainbow svg{animation:breathe 2.6s ease-in-out infinite,hue 4s linear infinite}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+.h-hat,.h-gl{position:absolute;left:50%;transform:translateX(-50%);line-height:1;pointer-events:none}
+.h-hat{top:-.2em;font-size:.42em}
+.h-gl{top:.3em;font-size:.44em}
+.h-acc{position:absolute;left:-.16em;bottom:.14em;font-size:.34em;line-height:1;pointer-events:none;transform:rotate(-12deg)}
+.h-pet{position:absolute;right:-.4em;bottom:-.02em;font-size:.36em;line-height:1;pointer-events:none;animation:hop 1.8s ease-in-out infinite}
+@keyframes hop{0%,60%,100%{transform:translateY(0)}75%{transform:translateY(-30%)}}
+.hero-w.golden svg{animation:breathe 2.6s ease-in-out infinite,shine 2.2s ease-in-out infinite}
+@keyframes shine{50%{filter:brightness(1.25) saturate(1.2) drop-shadow(0 0 6px #FFE27A)}}
+.hero-w.hungry .m-smile{display:none}.hero-w.hungry .m-sad{display:inline}
+#homeHero{padding:0 44px 0 26px}#gHero{padding-right:18px;padding-left:10px}
+.status{display:flex;gap:8px;flex-wrap:wrap}
+.house{width:100%;min-height:118px;border-radius:24px;border:4px solid #fff;box-shadow:0 5px 0 rgba(31,42,92,.15);padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;align-items:stretch;text-align:left;cursor:pointer}
+.house-h{align-self:flex-start;background:rgba(255,255,255,.92);border-radius:999px;padding:4px 12px;font-weight:900;font-size:15px}
+.house-items{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:flex-end;justify-content:center;font-size:38px;line-height:1.1;margin-top:auto}
+.house-items span{animation:floaty 5s ease-in-out infinite;display:inline-block}
+.house-empty{margin-top:auto;background:rgba(255,255,255,.85);border-radius:14px;padding:8px 12px;font-weight:800;color:var(--muted);font-size:15px}
+#shopHero{border-radius:22px;padding:10px 54px 8px 30px;transition:background .3s}
+.status .chip{font-size:15px}
+.belly-m{letter-spacing:1px}
+.flyw{position:fixed;z-index:65;font-weight:900;font-size:28px;color:var(--ink);background:#fff;border-radius:12px;padding:2px 10px;pointer-events:none;box-shadow:0 4px 0 rgba(31,42,92,.15)}
+
+/* home */
+.stage{display:flex;align-items:flex-end;gap:10px}
+.bubble{position:relative;background:var(--card);border-radius:22px;padding:13px 15px;font-weight:800;font-size:17px;line-height:1.35;box-shadow:0 5px 0 rgba(31,42,92,.15);flex:1;min-width:0;margin-bottom:24px}
+.bubble::before{content:"";position:absolute;left:-10px;bottom:18px;border:10px solid transparent;border-right-color:var(--card);border-left:0}
+.bubble b{color:var(--coral)}
+.todaybox{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.95);border-radius:24px;padding:12px 14px;box-shadow:0 5px 0 rgba(31,42,92,.15)}
+.ring{flex:none;width:58px;height:58px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:15px;font-variant-numeric:tabular-nums}
+.todaybox .tx{flex:1;min-width:0;font-weight:800;line-height:1.3}
+.todaybox .tx small{display:block;color:var(--muted);font-weight:700}
+.play{width:100%;border-radius:26px;padding:18px 16px;font-family:var(--display);font-weight:700;font-size:26px;color:#fff;
+  background:linear-gradient(180deg,#FF8A3D,#FF4F8B);box-shadow:inset 0 -8px 0 rgba(0,0,0,.14),0 7px 0 rgba(31,42,92,.22);text-shadow:0 2px 0 rgba(0,0,0,.15);animation:wiggle 2.8s ease-in-out infinite}
+.play small{display:block;font-family:var(--body);font-weight:800;font-size:15px;opacity:.95}
+@keyframes wiggle{0%,80%,100%{transform:none}85%{transform:rotate(-2deg) scale(1.03)}90%{transform:rotate(2deg) scale(1.03)}95%{transform:rotate(-1deg)}}
+.play:active{transform:translateY(4px)}
+
+/* map */
+.world{position:relative;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.55);border-radius:30px;padding:14px 10px 18px;display:flex;flex-direction:column;gap:2px}
+.world h3{margin:0 0 6px;font-family:var(--display);color:#fff;text-shadow:0 2px 0 rgba(31,42,92,.3);font-size:22px;display:flex;gap:8px;align-items:center;justify-content:center;text-align:center}
+.nw{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;width:124px}
+.nw.p0{align-self:flex-start;margin-left:6%}.nw.p1{align-self:center}.nw.p2{align-self:flex-end;margin-right:6%}
+.steps{display:flex;gap:9px;justify-content:center;opacity:.85}
+.steps span{width:9px;height:9px;border-radius:50%;background:#fff}
+.node{position:relative;width:76px;height:76px;border-radius:50%;background:#fff;color:var(--ink);font-weight:900;font-size:28px;display:grid;place-items:center;
+  box-shadow:inset 0 -7px 0 rgba(0,0,0,.12),0 6px 0 rgba(31,42,92,.22);transition:transform .15s}
+.node:active{transform:scale(.93)}
+.node.done{background:linear-gradient(180deg,#FFE066,#FFB21E);color:#7A4A00}
+.node.cur{background:linear-gradient(180deg,#FF8A3D,#FF4F8B);color:#fff;animation:pulse 1.5s ease-in-out infinite}
+.node.lock{background:rgba(255,255,255,.6);color:#97A0C4;font-size:24px}
+.node.boss{width:88px;height:88px;font-size:38px}
+.node.boss:not(.lock){background:linear-gradient(180deg,#8E6BFF,#5131D6);color:#fff}
+.node.boss.done{background:linear-gradient(180deg,#FFE066,#FFB21E)}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.nlbl{font-size:12.5px;font-weight:800;background:rgba(255,255,255,.95);border-radius:10px;padding:3px 8px;text-align:center;line-height:1.2;box-shadow:0 2px 0 rgba(31,42,92,.12)}
+.nst{font-size:14px;letter-spacing:1px;min-height:18px}
+.dim{opacity:.28;filter:grayscale(1)}
+.mini{position:absolute;right:-50px;top:4px}
+.foot{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+
+/* day screen */
+.gtop{display:flex;align-items:center;gap:8px}
+.gtitle{font-family:var(--display);font-weight:700;font-size:20px;color:#fff;text-shadow:0 2px 0 rgba(31,42,92,.3);flex:1;min-width:0;line-height:1.15}
+.gtitle small{display:block;font-family:var(--body);font-size:14px;font-weight:800;opacity:.95}
+.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ad{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.4);display:grid;place-items:center;font-size:17px;transition:all .3s}
+.ad.done{background:var(--sun)}
+.ad.now{background:#fff;transform:scale(1.15);box-shadow:0 3px 0 rgba(31,42,92,.2)}
+.row2{display:flex;align-items:center;gap:10px;justify-content:space-between;min-height:30px}
+.rdots{display:flex;gap:5px;flex-wrap:wrap}
+.rdots span{width:20px;height:9px;border-radius:5px;background:rgba(255,255,255,.45)}
+.rdots span.done{background:var(--sun)}.rdots span.now{background:#fff}
+.combo{font-weight:900;font-size:15px;color:#fff;background:var(--coral);border-radius:999px;padding:6px 12px;box-shadow:0 3px 0 rgba(31,42,92,.15);white-space:nowrap}
+.combo.hot{animation:win .5s}
+.card{background:var(--card);border-radius:28px;padding:20px 16px 22px;box-shadow:0 8px 0 rgba(31,42,92,.2);display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;min-width:0}
+.qa{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px;position:relative}
+.ask{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--muted);text-align:center;text-wrap:balance}
+.say{flex:none;width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:18px;display:grid;place-items:center}
+.tbar{position:absolute;top:-20px;left:8px;right:8px;height:6px;border-radius:0 0 6px 6px;background:var(--soft);overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--sun);transform-origin:left;animation:shrink linear forwards}
+@keyframes shrink{to{transform:scaleX(0)}}
+.pic{font-size:90px;line-height:1.1;animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+.sentence{font-weight:900;font-size:29px;line-height:1.3;text-align:center;text-wrap:balance}
+.rv-word{font-weight:900;font-size:54px;letter-spacing:4px;text-align:center;overflow-wrap:anywhere;max-width:100%;animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+.rv-pic{font-size:96px;line-height:1.1;min-height:106px;display:grid;place-items:center}
+.rv-pic.hid{color:var(--line);font-family:var(--display);font-weight:700}
+.story{font-weight:800;font-size:22px;line-height:1.5;background:#FFF8E1;border-radius:20px;padding:14px 16px;width:100%}
+.storyq{font-weight:900;font-size:23px;text-align:center;color:var(--grape)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.opts.one{grid-template-columns:1fr}
+.opts.three{grid-template-columns:repeat(3,1fr)}
+.opt{min-height:72px;border-radius:20px;background:var(--soft);font-weight:900;font-size:34px;letter-spacing:2px;color:var(--ink);
+  box-shadow:inset 0 -6px 0 var(--line);transition:transform .1s;animation:pop .4s backwards;padding:6px 10px;overflow-wrap:anywhere}
+.opt:nth-child(2){animation-delay:.05s}.opt:nth-child(3){animation-delay:.1s}.opt:nth-child(4){animation-delay:.15s}
+.opt:active{transform:translateY(3px)}
+.opt.ok{background:var(--grass);color:#fff;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15);animation:win .5s}
+.opt.bad{background:#FFE2DF;color:#E2928A;box-shadow:none;animation:shake .4s}
+.opt.emo{font-size:54px}
+.opt.yes{background:var(--grass);color:#fff;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15)}
+.opt.no{background:var(--coral);color:#fff;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15)}
+.opt.yes.bad,.opt.no.bad{opacity:.4}
+@keyframes win{40%{transform:scale(1.12) rotate(-3deg)}}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+
+.glue{display:flex;align-items:center;gap:10px;font-weight:900;font-size:42px;flex-wrap:wrap;justify-content:center}
+.glue .c1{background:var(--coral);color:#fff;border-radius:16px;padding:4px 16px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15)}
+.glue .c2{background:#3D74F0;color:#fff;border-radius:16px;padding:4px 16px;letter-spacing:2px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15)}
+.glue .op{color:var(--muted);font-size:34px}
+.q{border:3px dashed var(--grape);color:var(--grape);border-radius:16px;padding:0 18px;min-width:70px;text-align:center}
+.q.filled{border-style:solid;background:var(--grass);border-color:var(--grass);color:#fff;animation:pop .35s}
+
+.ladder{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.lstep{font-weight:900;font-size:38px;letter-spacing:3px;border-radius:18px;padding:8px 22px;background:var(--soft);box-shadow:inset 0 -6px 0 var(--line);animation:pop .4s;min-width:120px;color:var(--ink);max-width:100%;overflow-wrap:anywhere}
+.lstep .n{color:var(--coral)}
+.lstep.read{background:#E2F8EC;box-shadow:inset 0 -6px 0 #BCEBD2}
+.lstep.cur{outline:4px solid var(--sun);animation:pop .4s,nudge 1.4s 1s ease-in-out infinite}
+@keyframes nudge{50%{transform:scale(1.05)}}
+.lhint{font-weight:800;color:var(--muted);text-align:center;font-size:15px;max-width:34ch}
+.arrow{color:var(--line);font-size:20px;line-height:.6}
+
+.flash{font-weight:900;font-size:50px;letter-spacing:3px;min-height:80px;display:grid;place-items:center;text-align:center;width:100%}
+.flash .hid{color:var(--line)}
+.speed{font-weight:900;color:var(--grape);background:#F1EAFF;border-radius:999px;padding:4px 12px;font-size:15px}
+.again{font-weight:800;color:#3D74F0;background:var(--soft);border-radius:999px;padding:8px 14px}
+
+.tgrid{display:grid;gap:6px;width:100%}
+.cell{border-radius:12px;background:var(--soft);font-weight:900;font-size:22px;padding:10px 2px;text-align:center;letter-spacing:1px;transition:background .15s,transform .15s;color:var(--ink);overflow-wrap:anywhere}
+.cell.cur{background:var(--sun);transform:scale(1.08);box-shadow:0 4px 0 rgba(31,42,92,.15)}
+.cell.done{background:#E2F8EC;color:#2E9A63}
+.clock{font-weight:900;font-size:34px;font-variant-numeric:tabular-nums}
+.rec{font-weight:800;color:var(--muted);font-size:15px;text-align:center}
+.bigbtn{width:100%;border-radius:20px;padding:17px;font-weight:900;font-size:21px;background:var(--grass);color:#fff;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15)}
+.bigbtn.alt{background:var(--soft);color:var(--ink);box-shadow:inset 0 -6px 0 var(--line)}
+.bigbtn:active{transform:translateY(3px)}
+
+/* пузыри */
+.bub-top{display:flex;align-items:center;gap:14px;justify-content:center}
+.bub-top .pic{font-size:70px}
+.caught{font-weight:900;font-size:20px;font-variant-numeric:tabular-nums}
+.bub-area{position:relative;width:100%;height:330px;border-radius:22px;background:linear-gradient(180deg,#DDF3FF,#B8E6FF);overflow:hidden;touch-action:manipulation}
+.bub{position:absolute;left:0;top:0;will-change:transform}
+.bub .bi{display:block;padding:15px 18px;border-radius:999px;font-weight:900;font-size:22px;color:var(--ink);white-space:nowrap;letter-spacing:1px;
+  background:radial-gradient(circle at 28% 28%,#fff 0 14%,rgba(255,255,255,.55) 15%,var(--bc) 75%);border:3px solid rgba(255,255,255,.95);box-shadow:0 4px 10px rgba(31,42,92,.14)}
+.bub.popd .bi{animation:popout .3s forwards}
+.bub.wr .bi{animation:shake .4s;background:#FFC9C4}
+@keyframes popout{to{transform:scale(1.7);opacity:0}}
+
+/* босс */
+.arena{display:flex;align-items:flex-end;justify-content:space-between;width:100%;gap:8px}
+.hpbox{flex:1;display:flex;flex-direction:column;gap:6px;align-items:center;font-weight:900;color:var(--grape);padding-bottom:30px}
+.hp{height:18px;width:100%;background:var(--soft);border-radius:9px;overflow:hidden;box-shadow:inset 0 2px 0 rgba(0,0,0,.06)}
+.hp i{display:block;height:100%;background:linear-gradient(90deg,#FF5A5F,#FF9F45);transition:width .45s}
+.boss-w svg{display:block;width:100%;height:100%;overflow:visible;animation:hover 2s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-8px)}}
+.boss-w.hit svg{animation:hit .5s}
+@keyframes hit{20%{transform:translateX(10px) rotate(8deg);filter:brightness(2)}60%{transform:translateX(-6px)}}
+.boss-w.dead svg{animation:poof .8s forwards}
+@keyframes poof{to{transform:scale(.1) rotate(200deg);opacity:0}}
+.ink{position:absolute;inset:-10px;pointer-events:none;z-index:6;animation:inkfade 1.1s forwards}
+@keyframes inkfade{0%{opacity:0;transform:scale(.6)}15%{opacity:1;transform:scale(1)}75%{opacity:1}100%{opacity:0}}
+.shot{position:fixed;z-index:65;font-size:34px;pointer-events:none}
+
+.toast{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--grape);color:#fff;font-family:var(--display);font-weight:700;font-size:20px;padding:6px 18px;border-radius:999px;white-space:nowrap;animation:toast 1.2s forwards;pointer-events:none;z-index:8}
+.toast.oops{background:var(--coral)}
+.toast.fast{background:var(--sun);color:var(--ink);top:26px}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,10px) scale(.6)}15%{opacity:1;transform:translate(-50%,0) scale(1.05)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-12px)}}
+.fly{position:fixed;font-size:26px;z-index:60;pointer-events:none}
+
+.intro{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.intro .big{font-size:84px;animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.intro h2{font-family:var(--display);font-size:30px;margin:0}
+.intro p{margin:0;font-weight:800;color:var(--muted);font-size:18px;max-width:30ch;line-height:1.4}
+.plan{display:flex;flex-direction:column;gap:8px;width:100%}
+.pl{display:flex;align-items:center;gap:12px;background:var(--soft);border-radius:16px;padding:10px 14px;font-weight:800}
+.pl .e{font-size:26px}.pl .m{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pl.done{background:#E2F8EC}.pl.done .m{color:#2E9A63}
+
+/* overlays */
+.ov{position:fixed;inset:0;z-index:40;background:rgba(31,42,92,.6);display:grid;place-items:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-bottom,0px));overflow-y:auto}
+.panel{background:var(--card);border-radius:30px;padding:22px 18px;width:100%;max-width:460px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 10px 0 rgba(0,0,0,.2);animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+.panel h2{font-family:var(--display);font-size:28px;margin:0;text-wrap:balance}
+.bigstars{display:flex;gap:6px;font-size:56px}
+.bigstars span{animation:starIn .6s cubic-bezier(.3,1.8,.5,1) backwards}
+.bigstars span:nth-child(2){animation-delay:.25s}.bigstars span:nth-child(3){animation-delay:.5s}
+@keyframes starIn{from{transform:scale(0) rotate(-180deg)}}
+.btns{display:flex;flex-direction:column;gap:10px;width:100%}
+.chest{font-size:120px;line-height:1;animation:chest 1.1s ease-in-out infinite}
+@keyframes chest{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg) scale(1.05)}40%{transform:rotate(8deg) scale(1.05)}60%{transform:rotate(-4deg)}}
+.chest.open{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.gain{font-family:var(--display);font-size:34px;font-weight:700;color:var(--orange)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.tab{border-radius:999px;padding:8px 14px;font-weight:900;background:var(--soft);color:var(--ink)}
+.tab.on{background:var(--grape);color:#fff}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.item .pr{font-size:12.5px}
+.item{background:var(--soft);border-radius:18px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:800;font-size:13px;line-height:1.2;color:var(--ink)}
+.item .ic{font-size:36px;height:42px;display:grid;place-items:center}
+.item .sw{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.item .pr{font-weight:900;color:var(--orange)}
+.item.on{outline:4px solid var(--grass);background:#E2F8EC}
+.item.no{opacity:.55}
+.item.try{outline:4px dashed var(--grape);opacity:1}
+.buy{width:100%;background:#F4EEFF;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;font-weight:900;font-size:19px;animation:pop .35s}
+.buy small{display:block;font-size:14px;color:var(--muted);font-weight:800;margin-top:4px}
+.buyrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info{text-align:left;width:100%;display:flex;flex-direction:column;gap:10px;line-height:1.5}
+.info p{margin:0}
+.info h3{margin:6px 0 0;font-size:18px}
+.info .ex{font-weight:900;color:#3D74F0;letter-spacing:1px}
+.weeks{display:grid;gap:6px}
+.weeks div{background:var(--soft);border-radius:12px;padding:8px 12px}
+.toggle{display:flex;align-items:center;gap:12px;background:var(--soft);border-radius:16px;padding:12px;font-weight:800;text-align:left;cursor:pointer}
+.toggle input{width:24px;height:24px;accent-color:var(--grass);flex:none}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:70;width:100%;height:100%}
+.hero-w .tail{stroke:var(--h2,#B98CFF)}
+.hero-w .f1{stroke:rgba(31,42,92,.12);stroke-width:1.2}
+.target{font-weight:900;font-size:20px;text-align:center;font-variant-numeric:tabular-nums}
+.target .tw{font-size:30px;color:var(--grape);letter-spacing:1px}
+.sch{display:grid;gap:7px;width:100%;max-width:380px}
+.sch button{aspect-ratio:1;border-radius:14px;font-weight:900;color:var(--ink);box-shadow:inset 0 -5px 0 rgba(0,0,0,.07);transition:opacity .2s,transform .2s}
+.sch button.ok{opacity:.22;transform:scale(.88)}
+.sch button.bad{animation:shake .4s;background:#FFC9C4!important}
+.pair{display:flex;gap:10px;width:100%;justify-content:center;flex-wrap:wrap;min-height:70px;align-items:stretch}
+.pair span{flex:1 1 40%;min-width:0;background:var(--soft);border-radius:18px;padding:14px 8px;text-align:center;font-weight:900;font-size:28px;overflow-wrap:anywhere;display:grid;place-items:center}
+.opt.sm{font-size:21px;letter-spacing:.5px}
+.sgrid{display:grid;gap:8px;width:100%}
+.sgrid button{background:var(--soft);border-radius:14px;padding:12px 4px;font-weight:900;font-size:19px;color:var(--ink);overflow-wrap:anywhere;box-shadow:inset 0 -4px 0 var(--line)}
+.sgrid button.ok{background:var(--grass);color:#fff}.sgrid button.bad{background:#FFE2DF;color:#E2928A;animation:shake .4s}
+.wide{position:relative;width:100%;min-height:90px;display:flex;align-items:center;justify-content:space-between;font-weight:900;font-size:32px}
+.wide .dot{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 6px rgba(255,90,95,.2)}
+.pacebar{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;flex-wrap:wrap}
+.pacebar b{font-variant-numeric:tabular-nums;color:var(--grape)}
+.ptext{font-weight:800;font-size:21px;line-height:1.75;background:#FFF8E1;border-radius:20px;padding:14px 16px;width:100%}
+.ptext span{border-radius:6px;padding:1px 2px;transition:background .12s,color .2s}
+.ptext span.on{background:var(--sun);box-shadow:0 0 0 3px var(--sun)}
+.ptext span.read{color:#A3A9C9}
+.wpm{font-family:var(--display);font-size:52px;color:var(--grape);line-height:1}
+.wpm small{font-family:var(--body);font-size:16px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%}
+.chips button{background:var(--soft);border-radius:14px;padding:10px 12px;font-weight:900;font-size:22px;color:var(--ink);box-shadow:inset 0 -4px 0 var(--line)}
+.chips button.ok{background:var(--grass);color:#fff;box-shadow:none}.chips button.bad{background:#FFE2DF;color:#E2928A;animation:shake .4s}
+.oline{min-height:64px;width:100%;border:3px dashed var(--line);border-radius:18px;padding:10px;display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center;align-items:center;font-weight:900;font-size:22px}
+.oline span{background:#E2F8EC;color:#23794C;border-radius:10px;padding:4px 10px;animation:pop .3s}
+.tempo{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;width:100%;font-weight:800;font-size:14px;color:var(--muted)}
+.tempo button{background:var(--soft);border-radius:999px;padding:6px 11px;font-weight:900;font-size:14px;color:var(--ink);box-shadow:inset 0 -3px 0 var(--line)}
+.tempo button.on{background:var(--grape);color:#fff;box-shadow:none}
+.tempo button:disabled{opacity:.5}
+.bars{display:flex;align-items:flex-end;gap:6px;height:140px;padding:8px;background:var(--soft);border-radius:16px;overflow-x:auto}
+.bars div{flex:0 0 28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;font-size:11px;font-weight:800;color:var(--muted);height:100%}
+.bars i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#B48CFF,#8B5CFF)}
+.bars b{font-size:12px;color:var(--ink);font-variant-numeric:tabular-nums}
+.xh{font-weight:900;font-size:17px;color:var(--muted);text-align:center;text-wrap:balance}
+.lw{display:flex;flex-direction:column;align-items:center;gap:6px}
+.bigpic{font-size:118px;line-height:1.1;animation:pop .45s cubic-bezier(.3,1.6,.5,1);background:none}
+.bigpic.dance{animation:pop .45s,jump 1s .5s ease-in-out infinite}
+.count{font-size:40px;line-height:1.2;text-align:center;max-width:300px;letter-spacing:2px}
+.en{font-family:var(--display);font-size:42px;font-weight:700;color:var(--grape);letter-spacing:1px;text-align:center}
+.en.ph{font-size:28px;line-height:1.25;text-wrap:balance}
+.ru{font-size:18px;font-weight:800;color:var(--muted)}
+.row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;width:100%}
+.spk{width:92px;height:92px;border-radius:50%;background:linear-gradient(180deg,#5CC8FF,#3D74F0);color:#fff;font-size:42px;display:grid;place-items:center;box-shadow:inset 0 -7px 0 rgba(0,0,0,.15),0 5px 0 rgba(31,42,92,.15);flex:none}
+.spk.sm{width:64px;height:64px;font-size:28px}.spk.xs{width:44px;height:44px;font-size:20px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.spk.slow{background:linear-gradient(180deg,#7BE0A0,#2FB46A)}
+.spk:active{transform:translateY(3px)}
+.pics{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:12px;width:100%}
+.pics button{font-size:64px;padding:14px 0;border-radius:22px;background:var(--soft);box-shadow:inset 0 -6px 0 var(--line);animation:pop .4s backwards}
+.pics button.ok{background:var(--grass);box-shadow:none;animation:win .5s}.pics button.bad{background:#FFE2DF;opacity:.6;animation:shake .4s}
+.sopts{display:grid;gap:10px;width:100%}
+.sopt{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:20px;background:var(--soft);font-weight:900;font-size:22px;color:var(--ink);box-shadow:inset 0 -5px 0 var(--line);text-align:left}
+.sopt.sel{outline:4px solid var(--grape)}.sopt.ok{background:var(--grass);color:#fff}.sopt.bad{background:#FFE2DF;opacity:.6;animation:shake .4s}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.mgrid button{min-height:84px;border-radius:20px;background:var(--soft);font-size:50px;box-shadow:inset 0 -5px 0 var(--line);transition:opacity .3s}
+.mgrid button.snd{font-size:34px;background:#E3F0FF}
+.mgrid button.sel{outline:4px solid var(--grape)}.mgrid button.ok{background:var(--grass)}.mgrid button.bad{animation:shake .4s;background:#FFE2DF}
+.mgrid button.gone{opacity:.15;pointer-events:none}
+.mic{width:124px;height:124px;border-radius:50%;background:linear-gradient(180deg,#FF8A3D,#FF4F8B);color:#fff;font-size:56px;box-shadow:inset 0 -8px 0 rgba(0,0,0,.15),0 6px 0 rgba(31,42,92,.2)}
+.mic.on{animation:pulse .9s ease-in-out infinite;background:linear-gradient(180deg,#FF5A5F,#E0245E);box-shadow:0 0 0 12px rgba(255,90,95,.25)}
+.heard{font-weight:800;color:var(--muted);min-height:1.4em;text-align:center;font-size:16px}
+.dlg{display:flex;align-items:flex-end;gap:10px;width:100%}
+.bub2{position:relative;background:#E9F7FF;border-radius:20px 20px 20px 4px;padding:12px 14px;font-family:var(--display);font-weight:700;font-size:23px;color:var(--ink);flex:1;min-width:0;margin-bottom:24px}
+@media (max-width:440px){
+  .rv-word{font-size:42px}
+  .logo{font-size:23px}.bar{gap:5px}.iconbtn{width:36px;height:36px;font-size:16px}.chip{font-size:15px;padding:5px 9px 5px 6px}.chip i{font-size:16px}
+  .sentence{font-size:24px}.opt{font-size:28px}.glue{font-size:34px}.lstep{font-size:31px}.flash{font-size:40px}
+  .cell{font-size:19px}.story{font-size:19px}.node{width:68px;height:68px}.node.boss{width:80px;height:80px}.nw{width:112px}.mini{right:-42px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="sky"><div class="deco" id="deco" aria-hidden="true"></div></div>
+<canvas id="fx"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="g-rainbow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6B6B"/><stop offset=".2" stop-color="#FFB347"/><stop offset=".4" stop-color="#FFE45C"/><stop offset=".6" stop-color="#6EE07A"/><stop offset=".8" stop-color="#5CC8FF"/><stop offset="1" stop-color="#A98BFF"/></linearGradient>
+<linearGradient id="g-candy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB3E0"/><stop offset="1" stop-color="#B3E5FF"/></linearGradient>
+<linearGradient id="g-ocean" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5CE1E6"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient>
+<linearGradient id="g-fire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset=".55" stop-color="#FF6B2C"/><stop offset="1" stop-color="#E8233A"/></linearGradient>
+<radialGradient id="g-galaxy" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#C9B4FF"/><stop offset=".45" stop-color="#7B4DFF"/><stop offset="1" stop-color="#2E1A8A"/></radialGradient>
+<linearGradient id="g-sunset" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD36B"/><stop offset="1" stop-color="#FF6A88"/></linearGradient>
+</defs></svg>
+
+<div class="app">
+  <div class="bar">
+    <div class="logo">Чир<b>и</b>к</div>
+    <div class="chip" title="Монетки"><i>🪙</i><span class="coinN">0</span></div>
+    <button class="iconbtn" id="shopBtn" aria-label="Гардероб и кухня Чирика">👕</button>
+    <button class="iconbtn" id="musBtn" aria-label="Музыка">🎵</button>
+    <button class="iconbtn" id="sndBtn" aria-label="Звук">🔊</button>
+    <button class="iconbtn" id="infoBtn" aria-label="Для родителей">👪</button>
+  </div>
+
+  <section id="home" style="display:flex;flex-direction:column;gap:16px">
+    <div class="stage">
+      <div id="homeHero"></div>
+      <div class="bubble" id="say"></div>
+    </div>
+    <div class="status" id="status"></div>
+    <button class="house" id="house" aria-label="Домик Чирика"></button>
+    <div class="todaybox">
+      <div class="ring" id="ringHome"></div>
+      <div class="tx" id="todayTx"></div>
+    </div>
+    <button class="play" id="playBtn"></button>
+    <div id="map" style="display:flex;flex-direction:column;gap:16px"></div>
+  </section>
+
+  <section id="dayScreen" hidden style="flex-direction:column;gap:12px">
+    <div class="gtop">
+      <button class="iconbtn" id="backBtn" aria-label="На карту">🗺️</button>
+      <div class="gtitle" id="gTitle"></div>
+      <div id="gHero"></div>
+    </div>
+    <div class="acts" id="acts"></div>
+    <div class="row2"><div class="rdots" id="rdots"></div><div class="combo" id="combo" hidden></div></div>
+    <div class="card" id="card"></div>
+  </section>
+</div>
+
+<div class="ov" id="ov" hidden><div class="panel" id="panel"></div></div>
+
+<script>
+/* ================= ДАННЫЕ ================= */
+const W=(en,ru,e,n)=>({en,ru,e,n});
+// 12 тем. ask — вопрос Чирика в «Разговоре»; askRu — вопрос по-русски «как сказать…»
+const UNITS=[
+ {n:'Привет!',e:'👋',askRu:1,w:[W('hello','привет','👋'),W('goodbye','пока','🚪'),W('yes','да','👍'),W('no','нет','👎'),W('thank you','спасибо','🙏'),W('please','пожалуйста','🥺'),W('boy','мальчик','👦'),W('girl','девочка','👧')],
+  phr:[['Hello! My name is Chirik.','👋'],['How are you?','🙂'],["I'm fine, thank you!",'😊'],['Nice to meet you!','🤝']]},
+ {n:'Цвета',e:'🎨',ask:'What color is it?',w:[W('red','красный','🔴'),W('blue','синий','🔵'),W('green','зелёный','🟢'),W('yellow','жёлтый','🟡'),W('orange','оранжевый','🟠'),W('purple','фиолетовый','🟣'),W('pink','розовый','🩷'),W('black','чёрный','⚫'),W('white','белый','⚪'),W('brown','коричневый','🟤')],
+  phr:[['I like red.','❤️'],['My favourite color is blue.','💙'],['The sky is blue.','🌤️'],['The grass is green.','🌿']]},
+ {n:'Числа',e:'🔢',ask:'count',w:[W('one','один','1️⃣',1),W('two','два','2️⃣',2),W('three','три','3️⃣',3),W('four','четыре','4️⃣',4),W('five','пять','5️⃣',5),W('six','шесть','6️⃣',6),W('seven','семь','7️⃣',7),W('eight','восемь','8️⃣',8),W('nine','девять','9️⃣',9),W('ten','десять','🔟',10)],
+  phr:[['One, two, three!','🔢'],['I am six.','🎂'],['I have two hands.','👐'],['Count with me!','🙌']]},
+ {n:'Животные',e:'🐾',ask:'What animal is it?',w:[W('cat','кошка','🐱'),W('dog','собака','🐶'),W('cow','корова','🐮'),W('pig','свинья','🐷'),W('duck','утка','🦆'),W('fish','рыба','🐟'),W('bird','птица','🐦'),W('horse','лошадь','🐴'),W('frog','лягушка','🐸'),W('lion','лев','🦁')],
+  phr:[['I have a cat.','🐱'],['The dog says woof!','🐶'],['The cow says moo!','🐮'],['I like animals.','🐾']]},
+ {n:'Семья',e:'👪',ask:'Who is it?',w:[W('mom','мама','👩'),W('dad','папа','👨'),W('baby','малыш','👶'),W('sister','сестра','👧'),W('brother','брат','👦'),W('grandma','бабушка','👵'),W('grandpa','дедушка','👴'),W('friend','друг','🧑‍🤝‍🧑')],
+  phr:[['I love my mom.','❤️'],['This is my dad.','👨'],['I have a sister.','👧'],['This is my family.','👨‍👩‍👧‍👦']]},
+ {n:'Еда',e:'🍎',ask:'What is it?',w:[W('apple','яблоко','🍎'),W('banana','банан','🍌'),W('milk','молоко','🥛'),W('juice','сок','🧃'),W('bread','хлеб','🍞'),W('cake','торт','🍰'),W('ice cream','мороженое','🍦'),W('pizza','пицца','🍕'),W('egg','яйцо','🥚'),W('water','вода','💧')],
+  phr:[['I like apples.','🍎'],['I am hungry.','🤤'],['Can I have milk, please?','🥛'],['Yummy!','😋']]},
+ {n:'Тело',e:'🙂',ask:'What is it?',w:[W('eyes','глаза','👀'),W('nose','нос','👃'),W('mouth','рот','👄'),W('ears','уши','👂'),W('hand','рука','✋'),W('leg','нога','🦵'),W('foot','ступня','🦶'),W('tooth','зуб','🦷')],
+  phr:[['Touch your nose!','👃'],['I have two eyes.','👀'],['Clap your hands!','👏'],['Wash your hands.','🧼']]},
+ {n:'Игрушки',e:'🧸',ask:'What is it?',w:[W('ball','мяч','⚽'),W('doll','кукла','🪆'),W('car','машинка','🚗'),W('teddy bear','мишка','🧸'),W('robot','робот','🤖'),W('kite','воздушный змей','🪁'),W('train','поезд','🚂'),W('balloon','шарик','🎈')],
+  phr:[["Let's play!",'🎲'],['I have a ball.','⚽'],['My teddy bear is soft.','🧸'],['Where is my car?','🚗']]},
+ {n:'Одежда',e:'👕',ask:'What is it?',w:[W('hat','шляпа','👒'),W('cap','кепка','🧢'),W('shoes','ботинки','👟'),W('T-shirt','футболка','👕'),W('dress','платье','👗'),W('socks','носки','🧦'),W('jacket','куртка','🧥'),W('pants','брюки','👖'),W('gloves','перчатки','🧤'),W('scarf','шарф','🧣')],
+  phr:[['Put on your hat.','👒'],['I like my dress.','👗'],['My shoes are red.','👟'],['Put on your jacket.','🧥']]},
+ {n:'Действия',e:'🏃',ask:'What is he doing?',act:1,w:[W('run','бегать','🏃'),W('jump','прыгать','🤸'),W('swim','плавать','🏊'),W('sing','петь','🎤'),W('dance','танцевать','💃'),W('sleep','спать','😴'),W('eat','есть','🍽️'),W('clap','хлопать','👏'),W('walk','ходить','🚶')],
+  phr:[['I can jump!','🤸'],["Let's dance!",'💃'],['I like to swim.','🏊'],['Time to sleep.','😴']]},
+ {n:'Погода и чувства',e:'☀️',ask:'What is it?',w:[W('sun','солнце','☀️'),W('rain','дождь','🌧️'),W('snow','снег','❄️'),W('wind','ветер','🌬️'),W('rainbow','радуга','🌈'),W('happy','весёлый','😀'),W('sad','грустный','😢'),W('hot','жарко','🥵'),W('cold','холодно','🥶')],
+  phr:[["It's sunny!",'☀️'],["It's raining.",'🌧️'],['I am happy!','😀'],["I'm cold.",'🥶']]},
+ {n:'Мой день',e:'🏠',askRu:1,w:[W('good morning','доброе утро','🌅'),W('good night','спокойной ночи','🌙'),W("I'm hungry",'я голодный','🤤'),W("let's play",'давай играть','🎲'),W('I love you','я тебя люблю','❤️'),W('help me','помоги мне','🆘'),W('I can do it','у меня получится','💪'),W('see you','увидимся','🤗')],
+  phr:[['Good morning, mom!','🌅'],['Good night, dad!','🌙'],['I love you!','❤️'],['Thank you very much!','🙏']]}];
+
+const ACT={
+ new:{n:'Новые слова',i:'📘',ask:'Слушай новые слова и повторяй за Чириком!',min:5},
+ listen:{n:'Слушай',i:'🎧',ask:'Слушай внимательно и выбирай картинки!',min:5},
+ speak:{n:'Говори',i:'🗣️',ask:'Говори слова громко, Чирик тебя слушает!',min:5},
+ talk:{n:'Разговор',i:'💬',ask:'Поговори с Чириком по-английски!',min:5},
+ review:{n:'Повторение',i:'⭐',ask:'Повтори всё, что выучил, и получи сундук!',min:6}};
+const KINDS=['new','listen','speak','talk','review'];
+const PLANS={};KINDS.forEach(k=>PLANS[k]=[k]);
+const DAYS=[];UNITS.forEach((U,ui)=>KINDS.forEach(k=>DAYS.push({t:ACT[k].n,p:k,k,u:ui,ic:ACT[k].i,boss:k==='review'?(ui===UNITS.length-1?5:1):0})));
+const WORLDS=UNITS.map((U,ui)=>({n:(ui+1)+'. '+U.n,e:U.e,a:ui*5,b:ui*5+4,c:'w'+(ui%5+1),d:U.w.slice(0,5).map(x=>x.e)}));
+
+/* ---------- магазин ---------- */
+const SKINS=[{id:'ara',n:'Ара',c:['#FF5A5F','#3D74F0'],p:0},{id:'green',n:'Зелёный',c:['#3DD68C','#1FA463'],p:60},{id:'blue',n:'Голубой',c:['#5CC8FF','#2F7FE0'],p:60},
+ {id:'sunny',n:'Солнечный',c:['#FFD84D','#2FD07A'],p:70},{id:'pink',n:'Розовый',c:['#FF8FCB','#8B5CFF'],p:70},{id:'cocka',n:'Какаду',c:['#FFFFFF','#FFC530'],p:80},
+ {id:'orange',n:'Оранжевый',c:['#FFA94D','#E8461E'],p:80},{id:'purple',n:'Фиолетовый',c:['#B48CFF','#5CC8FF'],p:90},{id:'mint',n:'Мятный',c:['#7BEBD8','#FF8FCB'],p:90},
+ {id:'lemon',n:'Лимонный',c:['#FFE768','#FF8A3D'],p:100},{id:'night',n:'Ночной',c:['#4A4E9E','#FFC530'],p:120},{id:'choco',n:'Шоколадный',c:['#B88560','#FFC530'],p:110},
+ {id:'rainbow',n:'Радужный',c:['url(#g-rainbow)','#8B5CFF'],sw:'linear-gradient(135deg,#FF6B6B,#FFB347,#FFE45C,#6EE07A,#5CC8FF,#A98BFF)',p:150},
+ {id:'candy',n:'Сладкая вата',c:['url(#g-candy)','#FF9ED2'],sw:'linear-gradient(135deg,#FFB3E0,#B3E5FF)',p:160},
+ {id:'ocean',n:'Океан',c:['url(#g-ocean)','#1F8FD1'],sw:'linear-gradient(135deg,#5CE1E6,#2F6BFF)',p:180,d:8},
+ {id:'fire',n:'Огненный',c:['url(#g-fire)','#E8461E'],sw:'linear-gradient(135deg,#FFE45C,#FF6B2C,#E8233A)',p:220,d:12},
+ {id:'silver',n:'Серебряный',c:['#EEF2F8','#AAB6C8'],p:300,d:16,gl:1},{id:'gold',n:'Золотой',c:['#FFD84D','#E5A400'],p:400,d:25,gl:1},
+ {id:'galaxy',n:'Галактика',c:['url(#g-galaxy)','#2E1A8A'],sw:'radial-gradient(circle at 30% 30%,#fff 0 6%,#7B4DFF 30%,#2E1A8A)',p:500,d:35},
+ {id:'sunset',n:'Закатный',c:['url(#g-sunset)','#FF6A88'],sw:'linear-gradient(135deg,#FFD36B,#FF6A88)',gift:15}];
+const HATS=[{id:'',n:'Без шапки',e:'—',p:0},{id:'bow',n:'Бантик',e:'🎀',p:30},{id:'flower',n:'Цветок',e:'🌸',p:30},{id:'sunf',n:'Подсолнух',e:'🌻',p:40},{id:'cap',n:'Кепка',e:'🧢',p:40},
+ {id:'clover',n:'Клевер',e:'🍀',p:45},{id:'cherry',n:'Вишенки',e:'🍒',p:45},{id:'bfly',n:'Бабочка',e:'🦋',p:50},{id:'strawh',n:'Соломенная шляпа',e:'👒',p:60},{id:'ball',n:'Шарик',e:'🎈',p:60},
+ {id:'fish',n:'Рыбка',e:'🐟',p:70},{id:'mush',n:'Грибок',e:'🍄',p:70},{id:'party',n:'Хлопушка',e:'🎉',p:80},{id:'top',n:'Цилиндр',e:'🎩',p:90},{id:'cake',n:'Кексик',e:'🧁',p:90},
+ {id:'chickh',n:'Цыплёнок',e:'🐣',p:90},{id:'phones',n:'Наушники',e:'🎧',p:100},{id:'helm',n:'Каска спасателя',e:'⛑️',p:100},{id:'pump',n:'Тыква',e:'🎃',p:110},{id:'pinata',n:'Пиньята',e:'🪅',p:110},
+ {id:'grad',n:'Шапка ученика',e:'🎓',p:120},{id:'star',n:'Звезда',e:'⭐',p:120,d:7},{id:'tree',n:'Ёлочка',e:'🎄',p:130},{id:'octo',n:'Осьминог',e:'🐙',p:150,d:8},
+ {id:'snowf',n:'Снежинка',e:'❄️',p:90,d:14},{id:'rbow',n:'Радуга',e:'🌈',p:180,d:10},{id:'moon',n:'Месяц',e:'🌙',p:160,d:22},{id:'fire',n:'Огонёк',e:'🔥',p:200,d:21},
+ {id:'shine',n:'Сияние',e:'🌟',p:250,d:14},{id:'planet',n:'Планета',e:'🪐',p:250,d:22},{id:'crown',n:'Корона',e:'👑',p:400,d:28}];
+const GLS=[{id:'',n:'Без очков',e:'—',p:0},{id:'g1',n:'Очки',e:'👓',p:40},{id:'g2',n:'Тёмные очки',e:'🕶️',p:70},{id:'g3',n:'Очки лётчика',e:'🥽',p:100},
+ {id:'g4',n:'Маска ныряльщика',e:'🤿',p:130,d:8},{id:'g5',n:'Маскарад',e:'🎭',p:160,d:14}];
+const ACCS=[{id:'',n:'Пусто',e:'—',p:0},{id:'yarn',n:'Клубок',e:'🧶',p:30},{id:'bell',n:'Колокольчик',e:'🔔',p:35},{id:'loli',n:'Леденец',e:'🍭',p:30},{id:'juice',n:'Сок',e:'🧃',p:30},
+ {id:'ice',n:'Мороженое',e:'🍦',p:35},{id:'rose',n:'Роза',e:'🌹',p:40},{id:'bal',n:'Шарик',e:'🎈',p:40},{id:'popc',n:'Попкорн',e:'🍿',p:45},{id:'soc',n:'Мяч',e:'⚽',p:50},
+ {id:'rod',n:'Удочка',e:'🎣',p:60},{id:'umb',n:'Зонтик',e:'🌂',p:60},{id:'gift',n:'Подарок',e:'🎁',p:70},{id:'torch',n:'Фонарик',e:'🔦',p:70},{id:'books',n:'Книжки',e:'📚',p:80},
+ {id:'pal',n:'Палитра',e:'🎨',p:90},{id:'racket',n:'Ракетка',e:'🏓',p:90},{id:'teddy',n:'Мишка',e:'🧸',p:100},{id:'boom',n:'Бумеранг',e:'🪃',p:100},{id:'kite',n:'Воздушный змей',e:'🪁',p:110},
+ {id:'wand',n:'Волшебная палочка',e:'🪄',p:120},{id:'trump',n:'Труба',e:'🎺',p:120},{id:'skate',n:'Скейт',e:'🛹',p:130},{id:'drum',n:'Барабан',e:'🥁',p:130},{id:'guit',n:'Гитара',e:'🎸',p:150},
+ {id:'tele',n:'Телескоп',e:'🔭',p:180,d:22},{id:'key',n:'Золотой ключик',e:'🗝️',p:220,d:14},{id:'cup',n:'Кубок',e:'🏆',p:250,d:7},{id:'gem',n:'Кристалл',e:'💎',p:350,d:25},
+ {id:'medal',n:'Медаль знатока',e:'🏅',gift:5},{id:'rocket',n:'Ракета',e:'🚀',gift:20}];
+const PETS=[{id:'',n:'Без питомца',e:'—',p:0},{id:'chick',n:'Цыплёнок',e:'🐣',p:120},{id:'snail',n:'Улитка',e:'🐌',p:140},{id:'ham',n:'Хомячок',e:'🐹',p:150},{id:'bun',n:'Зайчик',e:'🐰',p:160},
+ {id:'bee',n:'Пчёлка',e:'🐝',p:160},{id:'turt',n:'Черепашка',e:'🐢',p:180},{id:'owl',n:'Совёнок',e:'🦉',p:180},{id:'bird',n:'Птичка',e:'🐦',p:190},{id:'dog',n:'Щенок',e:'🐶',p:200},
+ {id:'squir',n:'Бельчонок',e:'🐿️',p:220},{id:'hedge',n:'Ёжик',e:'🦔',p:220},{id:'fox',n:'Лисёнок',e:'🦊',p:250,d:7},{id:'oct',n:'Осьминожка',e:'🐙',p:250,d:8},
+ {id:'panda',n:'Панда',e:'🐼',p:300,d:10},{id:'koala',n:'Коала',e:'🐨',p:320,d:12},{id:'peng',n:'Пингвин',e:'🐧',p:300,d:14},{id:'dolph',n:'Дельфинчик',e:'🐬',p:400,d:15},
+ {id:'dino',n:'Динозаврик',e:'🦖',p:450,d:18},{id:'uni',n:'Единорог',e:'🦄',p:500,d:21},{id:'drag',n:'Дракончик',e:'🐉',p:700,d:28},
+ {id:'mouse',n:'Мышонок',e:'🐭',gift:5},{id:'parrot',n:'Попугай',e:'🦜',gift:10},{id:'gfish',n:'Золотая рыбка',e:'🐠',gift:25}];
+const FOODS=[{id:'seeds',n:'Семечки',e:'🌻',p:5,f:1},{id:'apple',n:'Яблоко',e:'🍎',p:5,f:1},{id:'banana',n:'Банан',e:'🍌',p:6,f:1},{id:'pear',n:'Груша',e:'🍐',p:6,f:1},
+ {id:'cherry',n:'Вишня',e:'🍒',p:6,f:1},{id:'orange',n:'Апельсин',e:'🍊',p:6,f:1},{id:'strawb',n:'Клубника',e:'🍓',p:6,f:1},{id:'grape',n:'Виноград',e:'🍇',p:7,f:1},
+ {id:'kiwi',n:'Киви',e:'🥝',p:7,f:1},{id:'corn',n:'Кукуруза',e:'🌽',p:7,f:1},{id:'nuts',n:'Орешки',e:'🥜',p:7,f:1},{id:'water',n:'Арбуз',e:'🍉',p:8,f:1},
+ {id:'cookie',n:'Печенье',e:'🍪',p:8,f:1},{id:'pancake',n:'Блинчики',e:'🥞',p:10,f:2},{id:'donut',n:'Пончик',e:'🍩',p:10,f:2},{id:'icecr',n:'Мороженое',e:'🍦',p:10,f:2},
+ {id:'cupc',n:'Кекс',e:'🧁',p:12,f:2},{id:'pizza',n:'Пицца',e:'🍕',p:15,f:3},{id:'cakep',n:'Тортик',e:'🍰',p:18,f:3},{id:'bday',n:'Праздничный торт',e:'🎂',p:30,f:5}];
+const BGS=[{id:'',n:'Комната',bg:'linear-gradient(180deg,#FFF4DA 0 62%,#E9C79C 62%)',p:0},{id:'yard',n:'Дворик',bg:'linear-gradient(180deg,#CFEFFF 0 55%,#7ED38D 55%)',p:80},
+ {id:'sea',n:'Море',bg:'linear-gradient(180deg,#AEE6FF 0 50%,#3FB6E0 50% 75%,#FFE09A 75%)',p:100},{id:'candy',n:'Конфетный мир',bg:'linear-gradient(180deg,#FFD1EA 0 60%,#FF9FCF 60%)',p:120},
+ {id:'farm',n:'Ферма',bg:'linear-gradient(180deg,#CDEBFF 0 55%,#F2C66B 55%)',p:120},{id:'city',n:'Город огней',bg:'radial-gradient(circle at 15% 70%,#FFE27A 0 3%,transparent 4%),radial-gradient(circle at 60% 60%,#FFE27A 0 3%,transparent 4%),linear-gradient(180deg,#FF9A8B 0,#7A4FBF 70%)',p:150,d:8},
+ {id:'night',n:'Ночное небо',bg:'radial-gradient(circle at 80% 20%,#FFF6B0 0 6%,transparent 7%),linear-gradient(180deg,#2B2F7A,#4B3FA0)',p:150,d:10},
+ {id:'rainbow',n:'Радуга',bg:'linear-gradient(180deg,#FF8A8A,#FFC56B,#FFF07A,#8EEB8E,#7FC8FF,#B49CFF)',p:200,d:14},
+ {id:'space',n:'Космос',bg:'radial-gradient(circle at 20% 30%,#fff 0 1%,transparent 2%),radial-gradient(circle at 70% 60%,#fff 0 1%,transparent 2%),radial-gradient(circle at 85% 20%,#FFB0F0 0 8%,transparent 9%),linear-gradient(180deg,#120B45,#3A1D8A)',p:250,d:21},
+ {id:'castle',n:'Замок',bg:'linear-gradient(180deg,#FFE7A8 0 58%,#C9A26B 58%)',p:300,d:28}];
+const DECOR=[{id:'box',n:'Коробка',e:'📦',p:20},{id:'yoyo',n:'Йо-йо',e:'🪀',p:30},{id:'cactus',n:'Кактус',e:'🌵',p:35},{id:'puzzle',n:'Пазл',e:'🧩',p:40},{id:'plant',n:'Цветок в горшке',e:'🪴',p:40},
+ {id:'lamp',n:'Лампа',e:'💡',p:50},{id:'basket',n:'Корзинка-лежанка',e:'🧺',p:60},{id:'mirror',n:'Зеркало',e:'🪞',p:60},{id:'bball',n:'Баскетбол',e:'🏀',p:60},{id:'pic',n:'Картина',e:'🖼️',p:70},
+ {id:'clock',n:'Часы',e:'🕰️',p:80},{id:'globe',n:'Глобус',e:'🌍',p:90},{id:'train',n:'Паровозик',e:'🚂',p:120},{id:'sofa',n:'Диван',e:'🛋️',p:120},{id:'bed',n:'Кроватка',e:'🛏️',p:150},
+ {id:'tv',n:'Телевизор',e:'📺',p:200},{id:'slide',n:'Горка',e:'🛝',p:200},{id:'game',n:'Приставка',e:'🎮',p:220,d:10},{id:'piano',n:'Пианино',e:'🎹',p:250},
+ {id:'blocks',n:'Замок из кубиков',e:'🏰',p:180,d:14},{id:'tent',n:'Шатёр',e:'🎪',p:260,d:21},{id:'ufo',n:'Летающая тарелка',e:'🛸',p:300,d:22},{id:'carous',n:'Карусель',e:'🎠',p:400,d:28}];
+const SHOP={s:{n:'Цвет',L:SKINS,k:'skin'},h:{n:'Шапки',L:HATS,k:'hat'},g:{n:'Очки',L:GLS,k:'gl'},a:{n:'В лапки',L:ACCS,k:'acc'},p:{n:'Питомцы',L:PETS,k:'pet'},
+ b:{n:'Фон домика',L:BGS,k:'bg'},r:{n:'Домик 🏠',L:DECOR,room:1},f:{n:'Кухня 🍎',L:FOODS,food:1}};
+const COLL=['s','h','g','a','p','b','r'];
+const collTotal=()=>COLL.reduce((a,t)=>a+SHOP[t].L.filter(x=>x.id&&(x.p||x.gift)).length,0),collHave=()=>S.own.filter(k=>{const [t,id]=k.split(':');return id&&COLL.includes(t)}).length;
+function findItem(key){const [t,id]=key.split(':');return SHOP[t]&&SHOP[t].L.find(x=>x.id===id)}
+function grantGifts(){const got=[];COLL.forEach(t=>SHOP[t].L.forEach(it=>{if(it.gift&&S.days[it.gift-1]&&!S.own.includes(t+':'+it.id)){S.own.push(t+':'+it.id);got.push(it)}}));if(got.length)save();return got}
+const FULLMAX=5;
+const PRAISE=['Great job!','Super!','Well done!','Awesome!','Excellent!','Wow!','Yes!'];
+const OOPS=['Try again!','Почти!','Ещё разок!'];
+const TIPS=['Hello! Я попугай <b>Чирик</b>! Я научу тебя говорить по-английски!','Повторяй слова громко, я тебя слушаю! 🎤',
+ 'Каждый день 2–3 урока, и скоро ты заговоришь по-английски!','За монетки в гардеробе 👕 можно купить мне шапку или вкусняшку на кухне!','Не знаешь слово? Нажми 🔊 или 🐢, и я скажу его ещё раз!'];
+
+/* ================= УТИЛИТЫ ================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.random()*a.length|0];
+const VOW='АОУЫЭИЕЁЯЮ',isV=c=>!!c&&VOW.includes(c),isC=c=>!!c&&!isV(c)&&c!=='Ь'&&c!=='Ъ'&&/[А-ЯЁ]/.test(c);
+function runs(w){const r=[];let i=0;while(i<w.length){if(isC(w[i])){let j=i;while(j<w.length&&isC(w[j]))j++;if(j-i>=2)r.push({s:w.slice(i,j),i,end:j});i=j}else i++}return r}
+const todayStr=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const fmtT=ms=>(ms/1000).toFixed(1).replace('.',',')+' с';
+const KEY='chirik-v1';
+let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+S={days:{},coins:0,sound:true,music:true,lower:false,rec:{},own:['s:ara','h:','g:','a:','p:','b:'],skin:'ara',hat:'',gl:'',acc:'',pet:'',bg:'',
+ prog:null,daily:false,time:{d:'',ms:0},tip:0,voiceOn:true,voiceName:'',enVoice:'',full:3,fullDay:'',showEn:true,showRu:false,mic:true,micOff:false,streak:0,streakDay:'',...S};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function hungerTick(){const t=todayStr();if(!S.fullDay){S.fullDay=t;return}if(S.fullDay===t)return;
+  const days=Math.round((new Date(t)-new Date(S.fullDay))/864e5);if(days>0)S.full=Math.max(0,S.full-days);S.fullDay=t;save()}
+hungerTick();grantGifts();
+const F=s=>S.lower?s.toLowerCase():s;
+const doneCount=()=>Object.keys(S.days).length;
+const unlocked=d=>d===0||(!!S.days[d-1]&&(!S.daily||S.days[d-1].date<todayStr()));
+const curDay=()=>{for(let d=0;d<DAYS.length;d++)if(!S.days[d])return d;return DAYS.length-1};
+const worldOf=d=>WORLDS.find(w=>d>=w.a&&d<=w.b);
+function todayMs(){if(S.time.d!==todayStr())S.time={d:todayStr(),ms:0};return S.time.ms}
+
+/* ================= ЗВУК И МУЗЫКА ================= */
+let AC=null,MG=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();MG.gain.value=.55;MG.connect(AC.destination)}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d,type='sine',when=0,vol=.14,dest){const a=ac();if(!a)return;const t=a.currentTime+when,o=a.createOscillator(),g=a.createGain();
+  o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(dest||a.destination);o.start(t);o.stop(t+d+.02)}
+const sfx={
+  ok(){if(S.sound)[523,659,784].forEach((f,i)=>tone(f,.18,'triangle',i*.08))},
+  bad(){if(S.sound){tone(196,.25,'square',0,.05);tone(165,.3,'square',.12,.04)}},
+  tap(){if(S.sound)tone(880,.07,'sine',0,.08)},
+  pop(){if(S.sound){tone(900,.06,'sine',0,.12);tone(1400,.08,'sine',.03,.08)}},
+  step(n){if(S.sound)tone(440+n*90,.12,'triangle',0,.1)},
+  win(){if(S.sound)[523,659,784,1047,784,1047].forEach((f,i)=>tone(f,.25,'triangle',i*.11))},
+  coin(){if(S.sound){tone(1319,.08,'square',0,.035);tone(1760,.15,'square',.07,.035)}},
+  zap(){if(S.sound){tone(1200,.15,'sawtooth',0,.05);tone(600,.2,'sawtooth',.05,.04)}},
+  chomp(){if(S.sound){tone(300,.06,'square',0,.06);tone(220,.08,'square',.07,.06)}}
+};
+const m2f=n=>440*Math.pow(2,(n-69)/12);
+const SONGS={
+ happy:{bpm:116,mel:[72,0,76,79,84,0,79,76, 74,0,79,83,86,0,83,79, 76,0,81,84,88,0,84,81, 77,0,81,84,81,0,77,74, 76,76,79,0,76,74,72,0, 74,74,79,0,74,72,71,0, 72,74,77,81,79,77,76,74, 79,0,74,0,71,0,74,0],
+   roots:[48,43,45,41,48,43,41,43]},
+ boss:{bpm:148,mel:[81,0,76,81,84,83,81,76, 77,0,72,77,81,79,77,72, 79,0,74,79,83,81,79,74, 76,80,83,88,83,80,76,80, 81,81,0,84,0,81,79,76, 77,77,0,81,0,77,76,72, 74,74,0,79,0,76,74,71, 76,0,80,0,83,0,80,0],
+   roots:[45,41,43,40,45,41,43,40]}};
+const Music={song:null,timer:0,step:0,next:0,
+ play(name){if(!S.music){this.stop();return}const a=ac();if(!a)return;if(this.song===SONGS[name]&&this.timer)return;
+   this.song=SONGS[name];this.step=0;this.next=a.currentTime+.08;clearInterval(this.timer);this.timer=setInterval(()=>this.tick(),30)},
+ stop(){clearInterval(this.timer);this.timer=0;this.song=null},
+ tick(){const a=AC,s=this.song;if(!a||!s)return;const sp=60/s.bpm/2;
+   while(this.next<a.currentTime+.15){const i=this.step,t=this.next-a.currentTime;const m=s.mel[i];
+     if(m)tone(m2f(m),sp*.9,'square',t,.028,MG);
+     const r=s.roots[i>>3],bp=[r,0,r+12,0,r+7,0,r+12,r+7][i&7];if(bp)tone(m2f(bp),sp*.95,'triangle',t,.11,MG);
+     if((i&3)===0)this.kick(t);if((i&7)===4)this.snare(t);if(i&1)this.hat(t);
+     this.next+=sp;this.step=(i+1)%s.mel.length}},
+ kick(t){const a=AC,o=a.createOscillator(),g=a.createGain(),T=a.currentTime+t;o.frequency.setValueAtTime(150,T);o.frequency.exponentialRampToValueAtTime(45,T+.12);g.gain.setValueAtTime(.22,T);g.gain.exponentialRampToValueAtTime(.001,T+.15);o.connect(g).connect(MG);o.start(T);o.stop(T+.16)},
+ noise(t,d,v,hp){const a=AC,T=a.currentTime+t;if(!this.nb){this.nb=a.createBuffer(1,a.sampleRate*.3,a.sampleRate);const c=this.nb.getChannelData(0);for(let k=0;k<c.length;k++)c[k]=Math.random()*2-1}
+   const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();s.buffer=this.nb;f.type='highpass';f.frequency.value=hp;g.gain.setValueAtTime(v,T);g.gain.exponentialRampToValueAtTime(.001,T+d);s.connect(f).connect(g).connect(MG);s.start(T);s.stop(T+d)},
+ hat(t){this.noise(t,.04,.05,7000)},snare(t){this.noise(t,.12,.09,1800)}};
+let ruVoices=[],ruVoice=null;
+function voiceScore(v){const n=v.name;let sc=0;if(/natural|neural|premium|enhanced|улучш|online|wavenet/i.test(n))sc+=5;if(/google/i.test(n))sc+=2;if(!v.localService)sc+=1;if(/milena|yuri|katya|dariya|svetlana/i.test(n))sc+=1;return sc}
+function loadVoice(){try{ruVoices=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang)).sort((a,b)=>voiceScore(b)-voiceScore(a));
+  ruVoice=ruVoices.find(v=>v.name===S.voiceName)||ruVoices[0]||null}catch(e){}}
+try{loadVoice();speechSynthesis.onvoiceschanged=loadVoice}catch(e){}
+function say(t,force){if((!S.voiceOn&&!force)||!t)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).toLowerCase());u.lang='ru-RU';if(ruVoice)u.voice=ruVoice;u.rate=.95;u.pitch=1;speechSynthesis.speak(u)}catch(e){}}
+let musicWanted='happy';
+const SILENT='data:audio/wav;base64,UklGRsQPAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YaAPAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
+let audioUnlocked=false;
+function unlockAudio(){if(audioUnlocked)return;audioUnlocked=true;
+  // iPhone: без этого звуки и музыка молчат, если включён беззвучный режим
+  try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+  try{const a=document.createElement('audio');a.setAttribute('playsinline','');a.loop=true;a.src=SILENT;a.volume=.01;a.play().catch(()=>{})}catch(e){}
+  ac()}
+document.addEventListener('pointerdown',()=>{unlockAudio();if(S.music&&!Music.timer)Music.play(musicWanted)},{passive:true});
+
+
+
+/* ================= ГЕРОЙ: попугай Чирик ================= */
+const HERO_SVG=`<svg viewBox="0 0 120 130" aria-hidden="true">
+<path class="f2" d="M48 100 L36 128 L49 127 L56 106 Z M70 100 L82 127 L92 121 L74 98 Z"/>
+<path d="M57 104 L55 130 L67 129 L65 104 Z" fill="#FFC530"/>
+<path d="M50 114 l-5 9 M50 114 l0 10 M50 114 l5 9 M70 114 l-5 9 M70 114 l0 10 M70 114 l5 9" stroke="#FF9F45" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse class="f1" cx="60" cy="89" rx="30" ry="27"/>
+<ellipse class="belly" cx="60" cy="95" rx="18" ry="17"/>
+<path class="f2" d="M31 76 Q12 96 28 116 Q40 104 39 82 Z"/><path class="f2" d="M89 76 Q108 96 92 116 Q80 104 81 82 Z"/>
+<path d="M29 104 q4 6 1 11 M91 104 q-4 6 -1 11" stroke="#FFC530" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M51 24 Q36 8 46 4 Q50 14 55 23 Z" fill="#5CC8FF"/><path d="M55 22 Q48 0 61 5 Q59 13 59 22 Z" fill="#FFC530"/><path d="M60 21 Q63 0 73 7 Q67 13 64 22 Z" fill="#2FD07A"/>
+<circle class="f1" cx="60" cy="50" r="32"/>
+<ellipse cx="44" cy="49" rx="14" ry="15" fill="#fff"/><ellipse cx="76" cy="49" rx="14" ry="15" fill="#fff"/>
+<g class="eyes"><circle cx="45" cy="49" r="8" fill="#1E2340"/><circle cx="75" cy="49" r="8" fill="#1E2340"/><circle cx="48" cy="45" r="3" fill="#fff"/><circle cx="78" cy="45" r="3" fill="#fff"/></g>
+<g class="eyes-happy" fill="none" stroke="#1E2340" stroke-width="4.5" stroke-linecap="round"><path d="M36 51 Q45 40 54 51"/><path d="M66 51 Q75 40 84 51"/></g>
+<ellipse cx="33" cy="64" rx="6" ry="4" fill="#FF8FB1" opacity=".8"/><ellipse cx="87" cy="64" rx="6" ry="4" fill="#FF8FB1" opacity=".8"/>
+<g class="m m-smile"><path d="M50 59 Q60 51 70 59 Q70 73 60 79 Q56 69 50 59Z" fill="#FFB020"/><path d="M53 65 Q60 63 67 65 Q64 75 60 77 Q57 73 53 65Z" fill="#E88A00"/></g>
+<g class="m m-open"><path d="M50 57 Q60 49 70 57 Q69 65 60 67 Q51 65 50 57Z" fill="#FFB020"/><path d="M52 71 Q60 69 68 71 Q64 83 60 83 Q56 83 52 71Z" fill="#E88A00"/><ellipse cx="60" cy="70" rx="6" ry="3.5" fill="#FF7A9C"/></g>
+<g class="m m-sad"><path d="M50 59 Q60 51 70 59 Q70 73 60 79 Q56 69 50 59Z" fill="#FFB020"/><path d="M35 34 L52 39 M85 34 L68 39" stroke="#1E2340" stroke-width="3" stroke-linecap="round"/></g>
+</svg>`;
+const heroHTML=(size,id='')=>`<div class="hero-w" ${id?`id="${id}"`:''} style="width:${size}px;height:${Math.round(size*1.08)}px;font-size:${size}px">${HERO_SVG}<span class="h-hat"></span><span class="h-gl"></span><span class="h-acc"></span><span class="h-pet"></span></div>`;
+function paintHeroes(tr){tr=tr||{};const v=(t,k)=>tr[t]!==undefined?tr[t]:S[k];
+  const sk=SKINS.find(x=>x.id===v('s','skin'))||SKINS[0],f=(L,id)=>{const x=L.find(y=>y.id===id);return x&&x.id?x.e:''};
+  const hat=f(HATS,v('h','hat')),gl=f(GLS,v('g','gl')),acc=f(ACCS,v('a','acc')),pet=f(PETS,v('p','pet'));
+  $$('.hero-w').forEach(el=>{el.style.setProperty('--h1',sk.c[0]);el.style.setProperty('--h2',sk.c[1]);el.classList.toggle('golden',!!sk.gl);
+    el.classList.toggle('hungry',S.full<=0&&el.id==='hHero');
+    el.querySelector('.h-hat').textContent=hat;el.querySelector('.h-gl').textContent=gl;el.querySelector('.h-acc').textContent=acc;el.querySelector('.h-pet').textContent=pet});
+}
+function heroDo(el,st,ms=900){if(!el)return;el.classList.remove('eat','happy','sad');void el.offsetWidth;el.classList.add(st);clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(st),ms)}
+
+/* ================= ГОЛОС: английский и русский ================= */
+let enVoices=[],enVoice=null;
+function loadEn(){try{enVoices=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang)).sort((a,b)=>(voiceScore(b)+(/en[-_]US/i.test(b.lang)?1:0))-(voiceScore(a)+(/en[-_]US/i.test(a.lang)?1:0)));
+  enVoice=enVoices.find(v=>v.name===S.enVoice)||enVoices[0]||null}catch(e){}}
+try{loadEn();speechSynthesis.addEventListener('voiceschanged',loadEn)}catch(e){}
+function speakSeq(items){try{speechSynthesis.cancel();items.forEach(it=>{if(!it||!it.t)return;if(it.l==='ru'&&!S.voiceOn&&!it.must)return;
+  const u=new SpeechSynthesisUtterance(it.t);if(it.l==='en'){u.lang='en-US';if(enVoice)u.voice=enVoice;u.rate=it.slow?.55:.8}else{u.lang='ru-RU';if(ruVoice)u.voice=ruVoice;u.rate=.95}speechSynthesis.speak(u)})}catch(e){}}
+const sayEn=(t,slow)=>speakSeq([{t,l:'en',slow}]);
+const PRAISE_EN=['Great job!','Super!','Well done!','Awesome!','Excellent!','Wow!','Yes!'];
+
+/* ================= МИКРОФОН ================= */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const canListen=()=>!!SR&&S.mic!==false&&!S.micOff;
+function listen(cb){let done=false;const fin=(a,e)=>{if(done)return;done=true;cb(a,e)};
+  try{const r=new SR();r.lang='en-US';r.interimResults=false;r.maxAlternatives=5;r.continuous=false;
+    r.onresult=e=>fin([...e.results[0]].map(a=>a.transcript));r.onerror=e=>fin(null,e.error);r.onend=()=>fin([]);
+    r.start();G.clean.push(()=>{try{r.abort()}catch(e){}});setTimeout(()=>{try{r.stop()}catch(e){}},6000)}catch(e){fin(null,'x')}}
+const norm=s=>String(s).toLowerCase().replace(/[-’]/g,' ').replace(/[^a-z' ]/g,'').replace(/\s+/g,' ').trim();
+function lev(a,b){const m=a.length,n=b.length,d=Array.from({length:m+1},(_,i)=>[i]);for(let j=1;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n]}
+const sim=(a,b)=>1-lev(a,b)/Math.max(a.length,b.length,1);
+function heard(alts,target){const t=norm(target),stem=t.replace(/e$/,'');
+  return alts.some(a=>{a=norm(a);if(!a)return false;if(a.includes(t)||a.includes(stem)&&stem.length>2)return true;if(sim(a,t)>=.6)return true;
+    return t.indexOf(' ')<0&&a.split(' ').some(x=>sim(x,t)>=.67)})}
+function heardPhrase(alts,target){const tw=norm(target).split(' ').filter(Boolean);
+  return alts.some(a=>{const aw=norm(a).split(' ');const hit=tw.filter(w=>aw.some(x=>x===w||sim(x,w)>=.7)).length;return hit>=Math.ceil(tw.length/2)})}
+const micHTML=()=>canListen()?`<button class="mic" id="mic" aria-label="Нажми и скажи">🎤</button><div class="heard" id="hd">Нажми 🎤 и скажи громко!</div>`
+  :`<div class="heard" id="hd">Скажи громко, а потом нажми кнопку</div><button class="bigbtn" id="said">🗣️ Я сказал!</button>`;
+function bindMic(target,onDone,hint,phrase){let tries=0,busy=false;
+  const pass=msg=>{$('#hd').textContent=msg;good($('#mic')||$('#said'),target);heroDo($('#gH'),'happy',900);later(onDone,1900)};
+  const fallback=()=>{const s=$('#said');if(s)s.onclick=()=>{sfx.tap();s.disabled=true;pass('Молодец! 👏')}};
+  if(!canListen())return fallback();
+  $('#mic').onclick=()=>{if(busy)return;busy=true;try{speechSynthesis.cancel()}catch(e){}const m=$('#mic');m.classList.add('on');$('#hd').textContent='Слушаю… 👂';sfx.tap();
+    listen((alts,err)=>{busy=false;m.classList.remove('on');
+      if(alts===null&&/not-allowed|service-not-allowed|audio-capture|x/.test(err||'')){S.micOff=true;save();
+        m.outerHTML='<button class="bigbtn" id="said">🗣️ Я сказал!</button>';$('#hd').textContent='Микрофон недоступен. Скажи громко и нажми кнопку.';return fallback()}
+      if(!alts||!alts.length){$('#hd').textContent='Не расслышал. Нажми 🎤 и скажи погромче!';return}
+      if(phrase?heardPhrase(alts,target):heard(alts,target))return pass(`Я услышал: «${alts[0]}» 👍`);
+      tries++;if(tries>=2)return pass('Хорошая попытка! 💪');
+      $('#hd').textContent=`Я услышал: «${alts[0]}». Послушай и попробуй ещё!`;sfx.bad();heroDo($('#gH'),'sad',700);later(()=>hint&&hint(),500)})}}
+
+/* ================= УРОКИ ================= */
+let said={};
+const instr=(k,ru)=>{said[k]=(said[k]||0)+1;return said[k]<=2?{t:ru,l:'ru'}:null};
+function good(el,word){correct(el,'',false);speakSeq([{t:pick(PRAISE_EN),l:'en'},word?{t:word,l:'en'}:null])}
+const xh=t=>`<div class="xh">${t}</div>`;
+const EX={};
+EX.intro=(e,done)=>{const w=e.w;
+  card(xh('✨ Новое слово')+`<div class="lw"><button class="bigpic" id="bp">${w.e}</button>${S.showEn?`<div class="en">${w.en}</div>`:''}${S.showRu?`<div class="ru">${w.ru}</div>`:''}</div>
+    <div class="row"><button class="spk sm" id="snd" aria-label="Послушать">🔊</button><button class="spk sm slow" id="slow" aria-label="Медленно">🐢</button></div><button class="bigbtn" id="nx">Дальше ▶</button>`);
+  speakSeq([{t:w.ru,l:'ru',must:1},{t:w.en,l:'en'},{t:w.en,l:'en',slow:1}]);
+  $('#bp').onclick=()=>{sayEn(w.en);heroDo($('#gH'),'happy',600)};$('#snd').onclick=()=>sayEn(w.en);$('#slow').onclick=()=>sayEn(w.en,1);
+  $('#nx').onclick=()=>{sfx.tap();done()}};
+EX.listen=(e,done)=>{const w=e.w,n=G.d<10?3:4,opts=shuffle([w,...shuffle(e.pool.filter(x=>x!==w)).slice(0,n-1)]);
+  card(xh('🎧 Послушай и выбери картинку')+`<button class="spk" id="snd" aria-label="Послушать ещё раз">🔊</button><div class="pics">${opts.map((o,k)=>`<button data-k="${k}">${o.e}</button>`).join('')}</div>`);
+  speakSeq([instr('listen','Послушай и выбери картинку'),{t:w.en,l:'en'}]);G.cur={ans:opts.indexOf(w)};$('#snd').onclick=()=>sayEn(w.en);let lock=false;
+  $$('#card .pics button').forEach(b=>b.onclick=()=>{if(lock||b.disabled)return;
+    if(opts[+b.dataset.k]===w){lock=true;b.classList.add('ok');good(b,w.en);later(done,1900)}else{b.classList.add('bad');b.disabled=true;wrong();later(()=>sayEn(w.en),500)}})};
+EX.sound=(e,done)=>{const w=e.w,opts=shuffle([w,...shuffle(e.pool.filter(x=>x!==w)).slice(0,2)]);let sel=-1;
+  card(xh('👂 Что это? Послушай варианты и выбери')+`<div class="bigpic">${w.e}</div><div class="sopts">${opts.map((o,k)=>`<button class="sopt" data-k="${k}"><span class="spk xs">🔊</span><span>${S.showEn?o.en:['Первый','Второй','Третий'][k]}</span></button>`).join('')}</div><button class="bigbtn" id="chk" disabled>Проверить ✓</button>`);
+  speakSeq([instr('sound','Что это? Нажимай на кнопки, слушай и выбери правильное слово')]);G.cur={ans:opts.indexOf(w)};
+  $$('#card .sopt').forEach(b=>b.onclick=()=>{if(b.disabled)return;sel=+b.dataset.k;$$('#card .sopt').forEach(x=>x.classList.toggle('sel',x===b));sayEn(opts[sel].en);$('#chk').disabled=false});
+  $('#chk').onclick=()=>{if(sel<0)return;const b=$$('#card .sopt')[sel];
+    if(opts[sel]===w){b.classList.add('ok');$('#chk').disabled=true;good(b,w.en);later(done,1800)}else{b.classList.add('bad');b.disabled=true;wrong();sel=-1;$('#chk').disabled=true}}};
+EX.match=(e,done)=>{const ws=e.ws,Lp=shuffle(ws),Rs=shuffle(ws);let selS=null,left=ws.length;
+  card(xh('🧩 Найди пары: нажми 🔊, послушай и выбери картинку')+`<div class="mgrid">${Rs.map((w,k)=>`<button class="snd" data-s="${ws.indexOf(w)}">🔊</button><button class="pc" data-p="${ws.indexOf(Lp[k])}">${Lp[k].e}</button>`).join('')}</div>`);
+  speakSeq([instr('match','Нажми на динамик, послушай и найди картинку')]);G.cur={match:1};
+  $$('#card .snd').forEach(b=>b.onclick=()=>{if(b.classList.contains('gone'))return;selS=b;$$('#card .snd').forEach(x=>x.classList.toggle('sel',x===b));sayEn(ws[+b.dataset.s].en)});
+  $$('#card .pc').forEach(b=>b.onclick=()=>{if(!selS||b.classList.contains('gone'))return;
+    if(b.dataset.p===selS.dataset.s){const s=selS;selS=null;b.classList.add('ok');s.classList.add('ok');S.coins++;G.coins++;save();updCoins();sfx.ok();
+      setTimeout(()=>{b.classList.add('gone');s.classList.add('gone')},350);left--;if(!left){good(b,'');later(done,1500)}}
+    else{b.classList.add('bad');setTimeout(()=>b.classList.remove('bad'),400);wrong()}})};
+EX.speak=(e,done)=>{const w=e.w;
+  card(xh('🗣️ Скажи по-английски!')+`<div class="lw"><div class="bigpic">${w.e}</div>${S.showEn?`<div class="en">${w.en}</div>`:''}</div>
+    <div class="row"><button class="spk sm" id="snd" aria-label="Послушать">🔊</button><button class="spk sm slow" id="slow" aria-label="Медленно">🐢</button></div>${micHTML()}`);
+  speakSeq([instr('speak','Послушай и скажи громко'),{t:w.en,l:'en'}]);$('#snd').onclick=()=>sayEn(w.en);$('#slow').onclick=()=>sayEn(w.en,1);
+  bindMic(w.en,done,()=>sayEn(w.en))};
+EX.phrase=(e,done)=>{const [ph,em]=e.ph;
+  card(xh('💬 Повтори фразу за Чириком')+`<div class="lw"><div class="bigpic">${em}</div>${S.showEn?`<div class="en ph">${ph}</div>`:''}</div>
+    <div class="row"><button class="spk sm" id="snd" aria-label="Послушать">🔊</button><button class="spk sm slow" id="slow" aria-label="Медленно">🐢</button></div>${micHTML()}`);
+  speakSeq([instr('phrase','Послушай и повтори'),{t:ph,l:'en'}]);$('#snd').onclick=()=>sayEn(ph);$('#slow').onclick=()=>sayEn(ph,1);
+  bindMic(ph,done,()=>sayEn(ph,1),1)};
+EX.ask=(e,done)=>{const w=e.w,U=UNITS[DAYS[G.d].u];
+  const pic=U.ask==='count'?`<div class="count">${'🍎'.repeat(w.n)}</div>`:`<div class="bigpic">${w.e}</div>`;
+  const qEn=U.askRu?'':U.ask==='count'?'How many apples?':U.ask,qRu=`Как сказать по-английски «${w.ru}»?`;
+  card(`<div class="dlg">${heroHTML(64)}<div class="bub2">${qEn||qRu}</div></div>${pic}<button class="again" id="hint">💡 Подсказка</button>${micHTML()}`);
+  paintHeroes();speakSeq([qEn?{t:qEn,l:'en'}:{t:qRu,l:'ru',must:1}]);
+  $('#hint').onclick=()=>{sayEn(w.en);$('#hint').textContent='💡 '+w.en};
+  bindMic(w.en,done,()=>sayEn(w.en))};
+EX.simon=(e,done)=>{const ws=e.ws;let i=0;
+  const step=()=>{const w=ws[i];
+    card(xh('🙌 Повторяй движения за Чириком!')+`<div class="lw"><div class="bigpic dance">${w.e}</div>${S.showEn?`<div class="en">${w.en}!</div>`:''}</div><button class="spk sm" id="snd" aria-label="Послушать">🔊</button><button class="bigbtn" id="did">Я сделал! ✓</button>`);
+    speakSeq([i===0?instr('simon','Слушай команду и делай движение'):null,{t:w.en+'!',l:'en'}]);$('#snd').onclick=()=>sayEn(w.en+'!');
+    $('#did').onclick=()=>{$('#did').disabled=true;good($('#did'),'');i++;later(()=>{if(i<ws.length)step();else done()},1300)}};
+  step()};
+EX.bubbles=(e,done)=>{const ws=e.ws,targets=shuffle(ws).slice(0,5);let ti=0,alive=true,list=[],rq=0,si=0;
+  card(xh('🫧 Послушай и лопни пузырь с этой картинкой!')+`<div class="row"><button class="spk sm" id="snd" aria-label="Послушать">🔊</button><span class="caught" id="bt">1 из ${targets.length}</span></div><div class="bub-area" id="area"></div>`);
+  const area=$('#area'),COLS=['#9ED8FF','#FFC2E2','#C8F2B0','#FFE08A','#D8C6FF'],cur=()=>targets[ti],play=()=>sayEn(cur().en);
+  speakSeq([instr('bub','Слушай слово и лопни нужный пузырь'),{t:cur().en,l:'en'}]);$('#snd').onclick=play;G.cur={bub:1,get w(){return cur()}};
+  const spawn=()=>{if(!alive||list.length>=6)return;const okAlive=list.some(o=>o.w===cur()&&!o.el.dataset.done),w=!okAlive||Math.random()<.35?cur():pick(ws);
+    const el=document.createElement('button');el.className='bub';el.dataset.en=w.en;el.innerHTML=`<span class="bi" style="--bc:${pick(COLS)};font-size:42px;padding:10px 14px">${w.e}</span>`;area.appendChild(el);
+    const o={el,w,x:Math.random()*Math.max(0,area.clientWidth-84),y:area.clientHeight+10,v:30+Math.random()*16,ph:Math.random()*6};list.push(o);
+    el.onclick=()=>{if(el.dataset.done||ti>=targets.length)return;
+      if(o.w===cur()){el.dataset.done=1;el.classList.add('popd');sfx.pop();S.coins++;G.coins++;save();updCoins();setTimeout(()=>{el.remove();list=list.filter(x=>x!==o)},300);ti++;
+        if(ti>=targets.length){alive=false;clearInterval(si);good(el,'');later(done,1500)}else{$('#bt').textContent=(ti+1)+' из '+targets.length;later(play,450)}}
+      else{el.classList.remove('wr');void el.offsetWidth;el.classList.add('wr');wrong();later(play,300)}};
+    el.style.transform=`translate(${o.x}px,${o.y}px)`};
+  let last=performance.now();const tick=t=>{const dt=Math.min(.05,(t-last)/1000);last=t;
+    for(let k=list.length-1;k>=0;k--){const o=list[k];if(o.el.dataset.done)continue;o.y-=o.v*dt;o.ph+=dt*2;o.el.style.transform=`translate(${o.x+Math.sin(o.ph)*8}px,${o.y}px)`;if(o.y<-90){o.el.remove();list.splice(k,1)}}
+    if(alive||list.length)rq=requestAnimationFrame(tick)};
+  rq=requestAnimationFrame(tick);spawn();si=setInterval(spawn,1100);G.clean.push(()=>{alive=false;clearInterval(si);cancelAnimationFrame(rq)})};
+
+function buildLesson(d){const D=DAYS[d],U=UNITS[D.u],Wd=U.w,h=Math.ceil(Wd.length/2),A=Wd.slice(0,h),B=Wd.slice(h),n=(a,k)=>shuffle(a).slice(0,k),ex=[],rest=[];
+  switch(D.k){
+    case'new':A.forEach(w=>ex.push({t:'intro',w}));n(A,3).forEach(w=>rest.push({t:'listen',w,pool:A}));n(A,2).forEach(w=>rest.push({t:'speak',w}));break;
+    case'listen':B.forEach(w=>ex.push({t:'intro',w}));n(B,2).forEach(w=>rest.push({t:'listen',w,pool:Wd}));n(Wd,2).forEach(w=>rest.push({t:'sound',w,pool:Wd}));rest.push({t:'match',ws:n(Wd,4)});n(B,2).forEach(w=>rest.push({t:'speak',w}));break;
+    case'speak':n(Wd,4).forEach(w=>rest.push({t:'speak',w}));rest.push({t:'bubbles',ws:Wd});n(Wd,2).forEach(w=>rest.push({t:'sound',w,pool:Wd}));if(U.act)rest.push({t:'simon',ws:n(Wd,4)});break;
+    case'talk':n(Wd,4).forEach(w=>rest.push({t:'ask',w}));n(U.phr,2).forEach(ph=>rest.push({t:'phrase',ph}));rest.push({t:'listen',w:pick(Wd),pool:Wd});break;
+    case'review':n(Wd,3).forEach(w=>rest.push({t:'listen',w,pool:Wd}));rest.push({t:'match',ws:n(Wd,4)});n(Wd,2).forEach(w=>rest.push({t:'speak',w}));n(Wd,2).forEach(w=>rest.push({t:'ask',w}));
+      rest.push({t:'phrase',ph:pick(U.phr)});rest.push({t:'bubbles',ws:Wd});if(U.act)rest.push({t:'simon',ws:n(Wd,3)});break}
+  return ex.concat(D.k==='talk'?rest:shuffle(rest))}
+function runLesson(){said={};const ex=buildLesson(G.d);let i=0;G.ex=ex;
+  const next=()=>{stopAll();rdots(i,ex.length);G.cur=null;G.ei=i;EX[ex[i].t](ex[i],()=>{i++;if(i<ex.length)next();else actEnd(G.am<=2?3:G.am<=5?2:1)})};
+  next()}
+const RUN={};KINDS.forEach(k=>RUN[k]=runLesson);
+
+/* ================= ОГОНЁК: дни подряд ================= */
+const dstr=dt=>dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+function yday(){const y=new Date();y.setDate(y.getDate()-1);return dstr(y)}
+function streakTick(){const t=todayStr();if(S.streakDay===t)return;S.streak=S.streakDay===yday()?(S.streak||0)+1:1;S.streakDay=t;save()}
+const streakNow=()=>S.streakDay===todayStr()||S.streakDay===yday()?(S.streak||0):0;
+
+/* ================= КОНФЕТТИ ================= */
+const cv=$('#fx'),cx=cv.getContext('2d');let parts=[],raf=0;
+function confetti(n=140){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;cv.width=innerWidth;cv.height=innerHeight;
+  const cols=['#FF5A5F','#FFC530','#2FD07A','#8B5CFF','#12C6E0','#FF5FB0'];
+  for(let i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*140,y:innerHeight*.35,vx:(Math.random()-.5)*15,vy:-Math.random()*15-4,r:Math.random()*6+4,c:pick(cols),a:Math.random()*6,va:(Math.random()-.5)*.4,l:0});
+  if(!raf)loop()}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;p.l++;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r,-p.r/2,p.r*2,p.r);cx.restore()});
+  parts=parts.filter(p=>p.y<cv.height+40&&p.l<260);raf=parts.length?requestAnimationFrame(loop):0;if(!raf)cx.clearRect(0,0,cv.width,cv.height)}
+
+/* ================= ГЛАВНЫЙ ЭКРАН ================= */
+function ringHTML(ms){const m=Math.min(15,ms/60000),C=2*Math.PI*24,done=m>=15;
+  return `<svg viewBox="0 0 58 58"><circle cx="29" cy="29" r="24" fill="none" stroke="#E6EBFA" stroke-width="7"/><circle cx="29" cy="29" r="24" fill="none" stroke="${done?'#2FD07A':'#FF8A3D'}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-m/15)}"/></svg><b>${done?'✓':Math.floor(m)}</b>`}
+function setWorld(d){const w=worldOf(d);document.body.className=w.c+(S.voiceOn?'':' novoice');
+  $('#deco').innerHTML=w.d.concat(w.d).map((e,i)=>`<span style="left:${(i*37+7)%92}%;top:${(i*53+11)%88}%;animation-delay:${-i*1.3}s;font-size:${26+(i%3)*10}px">${e}</span>`).join('')}
+function renderHome(){
+  const cd=curDay(),done=doneCount();setWorld(cd);updCoins();
+  $('#homeHero').innerHTML=heroHTML(118,'hHero');
+  const msg=done===DAYS.length?'Ты прошёл все уроки! Ты настоящий <b>знаток английского</b>! Можно повторить любой урок.':
+    S.days[cd-1]&&!unlocked(cd)?'Сегодня ты уже позанимался. Новый урок откроется <b>завтра</b>! А пока можно повторить пройденные.':
+    done===0&&S.tip===0?TIPS[0]:TIPS[S.tip%TIPS.length];
+  $('#say').innerHTML=S.full<=0?'Чик-чирик, я проголодался 🥺 Покорми меня! Нажми 👕 и загляни на <b>Кухню</b>.':msg;
+  const total=collTotal(),have=collHave();
+  $('#status').innerHTML=`<button class="chip" id="spdChip">🔥 ${streakNow()} ${['дней','день','дня','дня','дня'][streakNow()%10<5&&(streakNow()%100<10||streakNow()%100>20)?streakNow()%10:0]} подряд</button><button class="chip" id="feedChip">Сытость: <span class="belly-m">${'🍎'.repeat(S.full)}${'▫️'.repeat(FULLMAX-S.full)}</span></button><button class="chip" id="collChip">🎒 Коллекция: ${have} из ${total}</button>`;
+  $('#feedChip').onclick=()=>{sfx.tap();openShop('f')};$('#spdChip').onclick=()=>{sfx.tap();openInfo()};$('#collChip').onclick=()=>{sfx.tap();openShop('h')};
+  const bg=(BGS.find(x=>x.id===S.bg)||BGS[0]).bg,dec=DECOR.filter(x=>S.own.includes('r:'+x.id));
+  $('#house').style.background=bg;
+  $('#house').innerHTML=`<span class="house-h">🏠 Домик Чирика</span>${dec.length?`<span class="house-items">${dec.map((x,i)=>`<span style="animation-delay:${-i*.4}s">${x.e}</span>`).join('')}</span>`:'<span class="house-empty">Пока пусто. Нажми, чтобы купить Чирику мебель и игрушки!</span>'}`;
+  $('#house').onclick=()=>{sfx.tap();openShop('r')};
+  const ms=todayMs();$('#ringHome').innerHTML=ringHTML(ms);
+  $('#todayTx').innerHTML=ms>=15*60000?`Сегодня уже 15 минут! 🎉<small>Отличная работа. Пройдено уроков: ${done} из ${DAYS.length}</small>`:
+    `Сегодня: ${Math.floor(ms/60000)} из 15 минут<small>Пройдено уроков: ${done} из ${DAYS.length} · ⭐ ${Object.values(S.days).reduce((a,b)=>a+b.stars,0)}</small>`;
+  const can=unlocked(cd)&&!(done===DAYS.length);
+  $('#playBtn').innerHTML=done===DAYS.length?`Выбрать урок на карте<small>Все уроки пройдены 👑</small>`:can?
+    `▶ Урок ${cd+1}: ${DAYS[cd].t}<small>${UNITS[DAYS[cd].u].e} ${UNITS[DAYS[cd].u].n}${S.prog&&S.prog.d===cd?' · продолжить':''}</small>`:`Завтра новый урок!<small>Урок ${cd+1}: ${DAYS[cd].t}</small>`;
+  $('#playBtn').onclick=()=>{sfx.tap();if(can)openDay(cd);else document.querySelector('.node.cur,.node.done')?.scrollIntoView({behavior:'smooth',block:'center'})};
+  const m=$('#map');m.innerHTML='';
+  WORLDS.forEach(w=>{const sec=document.createElement('div');sec.className='world';sec.innerHTML=`<h3>${w.e} ${w.n}</h3>`;
+    for(let d=w.a;d<=w.b;d++){
+      if(d>w.a)sec.insertAdjacentHTML('beforeend','<div class="steps"><span></span><span></span><span></span></div>');
+      const D=DAYS[d],op=unlocked(d),dn=S.days[d],isCur=d===cd&&op&&!dn;
+      const nw=document.createElement('div');nw.className='nw p'+[0,1,2,1][d%4];
+      nw.innerHTML=`<button class="node ${D.boss?'boss':''} ${dn?'done':isCur?'cur':op?'':'lock'}" aria-label="Урок ${d+1}: ${D.t}">${!op?'🔒':D.boss===5?'👑':D.boss?(dn?'🏆':'⭐'):D.ic}</button>
+        <div class="nlbl">${D.t}</div><div class="nst">${dn?[1,2,3].map(k=>`<span class="${k<=dn.stars?'':'dim'}">⭐</span>`).join(''):''}</div>
+        ${isCur?`<div class="mini">${heroHTML(46)}</div>`:''}`;
+      nw.querySelector('.node').onclick=()=>{if(op){sfx.tap();openDay(d)}else{sfx.bad();$('#say').innerHTML=S.days[d-1]?'Этот урок откроется <b>завтра</b>. Отдыхай!':`Сначала пройди <b>урок ${d}</b>!`;scrollTo({top:0,behavior:'smooth'})}};
+      sec.appendChild(nw)}
+    m.appendChild(sec)});
+  paintHeroes();
+  setTimeout(()=>heroDo($('#hHero'),'happy',800),400);
+}
+function updCoins(){$$('.coinN').forEach(e=>e.textContent=S.coins)}
+function bumpCoins(){$$('.chip').forEach(c=>{c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump')})}
+
+
+
+/* ================= ДЕНЬ ================= */
+let G=null;
+function seen(list){if(!G)return;list.forEach(x=>{if(x&&!G.seen.some(y=>y[1]===x[1]))G.seen.push(x)})}
+function later(fn,ms){const id=setTimeout(fn,ms);G&&G.clean.push(()=>clearTimeout(id));return id}
+function stopAll(){if(G){G.clean.forEach(f=>{try{f()}catch(e){}});G.clean=[]}}
+function card(h){$('#card').innerHTML=h;const b=$('#card .say');if(b)b.onclick=()=>say(ACT[G.act].ask)}
+const askHTML=a=>`<div class="ask"><button class="say" aria-label="Прочитать задание">🔈</button><span>${ACT[a].ask}</span></div>`;
+function rdots(i,n){$('#rdots').innerHTML=n?Array.from({length:n},(_,k)=>`<span class="${k<i?'done':k===i?'now':''}"></span>`).join(''):''}
+function actsBar(){$('#acts').innerHTML=G.plan.map((a,k)=>`<div class="ad ${k<G.ai?'done':k===G.ai&&G.running?'now':''}" title="${ACT[a].n}">${k<G.ai?'✓':ACT[a].i}</div>`).join('')}
+
+function openDay(d){
+  G={d,plan:PLANS[DAYS[d].p],ai:S.prog&&S.prog.d===d?S.prog.ai:0,pool:[],mist:S.prog&&S.prog.d===d?S.prog.mist||0:0,combo:0,clean:[],running:false,coins:0,seen:[]};
+  if(G.ai>=G.plan.length)G.ai=0;
+  setWorld(d);$('#home').style.display='none';$('#dayScreen').hidden=false;$('#dayScreen').style.display='flex';
+  $('#gTitle').innerHTML=`Урок ${d+1}<small>${UNITS[DAYS[d].u].n} · ${DAYS[d].t}</small>`;$('#gHero').innerHTML=heroHTML(56,'gH');paintHeroes();
+  rdots(0,0);updCombo();actsBar();scrollTo({top:0});
+  musicWanted='happy';if(S.music)Music.play('happy');
+  const mins=G.plan.reduce((a,x)=>a+ACT[x].min,0);
+  card(`<div class="intro"><div class="big">${UNITS[DAYS[d].u].e}</div><h2>Урок ${d+1}</h2><p>${UNITS[DAYS[d].u].n} · ${DAYS[d].t}. Примерно ${mins} минут.</p><div class="count" style="font-size:34px">${UNITS[DAYS[d].u].w.map(x=>x.e).join(' ')}</div></div>
+    <div class="plan">${G.plan.map((a,k)=>`<div class="pl ${k<G.ai?'done':''}"><span class="e">${ACT[a].i}</span>${ACT[a].n}<span class="m">${k<G.ai?'готово ✓':ACT[a].min+' мин'}</span></div>`).join('')}</div>
+    <button class="bigbtn" id="goDay">${G.ai>0?'Продолжить ▶':'Начать! ▶'}</button>
+    ${G.ai>0?'<button class="bigbtn alt" id="restartDay">Начать день сначала</button>':''}`);
+  $('#goDay').onclick=()=>{sfx.tap();startAct()};
+  if($('#restartDay'))$('#restartDay').onclick=()=>{S.prog=null;save();G.ai=0;G.mist=0;sfx.tap();startAct()};
+}
+function startAct(){
+  stopAll();G.running=true;G.act=G.plan[G.ai];G.am=0;actsBar();rdots(0,0);
+  const a=ACT[G.act];
+  if(G.act==='boss'){musicWanted='boss';if(S.music)Music.play('boss')}else{musicWanted='happy';if(S.music)Music.play('happy')}
+  card(`<div class="intro"><div class="big">${a.i}</div><h2>${a.n}</h2><p>${a.ask}</p></div><button class="bigbtn" id="goAct">Поехали! ▶</button>`);
+  say(a.n+'. '+a.ask);
+  $('#goAct').onclick=()=>{sfx.tap();try{speechSynthesis.cancel()}catch(e){}RUN[G.act]()};
+}
+function actEnd(forced){
+  stopAll();rdots(0,0);
+  const st=forced||(G.am<=1?3:G.am<=3?2:1);G.mist+=G.am;G.ai++;
+  S.prog={d:G.d,ai:G.ai,mist:G.mist};save();actsBar();
+  const last=G.ai>=G.plan.length;
+  card(`<div class="intro"><div id="aHero">${heroHTML(110)}</div><h2>${pick(['Задание выполнено!','Получилось!','Вот это да!'])}</h2>
+    <div class="bigstars">${[1,2,3].map(k=>`<span class="${k<=st?'':'dim'}">⭐</span>`).join('')}</div>
+    <p>${last?'Все задания дня пройдены! Тебя ждёт сундук!':`Осталось заданий: ${G.plan.length-G.ai}`}</p></div>
+    <button class="bigbtn" id="nextAct">${last?'Открыть сундук 🎁':'Дальше ▶'}</button>`);
+  paintHeroes();heroDo($('#aHero .hero-w'),'happy',1200);sfx.win();if(st===3)confetti(70);
+  $('#nextAct').onclick=()=>{sfx.tap();if(last)finishDay();else startAct()};
+}
+function updCombo(){const c=$('#combo');if(G&&G.combo>=2){c.hidden=false;c.textContent=`🔥 ${G.combo} подряд`;c.classList.remove('hot');void c.offsetWidth;c.classList.add('hot')}else c.hidden=true}
+function toast(t,cls=''){const d=document.createElement('div');d.className='toast '+cls;d.textContent=t;$('#card').appendChild(d);setTimeout(()=>d.remove(),1200)}
+function feed(fromEl,text){
+  const hero=$('#gH');if(!hero||!fromEl)return;const a=fromEl.getBoundingClientRect(),b=hero.getBoundingClientRect();
+  const f=document.createElement('div');f.className='flyw';f.textContent=text?F(text):'🪙';document.body.appendChild(f);
+  const fw=f.offsetWidth,fh=f.offsetHeight,x0=a.left+a.width/2-fw/2,y0=a.top+a.height/2-fh/2,x1=b.left+b.width/2-fw/2,y1=b.top+b.height*.65-fh/2;
+  f.style.left=x0+'px';f.style.top=y0+'px';
+  const an=f.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${(x1-x0)/2}px,${(y1-y0)/2-60}px) scale(.8)`},{transform:`translate(${x1-x0}px,${y1-y0}px) scale(.15)`}],{duration:700,easing:'ease-in'});
+  an.onfinish=()=>{f.remove();heroDo(hero,'eat',500);sfx.chomp();updCoins();bumpCoins()};
+}
+function correct(el,spoken,fast){
+  G.combo++;let earn=1;
+  if(fast){earn++;setTimeout(()=>toast('⚡ Быстро! +1','fast'),250)}
+  if(G.combo%5===0){earn+=2;setTimeout(()=>toast('Серия! +2 🪙'),800);confetti(45)}
+  S.coins+=earn;G.coins+=earn;save();sfx.ok();feed(el,spoken&&spoken.length<14?spoken:'');toast(pick(PRAISE));updCombo();
+  if(spoken)setTimeout(()=>say(spoken),350);
+}
+function wrong(){G.am++;G.combo=0;updCombo();sfx.bad();toast(pick(OOPS),'oops');heroDo($('#gH'),'sad',800)}
+
+
+
+/* ---------- конец дня ---------- */
+function finishDay(){
+  const d=G.d,st=G.mist<=3?3:G.mist<=8?2:1,prev=S.days[d],first=!prev,boss=DAYS[d].boss;
+  S.days[d]={stars:Math.max(st,prev?prev.stars:0),date:prev?prev.date:todayStr()};S.prog=null;streakTick();
+  const gift=15+st*5+(boss?25:0);S.coins+=gift;
+  let extra='';
+  const gifts=grantGifts();if(gifts.length)extra+=gifts.map(g=>`<p style="font-weight:900;font-size:19px;margin:0">Особый подарок: ${g.e||'🎨'} ${g.n}!</p>`).join('');
+  if(boss===5&&!S.own.includes('h:crown')){S.own.push('h:crown');S.hat='crown';extra+='<p style="font-weight:900;font-size:19px">Подарок: 👑 Корона знатока английского!</p>'}
+  save();
+  showOv(`<h2>${boss?'Тема пройдена!':'Урок '+(d+1)+' пройден!'}</h2>
+    <div class="chest" id="chest">🎁</div><p style="font-weight:800;color:var(--muted);margin:0">Нажми на сундук!</p>`);
+  sfx.win();
+  $('#chest').onclick=()=>{const c=$('#chest');c.textContent='🪙';c.classList.add('open');sfx.coin();confetti(170);updCoins();
+    speakSeq([{t:'Great job!',l:'en'},{t:boss?'Ура! Тема пройдена!':'Ура! Урок пройден!',l:'ru'}]);
+    $('#panel').insertAdjacentHTML('beforeend',`<div class="gain">+${gift} монет</div>
+      <div class="bigstars">${[1,2,3].map(k=>`<span class="${k<=st?'':'dim'}">⭐</span>`).join('')}</div>${extra}
+      <div class="btns"><button class="bigbtn" id="toMap">На карту 🗺️</button><button class="bigbtn alt" id="toShop">В гардероб 👕</button></div>`);
+    $('#panel p').remove();c.onclick=null;
+    $('#toMap').onclick=()=>{hideOv();toHome()};$('#toShop').onclick=()=>{hideOv();toHome();openShop()}};
+}
+function toHome(){stopAll();try{speechSynthesis.cancel()}catch(e){}G=null;musicWanted='happy';if(S.music&&Music.song!==SONGS.happy)Music.play('happy');S.tip++;save();
+  $('#dayScreen').hidden=true;$('#dayScreen').style.display='none';$('#home').style.display='flex';renderHome();scrollTo({top:0})}
+$('#backBtn').onclick=()=>{sfx.tap();toHome()};
+
+/* ================= ОКНА ================= */
+function showOv(h){$('#panel').innerHTML=h;$('#ov').hidden=false}
+function hideOv(){$('#ov').hidden=true}
+function itemIcon(tab,it){if(tab==='b')return `<span class="ic"><span class="sw" style="border-radius:10px;width:44px;background:${it.bg}"></span></span>`;return tab==='s'?`<span class="ic"><span class="sw" style="background:${it.rb?(it.id==='galaxy'?'radial-gradient(circle at 30% 30%,#fff 0 6%,#7B4DFF 30%,#2E1A8A)':'conic-gradient(#FF5A5F,#FFC530,#2FD07A,#12C6E0,#8B5CFF,#FF5FB0,#FF5A5F)'):`linear-gradient(${it.c[0]},${it.c[1]})`}"></span></span>`:`<span class="ic">${it.e}</span>`}
+function openShop(tab='s'){
+  const C=SHOP[tab],L=C.L,maxDone=Object.keys(S.days).length;
+  const locked=it=>it.d&&maxDone<it.d;
+  const total=collTotal(),have=collHave(),curBg=(BGS.find(x=>x.id===S.bg)||BGS[0]).bg;
+  showOv(`<h2>${tab==='f'?'Кухня Чирика':tab==='r'||tab==='b'?'Домик Чирика':'Гардероб Чирика'}</h2><div id="shopHero" style="${tab==='b'||tab==='r'?'background:'+curBg:''}">${heroHTML(120)}</div>
+    <div class="status" style="justify-content:center"><div class="chip"><i>🪙</i><span class="coinN">${S.coins}</span></div>
+    ${tab==='f'?`<div class="chip">Сытость: <span class="belly-m">${'🍎'.repeat(S.full)}${'▫️'.repeat(FULLMAX-S.full)}</span></div>`:`<div class="chip">🎒 ${have} из ${total}</div>`}</div>
+    <div class="tabs">${Object.entries(SHOP).map(([k,c])=>`<button class="tab ${k===tab?'on':''}" data-t="${k}">${c.n}</button>`).join('')}</div>
+    <div class="shop-grid">${L.map(it=>{
+      if(C.food)return `<button class="item ${S.coins<it.p?'no':''}" data-id="${it.id}"><span class="ic">${it.e}</span>${it.n}<span class="pr">🪙 ${it.p} · +${it.f} 🍎</span></button>`;
+      const own=S.own.includes(tab+':'+it.id),on=C.k&&S[C.k]===it.id,lk=!own&&locked(it);
+      const pr=C.room?(own?'В домике ✓':lk?'🔒 после урока '+it.d:'🪙 '+it.p):on?(tab==='b'?'Выбран':'Надето'):own?(tab==='b'?'Выбрать':'Надеть'):it.gift?'🎁 за урок '+it.gift:lk?'🔒 после урока '+it.d:'🪙 '+it.p;
+      return `<button class="item ${on||(C.room&&own)?'on':''} ${!own&&(it.gift||S.coins<it.p||lk)?'no':''}" data-id="${it.id}">${itemIcon(tab,it)}${it.n}<span class="pr">${pr}</span></button>`}).join('')}</div>
+    <p id="shopMsg" style="margin:0;font-weight:800;color:var(--muted);min-height:1.4em">${tab==='f'?'Покорми Чирика, и он будет весёлым! Каждый день он немножко голодает.':''}</p>
+    <div class="buy" id="buyBox" hidden><div id="buyQ"></div><div class="buyrow"><button class="bigbtn" id="buyYes">Купить</button><button class="bigbtn alt" id="buyNo">Отмена</button></div></div>
+    <div class="btns" id="shopBtns"><button class="bigbtn" id="shopClose">Готово</button></div>`);
+  paintHeroes();
+  $$('#panel .tab').forEach(b=>b.onclick=()=>{sfx.tap();openShop(b.dataset.t)});
+  const ask=(q,yesTxt,onYes)=>{$('#buyQ').innerHTML=q;$('#buyYes').textContent=yesTxt;$('#buyBox').hidden=false;$('#shopBtns').hidden=true;
+    $('#buyYes').onclick=onYes;$('#buyNo').onclick=()=>{sfx.tap();openShop(tab)};$('#buyBox').scrollIntoView({block:'nearest',behavior:'smooth'})};
+  const noMoney=(it,what)=>{$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`${what} «${it.n}» нужно ещё ${it.p-S.coins} 🪙. Играй и собирай монетки!`};
+  $$('#panel .item').forEach(b=>b.onclick=()=>{const it=L.find(x=>x.id===b.dataset.id);
+    $$('#panel .item').forEach(x=>x.classList.remove('try'));b.classList.add('try');
+    if(C.food){sfx.tap();
+      if(S.full>=FULLMAX){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent='Чирик уже сыт! Чик-чирик 😊 Покорми его завтра.';say('Я уже сыт!');return}
+      if(S.coins<it.p)return noMoney(it,'Чтобы купить');
+      ask(`Покормить Чирика: ${it.e} ${it.n} за <b>${it.p} 🪙</b>?<small>Останется ${S.coins-it.p} 🪙</small>`,'Покормить',()=>{
+        S.coins-=it.p;S.full=Math.min(FULLMAX,S.full+it.f);S.fullDay=S.fullDay||todayStr();save();updCoins();sfx.coin();
+        const h=$('#shopHero .hero-w'),r=h.getBoundingClientRect(),fl=document.createElement('div');fl.className='fly';fl.style.fontSize='46px';fl.textContent=it.e;
+        fl.style.left=(innerWidth/2-23)+'px';fl.style.top=(innerHeight-200)+'px';document.body.appendChild(fl);
+        fl.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${r.left+r.width/2-innerWidth/2}px,${r.top+r.height*.62-(innerHeight-200)}px) scale(.3)`}],{duration:650,easing:'ease-in'}).onfinish=()=>{fl.remove();
+          heroDo(h,'eat',600);sfx.chomp();setTimeout(()=>{heroDo(h,'happy',1000);confetti(40);say(pick(['Чик-чирик! Спасибо!','Вкуснятина!','Ммм, как вкусно!']))},600);
+          setTimeout(()=>openShop('f'),1700)}});
+      return}
+    const key=tab+':'+it.id;
+    if(C.room&&S.own.includes(key)){sfx.tap();$('#shopMsg').textContent=`«${it.n}» уже стоит в домике Чирика 🏠`;return}
+    if(S.own.includes(key)){sfx.tap();S[C.k]=it.id;save();openShop(tab);heroDo($('#shopHero .hero-w'),'happy',900);return}
+    if(tab==='b')$('#shopHero').style.background=it.bg;else if(!C.room)paintHeroes({[tab]:it.id});heroDo($('#shopHero .hero-w'),'happy',700);sfx.tap();
+    if(it.gift){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`Это особый подарок 🎁 Его нельзя купить. Он придёт сам, когда пройдёшь урок ${it.gift}!`;return}
+    if(locked(it)){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`Это примерка 👀 «${it.n}» откроется после урока ${it.d}.`;return}
+    if(S.coins<it.p)return noMoney(it,'Это примерка 👀 Чтобы купить');
+    $('#shopMsg').textContent='Это примерка 👀';
+    ask(`Купить «${it.n}» за <b>${it.p} 🪙</b>?<small>После покупки останется ${S.coins-it.p} 🪙</small>`,'Купить',()=>{S.coins-=it.p;S.own.push(key);if(C.k)S[C.k]=it.id;save();updCoins();sfx.coin();confetti(60);say('Ура! Спасибо!');openShop(tab);heroDo($('#shopHero .hero-w'),'happy',900)})});
+  $('#shopClose').onclick=()=>{hideOv();if(!G)renderHome();else paintHeroes()};
+}
+let resetArm=false;
+function voiceSel(id,list,cur){return list.length?`<select id="${id}" style="font:inherit;font-weight:800;padding:10px;border-radius:12px;border:2px solid var(--line);background:#fff;color:var(--ink);max-width:100%">${list.map(v=>`<option value="${v.name.replace(/"/g,'&quot;')}" ${cur&&v.name===cur.name?'selected':''}>${v.name}</option>`).join('')}</select>`:'<p style="color:var(--muted)">Голос не найден на этом устройстве.</p>'}
+function openInfo(){
+  const learned=UNITS.filter((U,ui)=>S.days[ui*5]).reduce((a,U)=>a+U.w.length,0);
+  showOv(`<h2>Для родителей</h2><div class="info">
+    <p>«Чирик» учит детей 5–7 лет <b>понимать и говорить</b> по-английски. Читать не нужно: всё строится на звуке и картинках. 12 тем по 5 уроков, урок длится 5–7 минут. Лучше проходить 2–3 урока в день.</p>
+    <div class="weeks"><div>🔥 Дней подряд: <b>${streakNow()}</b> · Пройдено уроков: <b>${Object.keys(S.days).length} из ${DAYS.length}</b> · Изучено слов: <b>${learned}</b></div></div>
+    <h3>Как устроен урок</h3>
+    <div class="weeks"><div><b>📘 Новые слова.</b> Картинка, слово по-русски и по-английски, можно послушать медленно 🐢.</div>
+    <div><b>🎧 Слушай.</b> Послушать слово и выбрать картинку, найти пары, выбрать слово на слух.</div>
+    <div><b>🗣️ Говори.</b> Ребёнок нажимает 🎤 и говорит слово. Чирик слушает и проверяет. После двух попыток он всё равно хвалит, чтобы не было обидно.</div>
+    <div><b>💬 Разговор.</b> Чирик задаёт вопросы по-английски («What color is it?»), ребёнок отвечает. Ещё нужно повторять короткие фразы.</div>
+    <div><b>⭐ Повторение.</b> Всё вместе и сундук с наградой.</div></div>
+    <p>Хорошо, если вы рядом: хвалите и повторяйте слова вместе. Микрофон работает в Chrome на Android и в Safari на iPhone. При первом нажатии на 🎤 телефон спросит разрешение. Если микрофон недоступен, появится кнопка «Я сказал!».</p>
+    <h3>Настройки</h3>
+    <label class="toggle"><input type="checkbox" id="micT" ${S.mic!==false?'checked':''}> Проверять произношение через микрофон</label>
+    <label class="toggle"><input type="checkbox" id="enT" ${S.showEn?'checked':''}> Показывать английское слово под картинкой</label>
+    <label class="toggle"><input type="checkbox" id="ruT" ${S.showRu?'checked':''}> Показывать перевод на русский</label>
+    <label class="toggle"><input type="checkbox" id="voiceT" ${S.voiceOn?'checked':''}> Подсказки голосом по-русски</label>
+    <label class="toggle"><input type="checkbox" id="dailyT" ${S.daily?'checked':''}> Открывать не больше одного нового урока в сутки</label>
+    <h3>Английский голос</h3>${voiceSel('enSel',enVoices,enVoice)}<button class="bigbtn alt" id="enTry">▶ Послушать</button>
+    <h3>Русский голос</h3>${voiceSel('voiceSel',ruVoices,ruVoice)}
+    <p style="color:var(--muted);font-size:14px">Лучше всего звучат голоса с пометкой «улучшенный», Enhanced, Premium или Natural. На iPhone их можно скачать: Настройки → Универсальный доступ → Устный контент → Голоса.</p>
+    <button class="bigbtn alt" id="resetB">Сбросить весь прогресс</button></div>
+    <div class="btns"><button class="bigbtn" id="infoClose">Закрыть</button></div>`);
+  $('#micT').onchange=e=>{S.mic=e.target.checked;S.micOff=false;save()};
+  $('#enT').onchange=e=>{S.showEn=e.target.checked;save()};
+  $('#ruT').onchange=e=>{S.showRu=e.target.checked;save()};
+  $('#voiceT').onchange=e=>{S.voiceOn=e.target.checked;save()};
+  $('#dailyT').onchange=e=>{S.daily=e.target.checked;save()};
+  if($('#enSel'))$('#enSel').onchange=e=>{S.enVoice=e.target.value;save();loadEn();sayEn('Hello! I am Chirik. Let us speak English!')};
+  $('#enTry').onclick=()=>sayEn('Hello! I am Chirik. Let us speak English!');
+  if($('#voiceSel'))$('#voiceSel').onchange=e=>{S.voiceName=e.target.value;save();loadVoice();say('Привет! Я Чирик.',1)};
+  $('#resetB').onclick=e=>{if(!resetArm){resetArm=true;e.target.textContent='Точно? Нажмите ещё раз';e.target.style.background='#FFD9D6';setTimeout(()=>{resetArm=false},3000);return}
+    const keep={sound:S.sound,music:S.music,voiceOn:S.voiceOn,voiceName:S.voiceName,enVoice:S.enVoice,daily:S.daily,mic:S.mic,showEn:S.showEn,showRu:S.showRu};
+    S={days:{},coins:0,rec:{},own:['s:ara','h:','g:','a:','p:','b:'],skin:'ara',hat:'',gl:'',acc:'',pet:'',bg:'',prog:null,time:{d:'',ms:0},tip:0,full:3,fullDay:todayStr(),streak:0,streakDay:'',lower:false,...keep};
+    save();resetArm=false;hideOv();renderHome()};
+  $('#infoClose').onclick=()=>{hideOv();renderHome()};
+}
+$('#shopBtn').onclick=()=>{sfx.tap();openShop()};
+$('#infoBtn').onclick=()=>{sfx.tap();openInfo()};
+function syncBtns(){$('#sndBtn').textContent=S.sound?'🔊':'🔇';$('#musBtn').classList.toggle('off',!S.music);$('#musBtn').setAttribute('aria-label',S.music?'Выключить музыку':'Включить музыку');}
+$('#sndBtn').onclick=()=>{S.sound=!S.sound;save();syncBtns();sfx.tap()};
+$('#musBtn').onclick=()=>{S.music=!S.music;save();syncBtns();if(S.music)Music.play(musicWanted);else Music.stop()};
+
+document.addEventListener('visibilitychange',()=>{if(document.hidden)Music.stop();else if(S.music&&AC)Music.play(musicWanted)});
+setInterval(()=>{if(G&&!document.hidden&&!$('#dayScreen').hidden){todayMs();S.time.ms+=1000;if(S.time.ms%10000===0)save()}},1000);
+addEventListener('resize',()=>{cv.width=innerWidth;cv.height=innerHeight});
+window.__chit={get G(){return G},S:()=>S,DAYS};
+syncBtns();renderHome();
+
+
+</script>
+
+
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+</script>
+</body>
+</html>
