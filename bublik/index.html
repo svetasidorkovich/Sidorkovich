@@ -378,6 +378,19 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .cpair>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:#F7F9FF;border-radius:16px;padding:8px 4px}
 .cpair b{font-family:var(--display);font-size:22px;color:var(--grape)}
 .opt.yes2{font-size:24px}
+.objs.tale{font-size:44px;gap:4px}
+.garland{display:flex;flex-wrap:wrap;justify-content:center;gap:0;width:100%;border-top:3px solid #E2489A;padding-top:0}
+.flag{width:30px;height:38px;clip-path:polygon(0 0,100% 0,50% 100%);background:var(--fc);display:flex;justify-content:center;font-size:15px;padding-top:3px;margin-bottom:6px}
+.namebig{display:flex;gap:6px;justify-content:center}.namebig b{font-family:var(--display);font-size:40px;background:#FFF1C9;border-radius:12px;padding:2px 12px;color:var(--ink)}
+.objs.snow i{display:block;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#DDE6F5 70%,#C3CFE6);box-shadow:0 2px 0 #B8C4DC}
+.flats{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}.flats b{min-width:40px;padding:6px 4px;text-align:center;border-radius:10px;background:#EAF2FF;font-weight:900;font-size:20px;color:var(--ink)}
+.plates{display:flex;gap:8px;width:100%;justify-content:center}
+.plate{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}.plate>div{width:100%;aspect-ratio:1;border-radius:50%;border:3px solid #6CC4E8;background:#fff;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;font-size:19px;padding:8px}
+.plate b{font-family:var(--display);color:var(--grape);font-size:17px}
+.lsq{display:grid;gap:0;width:min(240px,80%);margin:0 auto;border:2px solid #8C8FB8}
+.lsq b{aspect-ratio:1;display:grid;place-items:center;font-size:40px;border:1.5px solid #B9BCD8;background:#fff}
+.lsq b.q{color:#3D74F0;font-family:var(--display);font-size:46px;background:#EAF2FF}
+.opt.pic{font-size:40px}
 /* ---------- новый вид: небо в клеточку ---------- */
 .sky::before{content:"🐾";position:absolute;inset:0;font-size:0;background-image:radial-gradient(rgba(255,255,255,.22) 3px,transparent 3.6px),radial-gradient(rgba(255,255,255,.14) 2px,transparent 2.6px);background-size:44px 44px,22px 22px;background-position:0 0,11px 11px}
 body.w1 .sky,.sky{background:linear-gradient(170deg,#FFE27A 0%,#FFB347 50%,#FF8A5B 100%)}
@@ -473,12 +486,14 @@ const ACT={
  logic:{n:'Хитрые задачки',i:'🧠',ask:'Это задачки с хитростью. Подумай хорошенько!',min:3},
  pict:{n:'Примеры-загадки',i:'🦊',ask:'Звери спрятали числа. Найди, какое число под зверем!',min:3},
  cubes:{n:'Кубики',i:'🧊',ask:'Посчитай кубики. Не забудь про те, что прячутся сзади!',min:3},
+ smart:{n:'Смекалка',i:'💡',ask:'Здесь задачки с подвохом! Слушай очень внимательно.',min:3},
+ grid:{n:'Волшебный квадрат',i:'🔲',ask:'В каждой строке и в каждом столбце картинки не должны повторяться. Найди, что спряталось под вопросом!',min:3},
  fast:{n:'Быстрый счёт',i:'⚡',ask:'Решай примеры как можно быстрее!',min:3},
  boss:{n:'Битва с Дрёмой',i:'😴',ask:'Сонная Дрёма хочет всех усыпить! Отвечай правильно, и Бублик её прогонит!',min:4}};
 // каждые 3 дня новый набор заданий
-const ROT=[['seq','count','equal','story','fast'],['count','pict','story','cubes','logic'],['equal','seq','pict','fast','story'],
- ['logic','cubes','fast','count','seq'],['pict','story','cubes','equal','logic'],['seq','fast','count','logic','pict']];
-function planFor(d){const D=DAYS[d];if(D.boss===5)return['logic','cubes','story','boss'];if(D.boss)return['story','fast','pict','boss'];return ROT[Math.floor(d/3)%ROT.length]}
+const ROT=[['seq','count','smart','story','fast'],['count','pict','grid','cubes','logic'],['equal','seq','pict','smart','story'],
+ ['logic','cubes','grid','count','seq'],['pict','story','smart','equal','logic'],['seq','grid','count','logic','pict']];
+function planFor(d){const D=DAYS[d];if(D.boss===5)return['smart','grid','cubes','boss'];if(D.boss)return['smart','fast','grid','boss'];return ROT[Math.floor(d/3)%ROT.length]}
 
 /* ---------- магазин ---------- */
 const SKINS=[{id:'pup',n:'Бублик',c:['#F2C891','#B9783F'],p:0},{id:'snowy',n:'Белый',c:['#FFFFFF','#C9B8A6'],p:60},{id:'blue',n:'Голубой',c:['#7CC7FF','#3A9BE8'],p:60},
@@ -817,13 +832,76 @@ GEN.fast=(L)=>{const M=L===0?5:L===1?10:15,plus=L===0?Math.random()<.7:Math.rand
   const op=plus?'+':'−',vis=L===0?`<div class="objs small">${rep('🍎',a).map(x=>`<span>${x}</span>`).join('')}<span>${op}</span>${rep(plus?'🍎':'❌',b).map(x=>`<span>${x}</span>`).join('')}</div>`:'';
   return{top:qtop(`<div class="eq"><b>${a}</b><b>${op}</b><b>${b}</b><b>=</b><b class="q">?</b></div>`+vis,'Сколько будет?'),v:`${a} ${plus?'плюс':'минус'} ${b}`,fast:L===0?9000:7000,...NQ(c)}};
 
+/* x_new2 */
+/* ---------- задания по олимпиаде «Лидер» ---------- */
+const PEOPLE=['👴','👵','👧','👦','👩','👨'],ANIMALS=['🐶','🐱','🐭','🐰','🦊','🐻','🐸','🐷'];
+const TALES=[{n:'Репка',who:['👴','👵','👧','🐶','🐱','🐭'],q:'Сколько животных тянули репку?',a:3},
+ {n:'Колобок',who:['👴','👵','🐰','🐺','🐻','🦊'],q:'Сколько зверей встретил Колобок в лесу?',a:4},
+ {n:'Теремок',who:['🐭','🐸','🐰','🦊','🐺','🐻'],q:'Сколько зверей в этой сказке?',a:6},
+ {n:'Курочка Ряба',who:['👴','👵','🐔','🐭'],q:'Сколько животных в этой сказке?',a:2}];
+const baseCount=GEN.count;
+GEN.count=(L)=>{const r=Math.random();
+  if(r<.2){const T=pick(TALES);return{top:qtop(objs(T.who,'tale'),`Сказка «${T.n}». ${T.q}`),v:`Это герои сказки ${T.n}. ${T.q}`,...NQ(T.a)}}
+  if(r<.35){const np=rnd(1,3),na=rnd(2,L===0?3:5),list=shuffle(shuffle(PEOPLE).slice(0,np).concat(shuffle(ANIMALS).slice(0,na))),askA=Math.random()<.6;
+    return{top:qtop(objs(list),`Сколько здесь ${askA?'животных':'людей'}?`),v:`Посмотри на картинку. Сколько здесь ${askA?'животных':'людей'}?`,...NQ(askA?na:np)}}
+  return baseCount(L)};
+
+const NAMES_F=['Яна','Оля','Аня','Катя','Маша','Ира'],NAMES_M=['Лев','Петя','Ваня','Тим','Егор','Миша'];
+const FACTS=[['число дней в неделе',7],['число пальцев на одной руке',5],['число колёс у велосипеда',2],['число колёс у машины',4],['число лап у кошки',4],['число времён года',4],['число колёс у трёхколёсного велосипеда',3],['число глаз у человека',2],['число ушей у зайчика',2]];
+const GSM={};
+GSM.except=L=>{const n=rnd(L===0?5:6,L===0?7:10),k=rnd(2,3),g=pick(NAMES_F);
+  if(Math.random()<.5)return st(objs(rep('🎄',1).concat(rep('🔴',n))),`У ${g==='Яна'?'Яны':g==='Оля'?'Оли':g==='Аня'?'Ани':g==='Катя'?'Кати':g==='Маша'?'Маши':'Иры'} в коробке ${n} ёлочных игрушек. Она повесила на ёлку все игрушки, кроме ${k===2?'двух':'трёх'}. Сколько игрушек она повесила на ёлку?`,n-k);
+  const left=Math.random()<.5;return st(objs(rep('🍬',n)),`Было ${npl(n,N.candy)}. Петя съел все конфеты, кроме ${k===2?'двух':'трёх'}. Сколько конфет ${left?'осталось':'съел Петя'}?`,left?k:n-k)};
+GSM.kind=L=>{const sets=[[['🍎',N.apple,'яблок'],['🍬',N.candy,'конфет'],['🍰',['пирожное','пирожных','пирожных'],'пирожных'],'фруктов',0],
+   [['🥒',['огурец','огурца','огурцов'],'огурцов'],['🍐',['груша','груши','груш'],'груш'],['🍌',['банан','банана','бананов'],'бананов'],'фруктов',[1,2]],
+   [['🚗',N.car,'машинок'],['🧸',['мишка','мишки','мишек'],'мишек'],['🚂',['паровозик','паровозика','паровозиков'],'паровозиков'],'игрушечных машин и поездов',[0,2]]];
+  const S_=pick(sets),cs=[rnd(1,3),rnd(1,3),rnd(1,2)],idx=Array.isArray(S_[4])?S_[4]:[S_[4]],ans=idx.reduce((a,i)=>a+cs[i],0);
+  const txt=`На тарелке ${S_.slice(0,3).map((x,i)=>npl(cs[i],x[1])).join(', ')}. Сколько здесь ${S_[3]}?`.replace('На тарелке',S_[3].startsWith('игруш')?'На полке':'На тарелке');
+  return st(objs(S_.slice(0,3).flatMap((x,i)=>rep(x[0],cs[i]))),txt,ans)};
+GSM.garland=L=>{const pats=L===0?[['⭐','❄️'],['❄️','⭐']]:[['⭐','❄️','❄️'],['❄️','⭐','⭐'],['⭐','⭐','❄️'],['⭐','❄️']];
+  const P=pick(pats),n=rnd(L===0?6:8,L===0?8:12),snow=Array.from({length:n},(_,i)=>P[i%P.length]==='❄️'?1:0).reduce((a,b)=>a+b,0),cols=['#8FD3FF','#FFD84D','#9BE07A'];
+  const flags=Array.from({length:n},(_,i)=>`<span class="flag" style="--fc:${cols[i%3]}">${i<P.length?P[i]:''}</span>`).join('');
+  const desc=P.map(x=>x==='⭐'?'звёздочка':'снежинка');
+  return st(`<div class="garland">${flags}</div>`,`Матвей украшает гирлянду по порядку: ${desc.join(', ')}, а потом всё повторяется. Сколько получится снежинок на всей гирлянде?`,snow)};
+GSM.cards=L=>{const a=rnd(3,5),b=rnd(4,7),g=Math.random()<.65?rnd(a+1,Math.min(a+b,a+3)):rnd(2,a),ok=g>a,O=['открытка','открытки','открыток'],OA=['открытку','открытки','открыток'];
+  const t=`У Маши ${npl(a,O)} с ёжиками и ${npl(b,O)} с котиками. ${npl(g,OA)} Маша подарила Рите. Обязательно ли среди подаренных есть открытки с котиками?`;
+  return{top:qtop(objs(rep('🦔',a).concat(rep('🐱',b)),'small'),t),v:t,opts:[{v:'1',l:'Да ✅'},{v:'0',l:'Нет ❌'}],ans:ok?'1':'0',spoken:ok?'да':'нет'}};
+GSM.fact=L=>{const f=pick(FACTS),fem=Math.random()<.5,nm=pick(fem?NAMES_F:NAMES_M);
+  return st(`<div class="namebig">${nm.split('').map(c=>`<b>${c}</b>`).join('')}</div>`,`${nm} ${fem?'сложила':'сложил'} ${f[0]} и количество букв в своём имени. Какое число у ${fem?'неё':'него'} получилось?`,f[1]+nm.length)};
+GSM.groups=L=>{const per=pick([2,3]),k=rnd(2,L===2?5:4),ceil=L===2&&Math.random()<.5;
+  if(ceil){const c=per*k+rnd(1,per-1)||per*k+1;return st(objs(rep('🧊',c),'small'),`Игрушечная машинка за один раз может перевезти ${npl(per,N.cube)}. Сколько раз ей нужно съездить, чтобы перевезти ${npl(c,N.cube)}?`,Math.ceil(c/per))}
+  return st(`<div class="objs snow">${shuffle(Array.from({length:per*k},()=>rnd(26,40))).map(s=>`<i style="width:${s}px;height:${s}px"></i>`).join('')}</div>`,`Петя и Вася скатали снежные комки. На каждого снеговика нужно ${per===2?'два':'три'} комка. Сколько снеговиков они сделают?`,k)};
+GSM.eat=L=>{const m=rnd(5,L===0?7:10),k=rnd(1,3);return st(objs(rep('🍓',m)),`Сколько клубничек Маше нужно съесть, чтобы их осталось ${k}?`,m-k)};
+GSM.digits=L=>{const n=rnd(10,13);let c=0;for(let i=1;i<=n;i++)c+=String(i).split('').filter(x=>x==='1').length;
+  return st(`<div class="flats">${Array.from({length:n},(_,i)=>`<b>${i+1}</b>`).join('')}</div>`,`В подъезде ${n} квартир с номерами от 1 до ${n}. Сколько раз в номерах квартир встречается цифра 1?`,c)};
+GSM.plates=L=>{const p=rnd(2,3),q=rnd(4,5),p2=p===2?3:2,q2=q===4?5:4;
+  const pl3=shuffle([{c:'b',p,q},{c:'w',p,q:q2},{c:'y',p:p2,q}]),ans=pl3.findIndex(x=>x.c==='b')+1;
+  const plate=(x,i)=>`<div class="plate"><div>${shuffle(rep('🍐',x.p).concat(rep('🍒',x.q))).map(e=>`<span>${e}</span>`).join('')}</div><b>${i+1}</b></div>`;
+  return{top:qtop(`<div class="plates">${pl3.map(plate).join('')}</div>`,`На белой и синей тарелке по ${p===2?'две':'три'} груши. На жёлтой и синей по ${q} вишен. Какая тарелка синяя?`),
+    v:`На белой и синей тарелке лежат по ${p===2?'две':'три'} груши, а на жёлтой и синей тарелке лежат по ${q} вишен. Какая из тарелок синяя?`,
+    opts:[1,2,3].map(n=>({v:String(n),l:'Тарелка '+n})),ans:String(ans),spoken:'тарелка '+ans,cols:'one'}};
+GEN.smart=(L)=>{const k=pick(L===0?['except','kind','garland','fact','eat','except','kind']:L===1?['except','kind','garland','cards','fact','groups','eat']:['except','kind','garland','cards','fact','groups','digits','plates','plates']);return GSM[k](L)};
+
+// волшебный квадрат: в каждой строке и каждом столбце картинки не повторяются
+const GRID_SETS=[['🔔','🔴','🎁','⭐'],['🍎','🍐','🍌','🍇'],['⭐','🌙','☀️','☁️'],['🐱','🐶','🐰','🐻'],['🚗','🚂','✈️','⛵']];
+GEN.grid=(L)=>{const n=L===2&&Math.random()<.4?4:3,sym=shuffle(pick(GRID_SETS)).slice(0,n),rp=shuffle([...Array(n).keys()]),cp=shuffle([...Array(n).keys()]);
+  const M=rp.map(r=>cp.map(c=>(r+c)%n));let tr,tc,vis;
+  for(let t=0;t<200;t++){tr=rnd(0,n-1);tc=rnd(0,n-1);const hide=new Set([tr*n+tc]);const extra=n===3?(L===0?2:L===1?3:4):6;
+    while(hide.size<1+extra)hide.add(rnd(0,n*n-1));
+    const seen=new Set();for(let i=0;i<n;i++){if(!hide.has(tr*n+i))seen.add(M[tr][i]);if(!hide.has(i*n+tc))seen.add(M[i][tc])}
+    if(seen.size===n-1){vis=hide;break}}
+  const cells=M.flatMap((row,r)=>row.map((v,c)=>r===tr&&c===tc?'<b class="q">?</b>':vis.has(r*n+c)?'<b></b>':`<b>${sym[v]}</b>`)).join('');
+  return{top:qtop(`<div class="lsq" style="grid-template-columns:repeat(${n},1fr)">${cells}</div>`,'Что поставить вместо вопроса?'),
+    v:'Какую картинку нужно поставить вместо вопроса, чтобы в каждой строке и в каждом столбце картинки не повторялись?',
+    opts:sym.map((s,i)=>({v:String(i),l:s,c:'pic'})),ans:String(M[tr][tc]),spoken:''}};
+
 Object.keys(GEN).forEach(k=>{RUN[k]=()=>runQs(6,GEN[k],k==='fast'?tempoHTML():'')});
 
 RUN.boss=()=>{const lvl=DAYS[G.d].boss,HP=7+lvl;let hp=HP;
   card(askHTML('boss')+`<div class="arena"><div id="bH">${heroHTML(84)}</div><div class="hpbox">Дрёма<div class="hp"><i id="hpI" style="width:100%"></i></div><span id="hpN">${hp} / ${HP}</span></div>
     <div class="boss-w" id="boss" style="width:${96+lvl*8}px;height:${96+lvl*8}px">${BOSS_SVG}</div></div>`+tempoHTML()+`<div class="qa" id="qa"></div>`);
   paintHeroes();bindTempo();
-  const mk=()=>{const g=pick(['count','seq','equal','pict','fast','story','cubes','logic']),q=GEN[g](LV(G.d));q.fast=q.fast||12000;return q};
+  const mk=()=>{const g=pick(['count','seq','equal','pict','fast','story','cubes','logic','smart','grid']),q=GEN[g](LV(G.d));q.fast=q.fast||12000;return q};
   const sleepy=box=>{const s=document.createElement('div');s.innerHTML=INK;const ink=s.firstElementChild;box.appendChild(ink);setTimeout(()=>ink.remove(),1100);heroDo($('#bH .hero-w'),'sad',900)};
   const ask=()=>presentQ($('#qa'),mk(),hit,sleepy);
   const hit=()=>{const h=$('#bH').getBoundingClientRect(),b=$('#boss').getBoundingClientRect(),s=document.createElement('div');s.className='shot';s.textContent='⭐';document.body.appendChild(s);
@@ -1048,6 +1126,8 @@ function openInfo(){
     <div><b>🧠 Хитрые задачки.</b> Очередь «третий с начала и третий с конца», пары варежек, распилы бревна, кто выше, барабанные палочки.</div>
     <div><b>🦊 Примеры-загадки.</b> Число спряталось под зверем: 🦊 + 3 = 7. Позже системы: 🍎 + 🍎 = 6, 🍎 + 🍌 = 5.</div>
     <div><b>🧊 Кубики.</b> Посчитать кубики в постройке (и спрятанные сзади), хватит ли кубиков на другую постройку.</div>
+    <div><b>💡 Смекалка.</b> Задачи с подвохом: «все, кроме трёх», сколько фруктов на тарелке, гирлянда-закономерность, сложить дни недели и буквы имени, снеговики из комков, обязательно ли есть котики, тарелки-загадки, сколько раз встречается цифра 1.</div>
+    <div><b>🔲 Волшебный квадрат.</b> В каждой строке и столбце картинки не повторяются: что спряталось под вопросом?</div>
     <div><b>⚡ Быстрый счёт.</b> Примеры на время. Если не успевает, включите замедление 🐢.</div>
     <div><b>😴 Битва с Дрёмой.</b> Раз в неделю — всё вперемешку.</div></div>
     <p>Дни 1–10: числа до 5–7. Дни 11–20: до 10, сравнение «на больше/на меньше». Дни 21–30: олимпиадный уровень. Набор заданий меняется каждые 3 дня.</p>
