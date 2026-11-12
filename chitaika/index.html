@@ -311,6 +311,56 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .toggle{display:flex;align-items:center;gap:12px;background:var(--soft);border-radius:16px;padding:12px;font-weight:800;text-align:left;cursor:pointer}
 .toggle input{width:24px;height:24px;accent-color:var(--grass);flex:none}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:70;width:100%;height:100%}
+
+/* ---------- новые задания ---------- */
+.gapw{font-weight:900;font-size:42px;letter-spacing:3px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center}
+.letters{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.letters button{width:48px;height:60px;border-radius:14px;background:var(--soft);font-weight:900;font-size:30px;color:var(--ink);box-shadow:inset 0 -5px 0 var(--line);transition:transform .3s,opacity .3s}
+.letters button.ok{background:var(--coral);color:#fff;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15);animation:win .4s}
+.letters button.done{background:var(--grass);color:#fff;box-shadow:none}
+.letters button.bad{animation:shake .4s;background:#FFE2DF}
+.letters button.gone{transform:scale(0) rotate(30deg);opacity:0}
+.mem{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.mem button{aspect-ratio:1/1.05;border-radius:18px;background:linear-gradient(135deg,#8B5CFF,#FF5FB0);color:#fff;font-size:30px;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18);transition:transform .25s}
+.mem button .f{display:none}.mem button.open .b{display:none}.mem button.open .f{display:block}
+.mem button.open{background:var(--soft);color:var(--ink);transform:rotateY(180deg) scaleX(-1)}
+.mem button.p.open .f{font-size:46px}.mem button.w.open .f{font-size:18px;font-weight:900;overflow-wrap:anywhere;padding:0 4px}
+.mem button.ok{background:#E2F8EC;box-shadow:0 0 0 3px var(--grass)}
+.sky-area{position:relative;width:100%;height:340px;border-radius:22px;background:radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 2px) 0 0/36px 36px,linear-gradient(180deg,#1E2A6E,#4B3FA0);overflow:hidden}
+.star{position:absolute;left:0;top:0;display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.96);border-radius:999px;padding:7px 14px 7px 8px;font-size:20px;box-shadow:0 0 16px #FFE27A;will-change:transform;white-space:nowrap}
+.star b{font-weight:900;color:var(--ink);letter-spacing:1px}
+.star.caughtS{animation:popout .35s forwards}.star.wr{animation:shake .4s;background:#FFC9C4}
+.snake{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;align-items:center}.snake i{color:var(--muted);font-style:normal;font-weight:900}
+.seg{white-space:nowrap;min-width:62px;height:58px;border-radius:29px;border:3px dashed var(--line);display:grid;place-items:center;font-weight:900;font-size:26px;padding:0 10px}
+.seg.on{background:#E2F8EC;border:3px solid var(--grass);color:var(--ink);animation:pop .3s}
+.stiles{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.stiles button{min-width:72px;height:60px;border-radius:30px;background:var(--sun);font-weight:900;font-size:26px;color:var(--ink);box-shadow:inset 0 -5px 0 rgba(0,0,0,.12);padding:0 14px}
+.stiles button.used{visibility:hidden}.stiles button.bad{animation:shake .4s;background:#FFC9C4}
+.cl{color:var(--coral)}
+.twister{font-weight:900;font-size:27px;line-height:1.4;text-align:center;background:#FFF8E1;border-radius:20px;padding:16px;width:100%;text-wrap:balance}
+.tsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.tsteps button{border-radius:18px;padding:12px 4px;background:var(--grass);color:#fff;font-weight:900;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15)}
+.tsteps button span{font-size:30px}.tsteps button:disabled{opacity:.35}.tsteps button.ok{background:var(--sun);color:var(--ink);opacity:1}
+
+/* ---------- новый внешний вид ---------- */
+.sky::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.35) 2px,transparent 2.6px);background-size:30px 30px;opacity:.55}
+body.w1 .sky,body:not([class]) .sky,.sky{background:linear-gradient(165deg,#9BE15D 0%,#3CB878 45%,#1F7A5A 100%)}
+body.w2 .sky{background:linear-gradient(180deg,#5EE7F0 0%,#1EA7E1 45%,#1A4DB5 100%)}
+body.w3 .sky{background:linear-gradient(170deg,#FFD36E 0%,#F79A4B 45%,#C9533B 100%)}
+body.w4 .sky{background:radial-gradient(ellipse at 30% 10%,#6CF0C2 0,transparent 45%),radial-gradient(ellipse at 80% 20%,#B67CFF 0,transparent 40%),linear-gradient(180deg,#0B1D44 0%,#1E2E6E 60%,#3A3F96 100%)}
+body.w5 .sky{background:linear-gradient(170deg,#FF7EB3 0%,#FFB86C 30%,#FFE66D 55%,#7BE0A0 78%,#6AC8FF 100%)}
+body{background:#3CB878}
+.logo{text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.card{border-radius:32px;border:4px solid #fff;box-shadow:0 10px 0 rgba(20,40,60,.18),0 18px 40px rgba(20,40,60,.18);overflow:visible}
+.card::before{content:"";position:absolute;top:-4px;left:22px;right:22px;height:10px;border-radius:0 0 10px 10px;background:linear-gradient(90deg,#FF5A5F,#FFC530,#2FD07A,#12C6E0,#8B5CFF)}
+.world{background:rgba(255,255,255,.18);border:3px dashed rgba(255,255,255,.85);border-radius:34px}
+.node{border-radius:42% 58% 55% 45%/52% 45% 55% 48%}
+.node.done{background:linear-gradient(180deg,#FFF07A,#FFB21E)}
+.node.cur{background:linear-gradient(180deg,#00D4A6,#0BA5E9)}
+.play{background:linear-gradient(180deg,#00C9A7,#0B8FDB);box-shadow:inset 0 -8px 0 rgba(0,0,0,.14),0 7px 0 rgba(10,60,90,.3)}
+.bigbtn{background:linear-gradient(180deg,#38D9A9,#1FB386)}
+.ad.now{background:#FFE66D}
+.house{border-style:dashed}
 @media (max-width:440px){
   .rv-word{font-size:42px}
   .logo{font-size:23px}.bar{gap:5px}.iconbtn{width:36px;height:36px;font-size:16px}.chip{font-size:15px;padding:5px 9px 5px 6px}.chip i{font-size:16px}
@@ -462,9 +512,9 @@ const DAYS=[
  {t:'Король Клякс',mode:'all',p:'BOSS',boss:4},
  {t:'Повторяем всё',mode:'all',p:'D'},
  {t:'Праздник чтения!',mode:'all',p:'FIN',boss:5}];
-const WORLDS=[{n:'Цветочная поляна',e:'🌼',a:0,b:6,c:'w1',d:['🌼','🦋','🌷','🐝','🌸']},{n:'Морской берег',e:'🐚',a:7,b:13,c:'w2',d:['🐚','🐠','🌊','🦀','⛵']},
- {n:'Конфетные горы',e:'🍭',a:14,b:20,c:'w3',d:['🍭','🍬','🧁','🍩','🍰']},{n:'Космос',e:'🚀',a:21,b:27,c:'w4',d:['🪐','✨','🌟','🛸','☄️']},
- {n:'Замок Короля Слов',e:'🏰',a:28,b:29,c:'w5',d:['👑','🏰','🎉','💎','🎈']}];
+const WORLDS=[{n:'Волшебный лес',e:'🍄',a:0,b:6,c:'w1',d:['🍄','🌲','🦔','🍂','🌰']},{n:'Подводное царство',e:'🐙',a:7,b:13,c:'w2',d:['🐙','🐠','🫧','🐚','🪸']},
+ {n:'Страна динозавров',e:'🦕',a:14,b:20,c:'w3',d:['🦕','🌋','🦖','🌴','🥚']},{n:'Северное сияние',e:'🌌',a:21,b:27,c:'w4',d:['❄️','🌌','🐧','⛄','✨']},
+ {n:'Радужный город',e:'🌈',a:28,b:29,c:'w5',d:['🌈','🎡','🎈','🏙️','🎆']}];
 const ACT={
  glue:{n:'Склей звуки',i:'🧲',ask:'Склей звуки. Как получится?',min:2},
  ladder:{n:'Лесенка',i:'🪜',ask:'Читай ступеньки сверху вниз и нажимай на них',min:3},
@@ -555,6 +605,7 @@ if(!S.seed1){for(let i=0;i<3;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-
   ['s:rainbow','h:grad','g:g1'].forEach(k=>{if(!S.own.includes(k))S.own.push(k)});S.skin='rainbow';S.hat='grad';S.gl='g1';
   if(S.prog&&S.prog.d<3)S.prog=null;S.seed1=1}
 // Озвучка снова включена по умолчанию
+if(!S.seed2){for(let i=0;i<14;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-11'};if(S.prog&&S.prog.d<14)S.prog=null;S.seed2=1}
 if(!S.voice2){S.voiceOn=true;S.voice2=1}
 if(!S.speedV2){S.flashT=Math.max(2500,S.flashT||0);S.speedV2=1}
 if(S.voiceOn===undefined){S.voiceOn=false;S.voiceName=''}
@@ -734,7 +785,7 @@ function rdots(i,n){$('#rdots').innerHTML=n?Array.from({length:n},(_,k)=>`<span 
 function actsBar(){$('#acts').innerHTML=G.plan.map((a,k)=>`<div class="ad ${k<G.ai?'done':k===G.ai&&G.running?'now':''}" title="${ACT[a].n}">${k<G.ai?'✓':ACT[a].i}</div>`).join('')}
 
 function openDay(d){
-  G={d,plan:PLANS[DAYS[d].p],ai:S.prog&&S.prog.d===d?S.prog.ai:0,pool:dayPool(d),mist:S.prog&&S.prog.d===d?S.prog.mist||0:0,combo:0,clean:[],running:false,coins:0,seen:[]};
+  G={d,plan:planFor(d),ai:S.prog&&S.prog.d===d?S.prog.ai:0,pool:dayPool(d),mist:S.prog&&S.prog.d===d?S.prog.mist||0:0,combo:0,clean:[],running:false,coins:0,seen:[]};
   if(G.ai>=G.plan.length)G.ai=0;
   setWorld(d);$('#home').style.display='none';$('#dayScreen').hidden=false;$('#dayScreen').style.display='flex';
   $('#gTitle').innerHTML=`День ${d+1}<small>${DAYS[d].t}</small>`;$('#gHero').innerHTML=heroHTML(56,'gH');paintHeroes();
@@ -942,6 +993,101 @@ RUN.boss=()=>{
   rdots(0,HP);later(ask,200);
 };
 
+/* ================= НОВЫЕ ЗАДАНИЯ: набор меняется каждые 3 дня ================= */
+Object.assign(ACT,{
+ fill:{n:'Вставь пару букв',i:'🔤',ask:'В слове потерялись буквы. Выбери, какие нужно вставить!',min:2},
+ tapcl:{n:'Найди согласные-соседи',i:'👆',ask:'Нажми на все согласные, которые стоят рядом. Потом прочитай слово!',min:2},
+ fix:{n:'Убери лишнюю букву',i:'✂️',ask:'В слово влезла лишняя буква. Нажми на неё, чтобы убрать!',min:2},
+ memory:{n:'Мемори',i:'🃏',ask:'Открывай карточки и находи пары: слово и картинку',min:3},
+ fall:{n:'Звездопад',i:'🌠',ask:'Лови звёздочку со словом, которое подходит к картинке!',min:3},
+ snake:{n:'Слоговая змейка',i:'🐍',ask:'Собери слово из слогов. Нажимай по порядку!',min:3},
+ tongue:{n:'Скороговорки',i:'👅',ask:'Прочитай скороговорку вслух три раза: медленно, быстрее и очень быстро!',min:3}});
+const ROT=[['fill','tapcl','memory','snake','fall','review'],['fix','tongue','fill','fall','memory','review'],['tapcl','snake','fix','ladder','tongue','review'],
+ ['memory','fill','fall','fix','snake','review'],['snake','tapcl','tongue','memory','fix','review'],['fall','ladder','fill','tapcl','tongue','review']];
+function planFor(d){const D=DAYS[d];if(D.boss===5)return['tapcl','memory','tongue','boss'];if(D.boss)return['fill','snake','fall','boss'];return ROT[Math.floor(d/3)%ROT.length]}
+const ONSETS=['БЛ','ПЛ','КЛ','ГЛ','ФЛ','СЛ','БР','ПР','КР','ГР','ДР','ТР','ВР','СТ','СК','СП','СН','СМ','СВ','ЗВ','ЗМ','ШК','ШЛ','ГН','КН','ДВ','ПТ','ПЧ','ЛК','НТ','РТ','СТР','СКР','СПР','НГВ'];
+const GOODON=new Set(['БЛ','ПЛ','КЛ','ГЛ','ФЛ','СЛ','БР','ПР','КР','ГР','ДР','ТР','ВР','СТ','СК','СП','СН','СМ','СВ','ЗВ','ЗМ','ШК','ШЛ','ГН','КН','ДВ','ПТ','ПЧ','ТВ','ЗД','ЧК','СТР','СКР','СПР']);
+function sylls(w){const vi=[];[...w].forEach((c,k)=>{if(isV(c))vi.push(k)});if(vi.length<2)return[w];const out=[];let start=0;
+  for(let n=0;n<vi.length-1;n++){const a=vi[n],b=vi[n+1],cons=w.slice(a+1,b),cl=cons.replace(/[ЬЪ]/g,'');let cut;
+    if(cl.length<=1||GOODON.has(cl))cut=a+1;else{cut=a+2;if(w[cut]==='Ь'||w[cut]==='Ъ')cut++}
+    out.push(w.slice(start,cut));start=cut}
+  out.push(w.slice(start));return out}
+const markCl=t=>t.replace(/[бвгджзйклмнпрстфхцчшщ]{2,}/gi,m=>`<b class="cl">${m}</b>`);
+const nxt=(i,n,step)=>later(()=>{if(i<n)step();else actEnd()},1500);
+
+RUN.fill=()=>{const ws=shuffle(G.pool).slice(0,8);seen(ws);
+  runQuiz(ws.map(([e,w])=>{const r=runs(w)[0],rv=r.s.split('').reverse().join(''),others=shuffle(ONSETS.filter(x=>x!==r.s&&x!==rv&&x.length===r.s.length));
+    const opts=[...new Set([r.s,rv,...others])].slice(0,4);
+    return{top:`<div class="pic">${e}</div><div class="gapw">${F(w.slice(0,r.i))}<span class="q">?</span>${F(w.slice(r.i+r.s.length))}</div>`,opts:shuffle(opts).map(o=>({v:o,l:F(o)})),ans:r.s,spoken:w,fast:6000}}))};
+
+RUN.tapcl=()=>{const ws=shuffle(G.pool.filter(([,w])=>w.length<=9)).slice(0,7);seen(ws);let i=0;
+  const step=()=>{rdots(i,ws.length);const [e,w]=ws[i],need=new Set(runs(w).flatMap(r=>Array.from({length:r.s.length},(_,k)=>r.i+k)));let got=0;G.tc={need:[...need]};
+    card(askHTML('tapcl')+`<div class="pic">${e}</div><div class="letters">${[...w].map((ch,k)=>`<button data-k="${k}">${F(ch)}</button>`).join('')}</div><div class="lhint">Найди ${need.size} ${need.size<5?'буквы':'букв'}</div>`);
+    $$('#card .letters button').forEach(b=>b.onclick=()=>{const k=+b.dataset.k;if(b.classList.contains('ok')||b.classList.contains('done'))return;
+      if(need.has(k)){b.classList.add('ok');sfx.tap();got++;if(got===need.size){$$('#card .letters button').forEach(x=>x.classList.add('done'));correct(b,w,false);i++;nxt(i,ws.length,step)}}
+      else{b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');wrong()}})};
+  step()};
+
+RUN.fix=()=>{const ws=shuffle(G.pool.filter(([,w])=>w.length<=9)).slice(0,7);seen(ws);let i=0;
+  const step=()=>{rdots(i,ws.length);const [e,w]=ws[i],r=runs(w)[0],v=[...w.slice(r.i+r.s.length)].find(isV)||[...w].find(isV)||'О',bad=w.slice(0,r.i+1)+v+w.slice(r.i+1),badK=r.i+1;let done=false;G.fx={k:badK};
+    card(askHTML('fix')+`<div class="pic">${e}</div><div class="letters" id="lt">${[...bad].map((ch,k)=>`<button data-k="${k}">${F(ch)}</button>`).join('')}</div>`);
+    $$('#lt button').forEach(b=>b.onclick=()=>{if(done)return;const k=+b.dataset.k;
+      if(k===badK){done=true;b.classList.add('gone');setTimeout(()=>{b.remove();$$('#lt button').forEach(x=>x.classList.add('done'))},350);correct(b,w,false);i++;nxt(i,ws.length,step)}
+      else{b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');wrong()}})};
+  step()};
+
+RUN.memory=()=>{const ws=shuffle(G.pool.filter(([,w])=>w.length<=8)).slice(0,6);seen(ws);
+  const cards=shuffle(ws.flatMap(([e,w],k)=>[{k,t:'p',v:e},{k,t:'w',v:F(w)}]));let open=[],left=ws.length,lock=false;G.mem={cards};
+  card(askHTML('memory')+`<div class="mem">${cards.map((c,j)=>`<button data-j="${j}" class="${c.t}"><span class="b">✦</span><span class="f">${c.v}</span></button>`).join('')}</div>`);
+  $$('#card .mem button').forEach(b=>b.onclick=()=>{if(lock||b.classList.contains('open'))return;b.classList.add('open');sfx.tap();const c=cards[+b.dataset.j];open.push([b,c]);
+    if(c.t==='w')say(ws[c.k][1]);
+    if(open.length===2){const [[b1,c1],[b2,c2]]=open;open=[];
+      if(c1.k===c2.k){b1.classList.add('ok');b2.classList.add('ok');left--;correct(b2,ws[c1.k][1],false);if(!left)later(()=>actEnd(G.am<=4?3:G.am<=8?2:1),1300)}
+      else{lock=true;G.am+=.5;setTimeout(()=>{b1.classList.remove('open');b2.classList.remove('open');lock=false},900)}}})};
+
+RUN.fall=()=>{const targets=shuffle(G.pool.filter(([,w])=>w.length<=8)).slice(0,3),NEED=4;seen(targets);let wave=0;
+  const run=()=>{const [e,w]=targets[wave];let got=0;const bad=shuffle(WORDS.filter(x=>x[1]!==w&&x[0]!==e&&x[1].length<=8)).slice(0,6).map(x=>x[1]);rdots(wave,targets.length);
+    card(askHTML('fall')+`<div class="bub-top"><div class="pic">${e}</div><div class="caught" id="got">Поймано: 0 из ${NEED}</div></div><div class="sky-area" id="area"></div>`);
+    const area=$('#area'),list=[];let last=performance.now(),rq=0,alive=true,si=0;G.fall={w};
+    const spawn=()=>{if(!alive||list.length>=5)return;const ok=!list.some(o=>o.ok&&!o.el.dataset.done)||Math.random()<.4,txt=ok?w:pick(bad);
+      const el=document.createElement('button');el.className='star';el.innerHTML=`<span>⭐</span><b>${F(txt)}</b>`;el.dataset.ok=ok?1:0;area.appendChild(el);
+      const o={el,ok,x:Math.random()*Math.max(0,area.clientWidth-el.offsetWidth),y:-56,v:24+Math.random()*12+wave*3,r:Math.random()*16-8};list.push(o);
+      el.onclick=()=>{if(el.dataset.done||got>=NEED)return;
+        if(o.ok){el.dataset.done=1;el.classList.add('caughtS');sfx.pop();got++;$('#got').textContent=`Поймано: ${got} из ${NEED}`;G.combo++;S.coins++;G.coins++;save();feed(el,w);updCombo();
+          setTimeout(()=>{el.remove();const k=list.indexOf(o);if(k>=0)list.splice(k,1)},350);
+          if(got>=NEED){alive=false;clearInterval(si);toast(pick(PRAISE));say(w);later(()=>{wave++;if(wave<targets.length)run();else actEnd()},1300)}}
+        else{el.classList.remove('wr');void el.offsetWidth;el.classList.add('wr');wrong()}};
+      el.style.transform=`translate(${o.x}px,${o.y}px)`};
+    const tick=t=>{const dt=Math.min(.05,(t-last)/1000);last=t;
+      for(let k=list.length-1;k>=0;k--){const o=list[k];if(o.el.dataset.done)continue;o.y+=o.v*dt;o.el.style.transform=`translate(${o.x}px,${o.y}px) rotate(${o.r}deg)`;if(o.y>area.clientHeight+10){o.el.remove();list.splice(k,1)}}
+      if(alive||list.length)rq=requestAnimationFrame(tick)};
+    rq=requestAnimationFrame(tick);spawn();si=setInterval(spawn,1300);G.clean.push(()=>{alive=false;clearInterval(si);cancelAnimationFrame(rq)})};
+  run()};
+
+RUN.snake=()=>{let ws=shuffle(G.pool.filter(([,w])=>sylls(w).length>=2)).slice(0,6);
+  if(ws.length<5)ws=ws.concat(shuffle(WORDS.filter(x=>sylls(x[1]).length>=2&&runs(x[1]).length&&!ws.includes(x))).slice(0,6-ws.length));seen(ws);let i=0;
+  const step=()=>{rdots(i,ws.length);const [e,w]=ws[i],sy=sylls(w);let pos=0;const extra=shuffle(WORDS.flatMap(([,x])=>sylls(x)).filter(s=>!sy.includes(s)&&s.length<=4)).slice(0,2);
+    G.sn={sy,get pos(){return pos}};
+    card(askHTML('snake')+`<div class="pic">${e}</div><div class="snake" id="sl">${sy.map(()=>'<span class="seg"></span>').join('<i>·</i>')}</div><div class="stiles" id="st">${shuffle(sy.concat(extra)).map(s=>`<button data-s="${s}">${F(s)}</button>`).join('')}</div>`);
+    $$('#st button').forEach(b=>b.onclick=()=>{if(b.classList.contains('used')||pos>=sy.length)return;
+      if(b.dataset.s===sy[pos]){b.classList.add('used');const seg=$$('#sl .seg')[pos];seg.innerHTML=markCl(F(sy[pos]));seg.classList.add('on');pos++;sfx.step(pos);
+        if(pos===sy.length){correct($('#sl'),w,false);i++;nxt(i,ws.length,step)}}
+      else{b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');wrong()}})};
+  step()};
+
+const TWISTERS=['Краб крабу сделал грабли.','Брат брату брал брюки.','Клала Клава лук на полку.','Ехал Грека через реку, видит Грека — в реке рак.',
+ 'Три сороки-тараторки тараторили на горке.','Карл у Клары украл кораллы.','От топота копыт пыль по полю летит.','Шёл Прохор с ведром пшена.',
+ 'Тридцать три корабля лавировали, да не вылавировали.','Хитрую сороку поймать морока.','Гроза грозна, грозна гроза.','Плыл по морю крокодил, крокодил крабов ловил.',
+ 'Бобр добр до бобрят.','Слон смелый, слон умелый, слон слоняется весь день.','Стриж стрелой в небо взлетел.','Три трубача трубили в трубы.','Флаг на флагштоке, флажок на крылечке.','Глазастый глухарь глядел на глыбу.'];
+RUN.tongue=()=>{const list=shuffle(TWISTERS).slice(0,4);let i=0;
+  const step=()=>{rdots(i,list.length);let k=0;const STEPS=[['🐢','Медленно'],['🚶','Быстрее'],['🚀','Очень быстро']];
+    card(askHTML('tongue')+`<div class="twister">${markCl(list[i])}</div><div class="tsteps">${STEPS.map(([e,n],j)=>`<button data-j="${j}" ${j?'disabled':''}><span>${e}</span>${n}</button>`).join('')}</div><div class="lhint">Красным — согласные подряд. Читай их слитно!</div>`);
+    G.tg={get k(){return k}};
+    $$('#card .tsteps button').forEach(b=>b.onclick=()=>{if(+b.dataset.j!==k)return;b.classList.add('ok');b.disabled=true;sfx.step(k);S.coins++;G.coins++;save();updCoins();k++;
+      const nb=$$('#card .tsteps button')[k];if(nb)nb.disabled=false;
+      if(k===3){G.combo++;updCombo();correct(b,'',false);heroDo($('#gH'),'happy',1000);i++;nxt(i,list.length,step)}})};
+  step()};
+
 /* ---------- конец дня ---------- */
 function finishDay(){
   const d=G.d,st=G.mist<=3?3:G.mist<=8?2:1,prev=S.days[d],first=!prev,boss=DAYS[d].boss;
@@ -1045,7 +1191,7 @@ function openInfo(){
   if($('#voiceSel'))$('#voiceSel').onchange=e=>{S.voiceName=e.target.value;save();loadVoice();say('Привет! Я Ням. Давай читать!',1)};
   if($('#voiceTry'))$('#voiceTry').onclick=()=>say('Привет! Я Ням. Давай читать!',1);
   $('#resetB').onclick=e=>{if(!resetArm){resetArm=true;e.target.textContent='Точно? Нажмите ещё раз';e.target.style.background='#FFD9D6';setTimeout(()=>{resetArm=false},3000);return}
-    const keep={sound:S.sound,music:S.music,lower:S.lower,voiceOn:S.voiceOn,voiceName:S.voiceName};S={days:{},coins:0,flashT:2500,speedV2:1,seed1:1,voice2:1,full:3,fullDay:todayStr(),acc:'',pet:'',rec:{},own:['s:blue','h:','g:','a:','p:','b:'],skin:'blue',hat:'',gl:'',bg:'',prog:null,daily:S.daily,time:{d:'',ms:0},tip:0,...keep};save();resetArm=false;hideOv();renderHome()};
+    const keep={sound:S.sound,music:S.music,lower:S.lower,voiceOn:S.voiceOn,voiceName:S.voiceName};S={days:{},coins:0,flashT:2500,speedV2:1,seed1:1,voice2:1,full:3,fullDay:todayStr(),acc:'',pet:'',seed2:1,rec:{},own:['s:blue','h:','g:','a:','p:','b:'],skin:'blue',hat:'',gl:'',bg:'',prog:null,daily:S.daily,time:{d:'',ms:0},tip:0,...keep};save();resetArm=false;hideOv();renderHome()};
   $('#infoClose').onclick=()=>{hideOv();renderHome()};
 }
 $('#shopBtn').onclick=()=>{sfx.tap();openShop()};

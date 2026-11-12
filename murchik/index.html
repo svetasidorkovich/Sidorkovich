@@ -348,6 +348,39 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .bars div{flex:0 0 28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;font-size:11px;font-weight:800;color:var(--muted);height:100%}
 .bars i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#B48CFF,#8B5CFF)}
 .bars b{font-size:12px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.rsvp{min-height:110px;display:grid;place-items:center;width:100%;font-weight:900;font-size:40px;background:#1E1B4B;color:#fff;border-radius:22px;padding:10px;text-align:center}
+.rsvp span{animation:pop .15s}
+.rtrack{width:100%;height:8px;border-radius:4px;background:var(--soft);overflow:hidden}.rtrack i{display:block;height:100%;width:0;background:var(--grape);transition:width .2s}
+.tophalf{width:100%;text-align:center;padding:10px 0;border-bottom:4px solid var(--grape)}
+.tophalf span{display:inline-block;font-weight:900;font-size:40px;letter-spacing:2px;clip-path:inset(0 0 52% 0);line-height:1.1}
+.fact{min-height:90px;width:100%;display:grid;place-items:center;text-align:center;font-weight:900;font-size:26px;background:var(--soft);border-radius:20px;padding:12px;text-wrap:balance}
+.gapw2{font-weight:900;font-size:40px;letter-spacing:4px;text-align:center}
+.lgrid button.ok{background:var(--grass)!important;color:#fff;opacity:1;transform:none}
+.pyr{width:100%;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.prow{display:flex;justify-content:space-between;align-items:center;font-weight:900;font-size:21px;position:relative;margin:0 auto;max-width:100%;gap:6px}.prow:only-child{justify-content:center}
+.prow .dot{width:12px;height:12px;border-radius:50%;background:var(--coral);flex:none}
+.track{position:relative;width:100%;height:56px;border-radius:28px;background:repeating-linear-gradient(90deg,#3A3F5C 0 18px,#4A5070 18px 36px);overflow:hidden}
+.track span{position:absolute;top:50%;transform:translateY(-50%);font-size:34px;transition:left .15s linear}
+.track .car{left:0;top:30%}.track .me{left:0;top:70%;transition:left .6s}.track .flag{right:6px;left:auto}
+/* ---------- неоновый вид ---------- */
+.sky::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.7) 1px,transparent 1.6px),radial-gradient(rgba(255,255,255,.4) 1px,transparent 1.6px);background-size:46px 46px,23px 23px;background-position:0 0,11px 17px;opacity:.5}
+.sky{background:linear-gradient(170deg,#0F2027 0%,#203A43 50%,#2C5364 100%)}
+body.w1 .sky{background:linear-gradient(170deg,#1D2B64 0%,#4B3C99 50%,#F06BB1 100%)}
+body.w2 .sky{background:linear-gradient(170deg,#0B3866 0%,#1A6FB5 50%,#26D0CE 100%)}
+body.w3 .sky{background:linear-gradient(170deg,#2F0743 0%,#7B2A8C 50%,#FF8A5B 100%)}
+body.w4 .sky{background:radial-gradient(ellipse at 70% 15%,#5B7CFF 0,transparent 40%),linear-gradient(180deg,#000428 0%,#0A2A6B 60%,#004E92 100%)}
+body.w5 .sky{background:linear-gradient(170deg,#5B247A 0%,#A23FC9 45%,#1BCEDF 100%)}
+body{background:#1D2B64}
+.card{border:3px solid rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(140,92,255,.35),0 0 34px rgba(140,92,255,.45),0 10px 0 rgba(10,10,40,.35)}
+.world{background:rgba(255,255,255,.08);border:2px solid rgba(160,200,255,.55);box-shadow:inset 0 0 30px rgba(120,160,255,.25)}
+.node{border-radius:22px;transform:rotate(45deg)}.node>span{display:block;transform:rotate(-45deg)}.node:active{transform:rotate(45deg) scale(.93)}
+.node.cur{background:linear-gradient(180deg,#FF4F8B,#8B5CFF);box-shadow:0 0 0 4px #fff,0 0 26px #FF4F8B;animation:none}
+.node.done{box-shadow:0 0 18px rgba(255,210,80,.8)}
+.play{background:linear-gradient(90deg,#FF4F8B,#8B5CFF);box-shadow:0 0 24px rgba(255,79,139,.6),0 7px 0 rgba(20,10,60,.4)}
+.bigbtn{background:linear-gradient(180deg,#B06BFF,#7A3CF0)}
+.bigbtn.alt{background:var(--soft)}
+.chip,.iconbtn{box-shadow:0 0 12px rgba(160,200,255,.6)}
 @media (max-width:440px){
   .rv-word{font-size:42px}
   .logo{font-size:23px}.bar{gap:5px}.iconbtn{width:36px;height:36px;font-size:16px}.chip{font-size:15px;padding:5px 9px 5px 6px}.chip i{font-size:16px}
@@ -587,6 +620,7 @@ S={days:{},coins:0,sound:true,music:true,lower:true,flashT:900,wideT:1500,rec:{}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 function hungerTick(){const t=todayStr();if(!S.fullDay){S.fullDay=t;return}if(S.fullDay===t)return;
   const days=Math.round((new Date(t)-new Date(S.fullDay))/864e5);if(days>0)S.full=Math.max(0,S.full-days);S.fullDay=t;save()}
+if(!S.seed2){for(let i=0;i<12;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-11'};if(S.prog&&S.prog.d<12)S.prog=null;S.seed2=1}
 hungerTick();grantGifts();
 const F=s=>S.lower?s.toLowerCase():s;
 const doneCount=()=>Object.keys(S.days).length;
@@ -858,6 +892,151 @@ RUN.boss=()=>{const lvl=DAYS[G.d].boss,HP=8+lvl*2;let hp=HP;
       if(hp<=0){bw.classList.add('dead');confetti(160);sfx.win();say('Ура! Зевака прогнан!');later(()=>actEnd(G.am<=2?3:G.am<=5?2:1),1600)}else later(ask,350)}};
   rdots(0,HP);later(ask,200)};
 
+function runQuiz(qs){card(askHTML(G.act)+'<div class="qa" id="qa"></div>');let i=0;
+  const step=()=>{rdots(i,qs.length);presentQ($('#qa'),qs[i],()=>{i++;if(i>=qs.length)actEnd();else step()})};step()}
+/* ================= НОВЫЕ ЗАДАНИЯ НА СКОРОСТЬ: набор меняется каждые 3 дня ================= */
+const RACE=[
+['У Тимы появился робот-пылесос. Тима назвал его Жужа. Каждое утро Жужа выезжал из своего домика и убирал комнату. Однажды он заехал под кровать и не вернулся. Тима заглянул туда и рассмеялся: Жужа застрял между тапками и старым мячом. Тима освободил робота, а тот радостно пискнул и поехал дальше, будто ничего не случилось.',['Как звали робота?','Жужа','Бублик','Шустрик'],['Где застрял робот?','под кроватью','в шкафу','на кухне']],
+['После метели во дворе выросли огромные сугробы. Ребята решили построить снежную крепость. Одни катали большие комья, другие складывали стены, а самые маленькие лепили снежки. К обеду крепость была готова: с башней, окошками и даже флагом из старого шарфа. Потом началась весёлая битва снежками, и победила дружба.',['Из чего сделали флаг?','из старого шарфа','из варежки','из пакета'],['Что делали самые маленькие?','лепили снежки','строили башню','носили воду']],
+['Папа принёс домой круглый аквариум и трёх рыбок: золотую, полосатую и маленькую синюю. Аня насыпала на дно разноцветные камешки и посадила водоросли. Рыбки сразу начали играть в догонялки. Синяя рыбка оказалась самой быстрой и всегда первой подплывала к корму. Аня назвала её Молния.',['Сколько рыбок принёс папа?','три','две','пять'],['Как назвали синюю рыбку?','Молния','Звёздочка','Капелька']],
+['Осенью бабушка вырастила на огороде огромную тыкву. Мурчик решил, что это его новый домик. Он залез наверх и устроился греться на солнышке. Вечером бабушка позвала его ужинать, но котёнок так крепко спал, что ничего не слышал. Пришлось бабушке нести в дом и тыкву, и Мурчика сразу.',['Где устроился Мурчик?','на тыкве','в корзине','на крыше'],['Что пришлось нести бабушке?','тыкву и Мурчика','только тыкву','дрова']],
+['Лёва долго учился кататься на двухколёсном велосипеде. Он падал, вставал и снова садился. Папа бежал рядом и придерживал седло. Однажды Лёва оглянулся и увидел, что папа стоит далеко позади и машет ему рукой. Оказалось, что Лёва уже давно едет сам! От радости он позвонил в звонок три раза.',['Кто придерживал седло?','папа','мама','брат'],['Сколько раз Лёва позвонил в звонок?','три раза','один раз','пять раз']],
+['В детском саду готовили кукольный театр. Маша была лисой, Петя волком, а Даня зайцем. Целую неделю ребята учили слова и шили костюмы куклам. В день спектакля пришли все мамы и папы. Когда зайчик обхитрил волка, зрители громко захлопали. А после спектакля всех угостили пирогом с вишней.',['Кем была Маша?','лисой','зайцем','волком'],['Каким пирогом угостили?','с вишней','с яблоком','с капустой']],
+['Ночью в лесу проснулся маленький совёнок. Он впервые решил полетать один. Совёнок взмахнул крыльями и сел на ветку старой сосны. Оттуда был виден весь лес, серебряная река и огромная жёлтая луна. Совёнок ухнул от восторга. Мама-сова прилетела следом и сказала: «Молодец, ты уже совсем взрослый».',['На какую ветку сел совёнок?','старой сосны','берёзы','дуба'],['Какого цвета была луна?','жёлтая','белая','красная']],
+['Летом мы с папой пошли в настоящий поход. Мы несли рюкзаки, палатку и котелок. Шли по тропинке через лес, перешли ручей по камням и вышли к озеру. Там поставили палатку и развели костёр. Вечером варили кашу и смотрели на звёзды. Я впервые увидел, как падает звезда, и загадал желание.',['Что несли в поход?','рюкзаки, палатку и котелок','только удочки','санки'],['Что варили вечером?','кашу','суп','компот']],
+['Мама пекла печенье, а Мурчик сидел на табуретке и внимательно следил. Когда мама отвернулась, котёнок решил помочь и потрогал лапкой муку. Мука взлетела белым облаком! Мурчик чихнул и стал похож на маленькое привидение. Мама засмеялась и сказала, что теперь у неё есть помощник, которого видно даже в темноте.',['Что пекла мама?','печенье','торт','хлеб'],['На кого стал похож Мурчик?','на привидение','на снеговика','на зайца']],
+['На скалистом берегу моря стоит старый маяк. Каждую ночь на его вершине зажигается яркий огонь. Он вращается и светит далеко-далеко, чтобы корабли не наткнулись на камни. Раньше на маяке жил смотритель. Он поднимался по крутой лестнице из ста ступенек, чистил стёкла и следил за огнём. Сейчас маяк работает сам, но рыбаки по-прежнему говорят ему спасибо, когда возвращаются домой.',['Зачем нужен маяк?','чтобы корабли не наткнулись на камни','чтобы ловить рыбу','чтобы смотреть на звёзды'],['Сколько ступенек было на лестнице?','сто','десять','тысяча']],
+['Пчёлы живут большой семьёй в улье. У каждой пчелы есть своя работа. Одни летают за нектаром к цветам, другие строят соты из воска, третьи охраняют вход. Главная в улье — пчелиная королева. Пчёлы умеют танцевать! Танцем пчела рассказывает подругам, где растут цветы с нектаром. А из нектара получается сладкий мёд, который так любят и медведи, и дети.',['Как пчёлы рассказывают, где цветы?','танцем','жужжанием','рисунком'],['Из чего пчёлы строят соты?','из воска','из глины','из листьев']],
+['Однажды хозяйка повезла Мурчика на выставку кошек. Там были пушистые персидские коты, лысые сфинксы и огромные мейн-куны размером с собаку. Мурчик сначала испугался и спрятался в переноску. Но потом увидел, что судьи гладят котов и дают им вкусняшки. Он вышел, распушил свой радужный хвост и важно прошёлся по столу. Мурчику вручили медаль «Самый яркий кот выставки».',['Куда спрятался Мурчик?','в переноску','под стол','в сумку'],['Какую медаль получил Мурчик?','«Самый яркий кот выставки»','«Самый пушистый кот»','«Самый быстрый кот»']],
+['Синий кит — самое большое животное на Земле. Он длиннее автобуса, а весит как тридцать слонов. Сердце кита размером с маленькую машину. Удивительно, но такой великан питается крошечными рачками. Он набирает в рот огромное количество воды и процеживает её. Киты умеют петь: их песни разносятся под водой на сотни километров. Учёные до сих пор изучают, о чём поют киты.',['Чем питается синий кит?','крошечными рачками','акулами','водорослями'],['Что умеют киты?','петь','летать','лазить по деревьям']],
+['Зимой Вика решила устроить огород прямо на подоконнике. Она взяла несколько стаканчиков, насыпала землю и посадила семена лука, укропа и гороха. Каждый день девочка поливала их из маленькой лейки и записывала в тетрадь, что изменилось. Через неделю появились первые зелёные ростки. А когда на улице ещё лежал снег, Вика угостила всю семью свежим зелёным луком.',['Где Вика устроила огород?','на подоконнике','на балконе','на даче'],['Чем Вика угостила семью?','зелёным луком','клубникой','горохом']],
+['Жила-была капелька воды в большом море. Однажды солнце нагрело её, и она поднялась в небо паром. Там капелька встретила подружек, и они вместе превратились в пушистое облако. Ветер понёс облако над лесами и полями. Над горами стало холодно, и капельки упали вниз дождём. Наша капелька попала в ручей, ручей впал в реку, а река снова принесла её в море.',['Во что превратились капельки в небе?','в облако','в радугу','в снежинки'],['Куда попала капелька после дождя?','в ручей','в колодец','в лужу']],
+['В день рождения хозяйки Мурчик и мышонок Пик решили сделать ей подарок. Пик предложил нарисовать открытку, а Мурчик — собрать букет. Пока котёнок искал цветы в саду, мышонок взял краски и нарисовал на открытке их обоих. Мурчик принёс три ромашки и одуванчик. Вместе они положили подарок на подушку. Утром хозяйка увидела открытку и букет и так обрадовалась, что расцеловала обоих друзей.',['Кто нарисовал открытку?','мышонок Пик','Мурчик','хозяйка'],['Куда положили подарок?','на подушку','на стол','под ёлку']],
+['Вулкан похож на огромную гору, но внутри у него горячая расплавленная порода — магма. Иногда вулкан просыпается. Из его вершины вырываются дым, пепел и огненная лава. Лава медленно стекает по склону и застывает, превращаясь в камень. Учёные, которые изучают вулканы, называются вулканологами. Они надевают специальные костюмы, чтобы подходить близко к горячей лаве и узнавать её секреты.',['Как называется горячая порода внутри вулкана?','магма','глина','песок'],['Кто изучает вулканы?','вулканологи','космонавты','повара']],
+['Мурчик посмотрел на календарь: он тренировался почти целый месяц! Сначала он читал медленно и часто путался. Потом стал замечать слова целиком. Таблицы Шульте помогли ему видеть шире, а бегущая лапка научила не возвращаться назад. Теперь Мурчик читал быстрее ветра и понимал каждое слово. Друзья устроили ему праздник с тортом и воздушными шарами. Мурчик задул свечи и загадал желание: прочитать все книги в городской библиотеке.',['Что помогло Мурчику видеть шире?','таблицы Шульте','очки','бинокль'],['Что загадал Мурчик?','прочитать все книги в библиотеке','получить торт','научиться летать']]];
+const raceText=(d,k)=>{const half=d<20?0:9;return RACE[half+((d+k)%9)]};
+const CATS={'фрукты':['яблоко','груша','слива','банан','персик','апельсин','лимон','киви'],'животные':['кошка','собака','корова','лошадь','заяц','волк','лиса','медведь'],
+ 'транспорт':['автобус','трамвай','поезд','самолёт','машина','лодка','велосипед','метро'],'одежда':['куртка','шапка','шарф','платье','рубашка','брюки','носки','варежки'],
+ 'мебель':['стол','стул','диван','шкаф','кровать','полка','кресло','тумбочка'],'овощи':['морковь','капуста','огурец','помидор','картошка','свёкла','лук','перец'],
+ 'птицы':['воробей','синица','сорока','ворона','голубь','дятел','сова','ласточка'],'посуда':['тарелка','чашка','ложка','вилка','кастрюля','сковорода','чайник','кружка'],
+ 'цвета':['красный','синий','зелёный','жёлтый','белый','чёрный','розовый','серый'],'инструменты':['молоток','пила','отвёртка','лопата','грабли','топор','ножницы','клещи']};
+const FACTS=[['Кошки умеют мяукать',1],['Рыбы живут в воде',1],['Зимой бывает снег',1],['Солнце светит ночью',0],['У паука восемь ног',1],['Слоны умеют летать',0],['Лимон сладкий',0],
+ ['Пингвины живут в жарких странах',0],['Корова даёт молоко',1],['Дятел стучит по дереву',1],['Морковь растёт на дереве',0],['Летом обычно тепло',1],['Медведь зимой спит',1],
+ ['У рыбы есть перья',0],['Дождь идёт из облаков',1],['Луна сделана из сыра',0],['Совы хорошо видят ночью',1],['Жираф самый маленький зверь',0],['Пчёлы делают мёд',1],
+ ['Кит живёт в пустыне',0],['Вода на морозе превращается в лёд',1],['В неделе десять дней',0],['Трава бывает зелёной',1],['Бегемот умеет вязать',0],['Ёжик колючий',1],
+ ['Мороженое горячее',0],['У человека две руки',1],['Яблоки растут на яблоне',1],['Собаки умеют лаять',1],['Огурец растёт на ёлке',0],['Самолёт летает по небу',1],
+ ['Поезд плавает по морю',0],['Ночью темно',1],['Курица умеет плавать брассом',0],['В году двенадцать месяцев',1],['Снеговик любит жару',0],['Белка собирает орехи',1],
+ ['Крокодил живёт в холодильнике',0],['Лиса рыжая',1],['Улитка бегает быстрее всех',0]];
+const ALPH='АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ';
+const LOOK=[['Ш','ЩИЦП'],['Б','ВРЬЪ'],['Н','ИПКМ'],['Р','ВБЯФ'],['О','СЮЭД'],['Ж','ХКЗ'],['Т','ГПЛ'],['Л','ДПАМ'],['З','ЭЕВ'],['К','ЖНХ']];
+Object.assign(ACT,{
+ schulteL:{n:'Шульте с буквами',i:'🔠',ask:'Смотри в центр и находи буквы по алфавиту: А, Б, В…',min:2},
+ rsvp:{n:'Скоростной поезд',i:'🚂',ask:'Слова будут появляться по одному. Читай про себя и не отставай от поезда!',min:2},
+ odd:{n:'Лишнее слово',i:'🙃',ask:'Быстро найди слово, которое не подходит к остальным',min:2},
+ tops:{n:'Верхушки слов',i:'✂️',ask:'Видна только верхняя половина слов. Догадайся, что написано!',min:2},
+ truth:{n:'Правда или выдумка?',i:'🤥',ask:'Читай быстро и отвечай: это правда или выдумка?',min:2},
+ letter:{n:'Охотник за буквой',i:'🎯',ask:'Найди и нажми все нужные буквы в таблице, как можно быстрее!',min:2},
+ missing:{n:'Пропавшие буквы',i:'🕳️',ask:'Из слова пропали буквы. Найди, какое это слово!',min:2},
+ pyramid:{n:'Пирамида',i:'🔺',ask:'Смотри на точку в центре и запоминай слова по краям пирамиды!',min:2},
+ anagram:{n:'Перепутанные буквы',i:'🔀',ask:'Буквы внутри слова перепутались. Узнай слово с одного взгляда!',min:2},
+ race:{n:'Гонка',i:'🏁',ask:'Прочитай рассказ быстрее, чем доедет машинка. Потом будут вопросы!',min:4}});
+['schulteL','rsvp','tops','truth','letter','missing','pyramid','anagram','race','odd'].forEach(k=>TIMED.push(k));
+const MROT=[['schulteL','rsvp','odd','tops','truth','race'],['letter','missing','pyramid','anagram','rsvp','race'],['schulteL','truth','tops','odd','pyramid','race'],
+ ['letter','anagram','missing','rsvp','truth','race'],['schulteL','pyramid','odd','tops','anagram','race'],['letter','rsvp','truth','missing','pyramid','race']];
+function planFor(d){const D=DAYS[d];if(D.boss===5)return['letter','rsvp','race','boss'];if(D.boss)return['schulteL','rsvp','odd','boss'];return MROT[Math.floor(d/3)%MROT.length]}
+const nextOr=(i,n,step,fin)=>later(()=>{if(i<n)step();else (fin||actEnd)()},1200);
+
+RUN.schulteL=()=>{const n=G.d<15?4:5,N=n*n;let tab=0;const times=[];const COLS=['#FFE3E3','#E3F2FF','#E6F9E8','#FFF4CC','#F1E6FF','#FFE6F4'];
+  const one=()=>{rdots(tab,2);let next=0;const ids=shuffle(Array.from({length:N},(_,i)=>i));
+    card(askHTML('schulteL')+`<div class="target">Найди: <b id="schN">${ALPH[0]}</b> · <span id="schT">0,0 с</span></div>
+      <div class="sch" style="grid-template-columns:repeat(${n},1fr);font-size:${n===5?24:28}px">${ids.map(x=>`<button data-n="${x}" style="background:${pick(COLS)}">${ALPH[x]}</button>`).join('')}</div>`+tempoHTML());bindTempo();
+    const t0=performance.now(),iv=setInterval(()=>{const e=$('#schT');if(e)e.textContent=fmtT(performance.now()-t0)},100);G.clean.push(()=>clearInterval(iv));G.sch={get next(){return next}};
+    $$('#card .sch button').forEach(b=>b.onclick=()=>{const v=+b.dataset.n;
+      if(v===next){b.classList.add('ok');sfx.tap();next++;$('#schN').textContent=next<N?ALPH[next]:'✓';
+        if(next>=N){clearInterval(iv);times.push((performance.now()-t0)/N);S.coins+=3;G.coins+=3;save();updCoins();bumpCoins();toast('Готово! +3 🪙');sfx.ok();tab++;
+          later(()=>{if(tab<2)one();else{const a=times.reduce((x,y)=>x+y,0)/times.length/1000,lim=[2.6*K(),4.4*K()];actEnd(a<=lim[0]?3:a<=lim[1]?2:1)}},1200)}}
+      else if(!b.classList.contains('ok')){b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');G.am++;sfx.bad()}})};
+  one()};
+
+RUN.rsvp=()=>{const [t,q1]=raceText(G.d,4),words=t.split(/\s+/),base=60+G.d*3,wpm=()=>Math.max(15,Math.round(base/K()));
+  card(askHTML('rsvp')+tempoHTML()+`<div class="speed" id="spd">🚂 Скорость: ${wpm()} слов в минуту</div><div class="rsvp" id="rv"><button class="bigbtn" id="rgo">▶ Поехали!</button></div><div class="rtrack"><i id="rbar"></i></div>`);
+  bindTempo(()=>{$('#spd').textContent='🚂 Скорость: '+wpm()+' слов в минуту'});
+  let k=0,tm=0;
+  const fin=()=>{clearTimeout(tm);S.coins+=3;G.coins+=3;save();updCoins();toast('Приехали! +3 🪙');const [qq,r,...w]=q1;
+    later(()=>{card(`<div class="ask">Что было в рассказе?</div><div class="qa" id="qa"></div>`);presentQ($('#qa'),{top:`<div class="storyq">${qq}</div>`,opts:shuffle([r,...w]).map(x=>({v:x,l:x,c:'sm'})),cols:'one',ans:r,spoken:r},()=>actEnd(G.am===0?3:2))},900)};
+  const show=()=>{if(k>=words.length)return fin();const w=words[k++];$('#rv').innerHTML=`<span>${w}</span>`;$('#rbar').style.width=(k/words.length*100)+'%';
+    tm=setTimeout(show,60000/wpm()*Math.max(.6,Math.min(1.8,.45+w.length/10)))};
+  G.clean.push(()=>clearTimeout(tm));G.pskip=()=>{clearTimeout(tm);fin()};
+  $('#rgo').onclick=()=>{sfx.tap();$$('#card .tempo button').forEach(x=>x.disabled=true);show()}};
+
+RUN.odd=()=>{const names=Object.keys(CATS);
+  runQuiz(Array.from({length:8},()=>{const [a,b]=shuffle(names).slice(0,2),three=shuffle(CATS[a]).slice(0,3),o=pick(CATS[b]);
+    return{top:`<div class="storyq">Какое слово лишнее?</div>`,opts:shuffle([...three,o]).map(x=>({v:x,l:F(x),c:'sm'})),ans:o,spoken:o,fast:6000}}))};
+
+RUN.tops=()=>{const src=LV(G.d)===2?PGROUPS:GROUPS.slice(10);
+  runQuiz(shuffle(src).slice(0,8).map(g=>{const w=pick(g);return{top:`<div class="tophalf"><span>${F(w)}</span></div>`,opts:shuffle(g).map(x=>({v:x,l:F(x),c:'sm'})),cols:g[0].length>9?'one':'',ans:w,spoken:w,fast:7000}}))};
+
+RUN.truth=()=>{let T=45000*K(),ok=0,bad=0,lock=true,cur=null;const list=shuffle(FACTS);let n=0;
+  card(askHTML('truth')+tempoHTML()+`<div class="speed" id="spd">⏱ Время: ${Math.round(T/1000)} секунд</div><div class="qa"><div class="tbar" id="ptb"></div><div class="caught" id="pc">Верно: 0</div>
+    <div class="fact" id="ff"><button class="bigbtn" id="pgo">▶ Старт</button></div><div class="opts"><button class="opt yes sm" data-v="1">Правда</button><button class="opt no sm" data-v="0">Выдумка</button></div></div>`);
+  bindTempo(()=>{T=45000*K();$('#spd').textContent='⏱ Время: '+Math.round(T/1000)+' секунд'});
+  const next=()=>{cur=list[n++%list.length];G.fact={ans:cur[1]};$('#ff').innerHTML=`<span>${cur[0]}</span>`;lock=false};
+  $$('#card .opt').forEach(btn=>btn.onclick=()=>{if(lock)return;lock=true;const r=(btn.dataset.v==='1')===!!cur[1];
+    if(r){ok++;S.coins++;G.coins++;G.combo++;sfx.tap();$('#pc').textContent='Верно: '+ok}else{bad++;G.am++;G.combo=0;sfx.bad();$('#ff').animate([{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'none'}],{duration:250})}
+    updCombo();save();updCoins();later(next,r?150:500)});
+  $('#pgo').onclick=()=>{sfx.tap();$$('#card .tempo button').forEach(x=>x.disabled=true);$('#ptb').innerHTML=`<i style="animation-duration:${T}ms"></i>`;next();
+    later(()=>{lock=true;$('#ff').innerHTML=`<span>Верно: ${ok}</span>`;toast('Время вышло!');heroDo($('#gH'),'happy',900);later(()=>actEnd(ok>=10&&bad<=2?3:ok>=6?2:1),1400)},T)}};
+
+RUN.letter=()=>{let tab=0;const times=[];
+  const one=()=>{rdots(tab,3);const [tg,lk]=pick(LOOK),n=5,N=n*n,cnt=5+Math.floor(Math.random()*3);const cells=shuffle([...Array(cnt).fill(tg),...Array.from({length:N-cnt},()=>pick(lk.split('')))]);let found=0;
+    G.lt={tg};card(askHTML('letter')+`<div class="target">Найди все буквы <b class="tw">${tg}</b> · <span id="lf">0 из ${cnt}</span></div><div class="sch lgrid" style="grid-template-columns:repeat(${n},1fr);font-size:26px">${cells.map(c=>`<button data-c="${c}">${c}</button>`).join('')}</div>`+tempoHTML());bindTempo();
+    const t0=performance.now();
+    $$('#card .lgrid button').forEach(b=>b.onclick=()=>{if(b.classList.contains('ok'))return;
+      if(b.dataset.c===tg){b.classList.add('ok');sfx.tap();found++;$('#lf').textContent=`${found} из ${cnt}`;
+        if(found===cnt){times.push((performance.now()-t0)/cnt);S.coins+=3;G.coins+=3;save();updCoins();bumpCoins();toast('Все найдены! +3 🪙');sfx.ok();tab++;
+          later(()=>{if(tab<3)one();else{const a=times.reduce((x,y)=>x+y,0)/times.length/1000;actEnd(a<=1.6*K()&&G.am<=2?3:a<=3*K()?2:1)}},1100)}}
+      else{b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');G.am++;sfx.bad()}})};
+  one()};
+
+RUN.missing=()=>{const L=LV(G.d),gs=shuffle(GROUPS.filter(g=>g.every(x=>x.length>=4))).slice(0,8);
+  runQuiz(gs.map(g=>{const w=pick(g),others=g.filter(x=>x!==w);let pat=w;
+    for(let t=0;t<40;t++){const ks=shuffle(Array.from({length:w.length-1},(_,i)=>i+1)).slice(0,L===0?1:2);const p=[...w].map((c,i)=>ks.includes(i)?'_':c).join('');
+      const re=new RegExp('^'+p.replace(/_/g,'.')+'$');if(!others.some(x=>re.test(x))){pat=p;break}}
+    return{top:`<div class="gapw2">${F(pat)}</div>`,opts:shuffle(g).map(x=>({v:x,l:F(x),c:'sm'})),cols:g[0].length>9?'one':'',ans:w,spoken:w,fast:6000}}))};
+
+RUN.pyramid=()=>{let i=0;const R=4;
+  const step=()=>{rdots(i,R);const rows=Array.from({length:5},()=>shuffle(SHORTW).slice(0,2)),last=rows[4],alt=shuffle(SHORTW.filter(x=>!last.includes(x))).slice(0,3);let replay=false;
+    const q={top:'<div class="storyq">Какие слова были в самом низу?</div>',opts:shuffle([[last[0],last[1]],[alt[0],last[1]],[last[0],alt[1]],[alt[2],alt[0]]]).map(([x,y])=>({v:x+'|'+y,l:`${F(x)} · ${F(y)}`,c:'sm'})),cols:'one',ans:last[0]+'|'+last[1],spoken:'',fast:7000};
+    card(askHTML('pyramid')+tempoHTML()+`<div class="pyr" id="py"><button class="bigbtn" id="showW" style="max-width:240px;margin:0 auto">Показать</button></div><div class="qa" id="qa"></div>`);bindTempo();
+    const show=()=>{$('#py').innerHTML=rows.map((r,k)=>`<div class="prow" style="width:${30+k*17.5}%"><span>${F(r[0])}</span><i class="dot"></i><span>${F(r[1])}</span></div>`).join('');$('#qa').innerHTML='';
+      later(()=>{$('#py').innerHTML='<div class="prow"><i class="dot"></i></div>';
+        presentQ($('#qa'),q,()=>{i++;if(i<R)step();else actEnd()});
+        $('#qa').insertAdjacentHTML('beforeend','<button class="again" id="againBtn">Показать ещё раз</button>');$('#againBtn').onclick=()=>{replay=true;show()}},3500*K())};
+    $('#showW').onclick=show};
+  step()};
+
+RUN.anagram=()=>{const gs=shuffle(GROUPS.filter(g=>g.every(x=>x.length>=5))).slice(0,8);
+  const mix=w=>{if(w.length<4)return w;for(let t=0;t<20;t++){const mid=shuffle([...w.slice(1,-1)]).join(''),m=w[0]+mid+w[w.length-1];if(m!==w)return m}return w};
+  runQuiz(gs.map(g=>{const w=pick(g);return{top:`<div class="gapw2">${F(mix(w))}</div>`,opts:shuffle(g).map(x=>({v:x,l:F(x),c:'sm'})),cols:g[0].length>9?'one':'',ans:w,spoken:w,fast:6000}}))};
+
+RUN.race=()=>{const [t,qa,qb]=raceText(G.d,0),n=wc(t);let target=Math.round((50+G.d*2.5)/K());
+  card(askHTML('race')+tempoHTML()+`<div class="intro"><div class="big">🏎️</div><p>В рассказе ${n} слов. Машинка поедет с твоей целевой скоростью: <b id="tgt">${target}</b> слов в минуту. Обгони её!</p></div><button class="bigbtn" id="tgo">▶ Старт</button>`);
+  bindTempo(()=>{target=Math.round((50+G.d*2.5)/K());$('#tgt').textContent=target});
+  $('#tgo').onclick=()=>{sfx.tap();try{speechSynthesis.cancel()}catch(e){}const t0=performance.now(),dur=n/target*60000;
+    card(`<div class="track"><span class="car" id="car">🏎️</span><span class="me" id="me">🐱</span><span class="flag">🏁</span></div><div class="story">${t}</div><button class="bigbtn" id="tdone">✓ Прочитал!</button>`);
+    const iv=setInterval(()=>{const c=$('#car');if(c)c.style.left=Math.min(88,(performance.now()-t0)/dur*88)+'%'},120);G.clean.push(()=>clearInterval(iv));
+    $('#tdone').onclick=()=>{clearInterval(iv);const ms=performance.now()-t0,wpm=Math.round(n/(ms/60000)),beat=ms<dur;$('#me').style.left='88%';G.tw={wpm};
+      const qs=[qa,qb].map(([qq,r,...w])=>({top:`<div class="storyq">${qq}</div>`,opts:shuffle([r,...w]).map(x=>({v:x,l:x,c:'sm'})),cols:'one',ans:r,spoken:r}));let qi=0,right=0;
+      const ask=()=>{card(`<div class="ask">Вопрос ${qi+1} из 2</div><div class="qa" id="qa"></div>`);const before=G.am;presentQ($('#qa'),qs[qi],()=>{if(G.am===before)right++;qi++;if(qi<2)ask();else result()})};
+      const result=()=>{const ok=wpm<=300,prev=S.wpmBest||0,rec=ok&&right===2&&wpm>prev;
+        if(ok){S.wpm=(S.wpm||[]).concat([{d:G.d+1,w:wpm,r:right,t:todayStr()}]).slice(-60);if(rec)S.wpmBest=wpm}
+        const st=1+(right===2?1:0)+(ok&&beat?1:0),earn=rec?8:beat?5:3;S.coins+=earn;G.coins+=earn;save();updCoins();
+        card(`<div class="intro"><div id="aHero">${heroHTML(100)}</div><div class="wpm">${ok?wpm:'—'}<small> слов в минуту</small></div>
+          <p>${!ok?'Ого, очень быстро! Похоже, кнопку нажали раньше времени.':beat?'Ты обогнал машинку! 🏁':'Машинка приехала первой. В следующий раз получится!'} ${right<2?'В ответах были ошибки, читай внимательнее.':''} ${rec?'Новый рекорд! 🎉':''} +${earn} 🪙</p></div><button class="bigbtn" id="tnext">Дальше ▶</button>`);
+        paintHeroes();heroDo($('#aHero .hero-w'),beat&&right===2?'happy':'sad',1200);if(rec||beat){confetti(110);sfx.win()}
+        $('#tnext').onclick=()=>{sfx.tap();actEnd(st)}};
+      later(ask,700)}}};
+
 /* ================= КОНФЕТТИ ================= */
 const cv=$('#fx'),cx=cv.getContext('2d');let parts=[],raf=0;
 function confetti(n=140){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;cv.width=innerWidth;cv.height=innerHeight;
@@ -900,7 +1079,7 @@ function renderHome(){
       if(d>w.a)sec.insertAdjacentHTML('beforeend','<div class="steps"><span></span><span></span><span></span></div>');
       const D=DAYS[d],op=unlocked(d),dn=S.days[d],isCur=d===cd&&op&&!dn;
       const nw=document.createElement('div');nw.className='nw p'+[0,1,2,1][d%4];
-      nw.innerHTML=`<button class="node ${D.boss?'boss':''} ${dn?'done':isCur?'cur':op?'':'lock'}" aria-label="День ${d+1}: ${D.t}">${!op?'🔒':D.boss===5?'👑':D.boss?(dn?'🏆':'👾'):d+1}</button>
+      nw.innerHTML=`<button class="node ${D.boss?'boss':''} ${dn?'done':isCur?'cur':op?'':'lock'}" aria-label="День ${d+1}: ${D.t}"><span>${!op?'🔒':D.boss===5?'👑':D.boss?(dn?'🏆':'😴'):d+1}</span></button>
         <div class="nlbl">${D.boss?'':'День '+(d+1)+': '}${D.t}</div><div class="nst">${dn?[1,2,3].map(k=>`<span class="${k<=dn.stars?'':'dim'}">⭐</span>`).join(''):''}</div>
         ${isCur?`<div class="mini">${heroHTML(46)}</div>`:''}`;
       nw.querySelector('.node').onclick=()=>{if(op){sfx.tap();openDay(d)}else{sfx.bad();$('#say').innerHTML=S.days[d-1]?'Этот день откроется <b>завтра</b>. Отдыхай!':`Сначала пройди <b>день ${d}</b>!`;scrollTo({top:0,behavior:'smooth'})}};
@@ -924,7 +1103,7 @@ function rdots(i,n){$('#rdots').innerHTML=n?Array.from({length:n},(_,k)=>`<span 
 function actsBar(){$('#acts').innerHTML=G.plan.map((a,k)=>`<div class="ad ${k<G.ai?'done':k===G.ai&&G.running?'now':''}" title="${ACT[a].n}">${k<G.ai?'✓':ACT[a].i}</div>`).join('')}
 
 function openDay(d){
-  G={d,plan:PLANS[DAYS[d].p],ai:S.prog&&S.prog.d===d?S.prog.ai:0,pool:[],mist:S.prog&&S.prog.d===d?S.prog.mist||0:0,combo:0,clean:[],running:false,coins:0,seen:[]};
+  G={d,plan:planFor(d),ai:S.prog&&S.prog.d===d?S.prog.ai:0,pool:[],mist:S.prog&&S.prog.d===d?S.prog.mist||0:0,combo:0,clean:[],running:false,coins:0,seen:[]};
   if(G.ai>=G.plan.length)G.ai=0;
   setWorld(d);$('#home').style.display='none';$('#dayScreen').hidden=false;$('#dayScreen').style.display='flex';
   $('#gTitle').innerHTML=`День ${d+1}<small>${DAYS[d].t}</small>`;$('#gHero').innerHTML=heroHTML(56,'gH');paintHeroes();
