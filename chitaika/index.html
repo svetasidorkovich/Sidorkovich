@@ -361,6 +361,18 @@ body{background:#3CB878}
 .bigbtn{background:linear-gradient(180deg,#38D9A9,#1FB386)}
 .ad.now{background:#FFE66D}
 .house{border-style:dashed}
+
+#thinkO{position:absolute;inset:0;z-index:30;border-radius:inherit;background:rgba(255,255,255,.72);display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+#thinkO.on{display:flex;animation:pop .25s}
+#thinkO b{font-size:64px;line-height:1;animation:shake .5s}
+#thinkO span{font-family:var(--display);font-size:26px;color:var(--ink)}
+#thinkO small{font-weight:800;color:#E2483D;font-size:16px}
+#thinkO i{display:block;width:60%;height:10px;border-radius:5px;background:#FFC530;transform-origin:left;animation:thinkbar linear forwards}
+@keyframes thinkbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.surp{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;border-radius:20px;background:linear-gradient(135deg,#8B5CFF,#FF5FB0);color:#fff;font-weight:900;font-size:17px;text-align:left;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15)}
+.surp .ic{font-size:36px;animation:jump 1.4s ease-in-out infinite}.surp small{display:block;font-weight:800;opacity:.9;font-size:13px}
+.item .newb{position:absolute;top:4px;right:4px;background:#FF5A5F;color:#fff;font-size:10px;font-weight:900;border-radius:8px;padding:1px 5px}
+.item{position:relative}
 @media (max-width:440px){
   .rv-word{font-size:42px}
   .logo{font-size:23px}.bar{gap:5px}.iconbtn{width:36px;height:36px;font-size:16px}.chip{font-size:15px;padding:5px 9px 5px 6px}.chip i{font-size:16px}
@@ -577,7 +589,41 @@ const DECOR=[{id:'cactus',n:'Кактус',e:'🌵',p:35},{id:'yoyo',n:'Йо-й�
 const GIFTDAYS=[5,10,15,20,25];
 const SHOP={s:{n:'Цвет',L:SKINS,k:'skin'},h:{n:'Шапки',L:HATS,k:'hat'},g:{n:'Очки',L:GLS,k:'gl'},a:{n:'В руки',L:ACCS,k:'acc'},p:{n:'Питомцы',L:PETS,k:'pet'},b:{n:'Фон домика',L:BGS,k:'bg'},r:{n:'Домик 🏠',L:DECOR,room:1},f:{n:'Кухня 🍎',L:FOODS,food:1}};
 const COLL=['s','h','g','a','p','b','r'];
-const collTotal=()=>COLL.reduce((a,t)=>a+SHOP[t].L.filter(x=>x.id&&(x.p||x.gift)).length,0),collHave=()=>S.own.filter(k=>{const [t,id]=k.split(':');return id&&COLL.includes(t)}).length;
+const collTotal=()=>COLL.reduce((a,t)=>a+SHOP[t].L.filter(x=>x.id&&!x.old&&(x.p||x.gift)).length,0),collHave=()=>S.own.filter(k=>{const [t,id]=k.split(':');const it=id&&COLL.includes(t)&&SHOP[t].L.find(x=>x.id===id);return it&&!it.old}).length;
+
+/* ---------- новый гардероб (ноябрь): старые вещи видны только тем, кто их купил ---------- */
+[[HATS,'h'],[GLS,'g'],[ACCS,'a'],[PETS,'p'],[DECOR,'r'],[BGS,'b']].forEach(([L,t])=>L.forEach(it=>{if(it.id&&!it.gift)it.old=1}));
+HATS.push(...[{id:'n_straw',n:'Клубничка',e:'🍓',p:35},{id:'n_tulip',n:'Тюльпан',e:'🌷',p:35},{id:'n_bug',n:'Божья коровка',e:'🐞',p:40},{id:'n_lemon',n:'Лимончик',e:'🍋',p:40},
+ {id:'n_frog',n:'Лягушонок',e:'🐸',p:55},{id:'n_crab',n:'Крабик',e:'🦀',p:55},{id:'n_donut',n:'Пончик',e:'🍩',p:60},{id:'n_feath',n:'Пёрышко',e:'🪶',p:60},
+ {id:'n_cloud',n:'Облачко',e:'☁️',p:70},{id:'n_bolt',n:'Молния',e:'⚡',p:80},{id:'n_sun',n:'Солнышко',e:'🌞',p:90},{id:'n_cake',n:'Тортик',e:'🍰',p:100},
+ {id:'n_target',n:'Мишень',e:'🎯',p:110},{id:'n_coral',n:'Коралл',e:'🪸',p:130,d:7},{id:'n_orb',n:'Волшебный шар',e:'🔮',p:180,d:10},{id:'n_whirl',n:'Звёздный вихрь',e:'💫',p:220,d:14},{id:'n_rosette',n:'Орден',e:'🏵️',p:260,d:18}]);
+GLS.push(...[{id:'n_hearts',n:'Сердечки',e:'💕',p:50},{id:'n_spark',n:'Искорки',e:'✨',p:50},{id:'n_bubl',n:'Пузырики',e:'🫧',p:60},{id:'n_loupe',n:'Лупа сыщика',e:'🔍',p:70},{id:'n_hyp',n:'Гипноз',e:'🌀',p:90,d:7},{id:'n_eye',n:'Глазастик',e:'👀',p:120,d:12}]);
+ACCS.push(...[{id:'n_pencil',n:'Карандаш',e:'✏️',p:30},{id:'n_crayon',n:'Мелок',e:'🖍️',p:30},{id:'n_cookie',n:'Печенька',e:'🍪',p:30},{id:'n_ruler',n:'Линейка',e:'📐',p:40},
+ {id:'n_bucket',n:'Ведёрко',e:'🪣',p:40},{id:'n_mara',n:'Маракас',e:'🪇',p:45},{id:'n_disc',n:'Летающий диск',e:'🥏',p:55},{id:'n_abacus',n:'Счёты',e:'🧮',p:60},
+ {id:'n_flask',n:'Колба',e:'🧪',p:60},{id:'n_bowl',n:'Кегли',e:'🎳',p:70},{id:'n_violin',n:'Скрипка',e:'🎻',p:80},{id:'n_sax',n:'Саксофон',e:'🎷',p:90},
+ {id:'n_skate',n:'Конёк',e:'⛸️',p:100},{id:'n_roll',n:'Ролики',e:'🛼',p:120},{id:'n_comp',n:'Компас',e:'🧭',p:110,d:7},{id:'n_lant',n:'Фонарик',e:'🏮',p:130,d:8},
+ {id:'n_map',n:'Карта сокровищ',e:'🗺️',p:150,d:10},{id:'n_disco',n:'Диско-шар',e:'🪩',p:200,d:14},{id:'n_alien',n:'Пришелец',e:'👾',p:250,d:18},{id:'n_medal',n:'Орден героя',e:'🎖️',p:300,d:22}]);
+PETS.push(...[{id:'n_duck',n:'Утёнок',e:'🦆',p:120},{id:'n_cater',n:'Гусеничка',e:'🐛',p:110},{id:'n_liz',n:'Ящерка',e:'🦎',p:150},{id:'n_puff',n:'Рыба-ёж',e:'🐡',p:160},
+ {id:'n_flam',n:'Фламинго',e:'🦩',p:200},{id:'n_giraf',n:'Жирафик',e:'🦒',p:220},{id:'n_zebra',n:'Зебра',e:'🦓',p:220},{id:'n_eleph',n:'Слонёнок',e:'🐘',p:250,d:7},
+ {id:'n_seal',n:'Тюлень',e:'🦭',p:260,d:10},{id:'n_otter',n:'Выдра',e:'🦦',p:280,d:12},{id:'n_sloth',n:'Ленивец',e:'🦥',p:300,d:14},{id:'n_peac',n:'Павлин',e:'🦚',p:350,d:16},
+ {id:'n_bronto',n:'Бронтозавр',e:'🦕',p:400,d:18},{id:'n_whale',n:'Кит',e:'🐳',p:450,d:21}]);
+DECOR.push(...[{id:'n_chair',n:'Стульчик',e:'🪑',p:30},{id:'n_case',n:'Чемодан',e:'🧳',p:40},{id:'n_tea',n:'Чайник',e:'🫖',p:45},{id:'n_win',n:'Окошко',e:'🪟',p:50},
+ {id:'n_vase',n:'Ваза',e:'🏺',p:60},{id:'n_radio',n:'Радио',e:'📻',p:70},{id:'n_bath',n:'Ванна',e:'🛁',p:90},{id:'n_scoot',n:'Самокат',e:'🛴',p:100},
+ {id:'n_boat',n:'Кораблик',e:'⛵',p:110},{id:'n_bike',n:'Велосипед',e:'🚲',p:120},{id:'n_canoe',n:'Лодочка',e:'🛶',p:140},{id:'n_joy',n:'Джойстик',e:'🕹️',p:150},
+ {id:'n_pc',n:'Компьютер',e:'🖥️',p:160},{id:'n_camp',n:'Палатка',e:'🏕️',p:180},{id:'n_fount',n:'Фонтан',e:'⛲',p:220,d:7},{id:'n_volc',n:'Вулкан',e:'🌋',p:240,d:10},
+ {id:'n_wheel',n:'Колесо обозрения',e:'🎡',p:260,d:12},{id:'n_coaster',n:'Американские горки',e:'🎢',p:300,d:14},{id:'n_palace',n:'Дворец',e:'🏯',p:350,d:21}]);
+BGS.push(...[{id:'n_meadow',n:'Цветочный луг',bg:'radial-gradient(circle at 20% 80%,#FF8FCB 0 3%,transparent 4%),radial-gradient(circle at 70% 85%,#FFE45C 0 3%,transparent 4%),linear-gradient(180deg,#BDEBFF 0 55%,#8EE07A 55%)',p:80},
+ {id:'n_sea2',n:'Подводный мир',bg:'radial-gradient(circle at 30% 30%,rgba(255,255,255,.5) 0 2%,transparent 3%),linear-gradient(180deg,#5CE1E6,#2F6BFF 70%,#E8C27A 70%)',p:100},
+ {id:'n_jungle',n:'Джунгли',bg:'linear-gradient(180deg,#9BE07A 0 20%,#3FAF5A 20% 60%,#1E7A44 60%)',p:110},
+ {id:'n_winter',n:'Зимняя сказка',bg:'radial-gradient(circle at 15% 20%,#fff 0 1.5%,transparent 2%),radial-gradient(circle at 60% 35%,#fff 0 1.5%,transparent 2%),linear-gradient(180deg,#B9D6FF 0 58%,#F4F8FF 58%)',p:120},
+ {id:'n_desert',n:'Пустыня',bg:'radial-gradient(circle at 80% 20%,#FFF3A0 0 7%,transparent 8%),linear-gradient(180deg,#FFD9A0 0 55%,#F2B35E 55%)',p:120},
+ {id:'n_sweet',n:'Сладкий город',bg:'repeating-linear-gradient(45deg,#FFD1E8 0 14px,#FFF3F9 14px 28px)',p:150,d:7},
+ {id:'n_aurora',n:'Северное сияние',bg:'radial-gradient(ellipse at 30% 10%,#6CF0C2 0,transparent 45%),radial-gradient(ellipse at 80% 20%,#B67CFF 0,transparent 40%),linear-gradient(180deg,#0B1D44,#3A3F96)',p:200,d:12},
+ {id:'n_sunset',n:'Пляж на закате',bg:'linear-gradient(180deg,#FFB86C 0 30%,#FF6A88 30% 55%,#5C8DF0 55% 75%,#FFE09A 75%)',p:220,d:16}]);
+SKINS.push(...[{id:'n_marm',n:'Мармелад',c:['#FF7EB6','#FFD84D'],p:90},{id:'n_wave',n:'Морская волна',c:['#4FD1C5','#2B7BB9'],p:100},{id:'n_cherry',n:'Вишнёвый',c:['#E8466A','#9E1B45'],p:110},
+ {id:'n_peach',n:'Персиковый',c:['#FFB38A','#FF7A59'],p:110},{id:'n_emer',n:'Изумрудный',c:['#2ECC71','#117A65'],p:140,d:7},{id:'n_ice',n:'Ледяной',c:['#E6F7FF','#7CC7FF'],p:160,d:10}]);
+const SURPRISE=50;
+
 function findItem(key){const [t,id]=key.split(':');return SHOP[t]&&SHOP[t].L.find(x=>x.id===id)}
 function grantGifts(){const got=[];COLL.forEach(t=>SHOP[t].L.forEach(it=>{if(it.gift&&S.days[it.gift-1]&&!S.own.includes(t+':'+it.id)){S.own.push(t+':'+it.id);got.push(it)}}));if(got.length)save();return got}
 const FULLMAX=5;
@@ -830,13 +876,19 @@ function feed(fromEl,text){
   an.onfinish=()=>{f.remove();heroDo(hero,'eat',500);sfx.chomp();updCoins();bumpCoins()};
 }
 function correct(el,spoken,fast){
+  G.wr=0;
   G.combo++;let earn=1;
   if(fast){earn++;setTimeout(()=>toast('⚡ Быстро! +1','fast'),250)}
   if(G.combo%5===0){earn+=2;setTimeout(()=>toast('Серия! +2 🪙'),800);confetti(45)}
   S.coins+=earn;G.coins+=earn;save();sfx.ok();feed(el,spoken&&spoken.length<14?spoken:'');toast(pick(PRAISE));updCombo();
   if(spoken)setTimeout(()=>say(spoken),350);
 }
-function wrong(){G.am++;G.combo=0;updCombo();sfx.bad();toast(pick(OOPS),'oops');heroDo($('#gH'),'sad',800)}
+function wrong(){G.am++;G.combo=0;G.wr=(G.wr||0)+1;updCombo();sfx.bad();toast(pick(OOPS),'oops');heroDo($('#gH'),'sad',800);
+  let lost=0;if(S.coins>0){S.coins--;G.coins=(G.coins||0)-1;lost=1;save();updCoins()}
+  think(Math.min(5000,1300+G.wr*900),lost)}
+function think(ms,lost){const c=$('#card');if(!c)return;let o=$('#thinkO');if(!o){o=document.createElement('div');o.id='thinkO';c.appendChild(o)}
+  o.innerHTML=`<b>🤔</b><span>Подумай…</span>${lost?'<small>−1 🪙 за ошибку</small>':''}<i style="animation-duration:${ms}ms"></i>`;o.classList.add('on');
+  clearTimeout(o._t);o._t=setTimeout(()=>{o.classList.remove('on')},ms);if(G)G.thinkUntil=performance.now()+ms}
 
 /* ---------- вопросы ---------- */
 function wrongs(w){
@@ -1124,11 +1176,11 @@ function openShop(tab='s'){
     <div class="status" style="justify-content:center"><div class="chip"><i>🪙</i><span class="coinN">${S.coins}</span></div>
     ${tab==='f'?`<div class="chip">Сытость: <span class="belly-m">${'🍎'.repeat(S.full)}${'▫️'.repeat(FULLMAX-S.full)}</span></div>`:`<div class="chip">🎒 ${have} из ${total}</div>`}</div>
     <div class="tabs">${Object.entries(SHOP).map(([k,c])=>`<button class="tab ${k===tab?'on':''}" data-t="${k}">${c.n}</button>`).join('')}</div>
-    <div class="shop-grid">${L.map(it=>{
+    ${C.food?"":`<button class="surp" id="surp"><span class="ic">🎁</span><span>Сюрприз за ${SURPRISE} 🪙<small>Случайная новая вещь, которой у тебя ещё нет!</small></span></button>`}<div class="shop-grid">${L.filter(it=>!it.old||S.own.includes(tab+':'+it.id)).map(it=>{
       if(C.food)return `<button class="item ${S.coins<it.p?'no':''}" data-id="${it.id}"><span class="ic">${it.e}</span>${it.n}<span class="pr">🪙 ${it.p} · +${it.f} 🍎</span></button>`;
       const own=S.own.includes(tab+':'+it.id),on=C.k&&S[C.k]===it.id,lk=!own&&locked(it);
       const pr=C.room?(own?'В домике ✓':lk?'🔒 после дня '+it.d:'🪙 '+it.p):on?(tab==='b'?'Выбран':'Надето'):own?(tab==='b'?'Выбрать':'Надеть'):it.gift?'🎁 за день '+it.gift:lk?'🔒 после дня '+it.d:'🪙 '+it.p;
-      return `<button class="item ${on||(C.room&&own)?'on':''} ${!own&&(it.gift||S.coins<it.p||lk)?'no':''}" data-id="${it.id}">${itemIcon(tab,it)}${it.n}<span class="pr">${pr}</span></button>`}).join('')}</div>
+      return `<button class="item ${on||(C.room&&own)?'on':''} ${!own&&(it.gift||S.coins<it.p||lk)?'no':''}" data-id="${it.id}">${it.id&&String(it.id).startsWith('n_')&&!own?'<span class="newb">NEW</span>':''}${itemIcon(tab,it)}${it.n}<span class="pr">${pr}</span></button>`}).join('')}</div>
     <p id="shopMsg" style="margin:0;font-weight:800;color:var(--muted);min-height:1.4em">${tab==='f'?'Покорми Няма, и он будет весёлым! Каждый день он немножко голодает.':''}</p>
     <div class="buy" id="buyBox" hidden><div id="buyQ"></div><div class="buyrow"><button class="bigbtn" id="buyYes">Купить</button><button class="bigbtn alt" id="buyNo">Отмена</button></div></div>
     <div class="btns" id="shopBtns"><button class="bigbtn" id="shopClose">Готово</button></div>`);
@@ -1137,6 +1189,14 @@ function openShop(tab='s'){
   const ask=(q,yesTxt,onYes)=>{$('#buyQ').innerHTML=q;$('#buyYes').textContent=yesTxt;$('#buyBox').hidden=false;$('#shopBtns').hidden=true;
     $('#buyYes').onclick=onYes;$('#buyNo').onclick=()=>{sfx.tap();openShop(tab)};$('#buyBox').scrollIntoView({block:'nearest',behavior:'smooth'})};
   const noMoney=(it,what)=>{$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`${what} «${it.n}» нужно ещё ${it.p-S.coins} 🪙. Играй и собирай монетки!`};
+  if($('#surp'))$('#surp').onclick=()=>{sfx.tap();const md=Object.keys(S.days).length;
+    const pool=['h','g','a','p'].flatMap(t=>SHOP[t].L.filter(it=>it.id&&!it.old&&!it.gift&&!S.own.includes(t+':'+it.id)&&!(it.d&&md<it.d)).map(it=>[t,it]));
+    if(!pool.length){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent='Все доступные вещи уже твои! Новые откроются, когда пройдёшь больше дней 🔒';return}
+    if(S.coins<SURPRISE){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`Для сюрприза нужно ещё ${SURPRISE-S.coins} 🪙. Играй и собирай монетки!`;return}
+    ask(`Открыть сюрприз за <b>${SURPRISE} 🪙</b>?<small>Останется ${S.coins-SURPRISE} 🪙</small>`,'Открыть 🎁',()=>{const [t,it]=pick(pool);
+      S.coins-=SURPRISE;S.own.push(t+':'+it.id);S[SHOP[t].k]=it.id;save();updCoins();sfx.coin();confetti(150);
+      showOv(`<h2>Сюрприз!</h2><div class="chest open" style="font-size:96px">${it.e}</div><p style="font-weight:900;font-size:22px;margin:0">${it.n}</p><p style="font-weight:800;color:var(--muted);margin:0">Уже надето! Можно поменять в гардеробе.</p><div class="btns"><button class="bigbtn" id="surpOk">Ура! 🎉</button></div>`);
+      say('Ура! Тебе выпало: '+it.n);$('#surpOk').onclick=()=>{sfx.tap();openShop(t)}})};
   $$('#panel .item').forEach(b=>b.onclick=()=>{const it=L.find(x=>x.id===b.dataset.id);
     $$('#panel .item').forEach(x=>x.classList.remove('try'));b.classList.add('try');
     if(C.food){sfx.tap();
