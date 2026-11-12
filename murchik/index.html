@@ -892,7 +892,7 @@ RUN.boss=()=>{const lvl=DAYS[G.d].boss,HP=8+lvl*2;let hp=HP;
       if(hp<=0){bw.classList.add('dead');confetti(160);sfx.win();say('Ура! Зевака прогнан!');later(()=>actEnd(G.am<=2?3:G.am<=5?2:1),1600)}else later(ask,350)}};
   rdots(0,HP);later(ask,200)};
 
-function runQuiz(qs){card(askHTML(G.act)+'<div class="qa" id="qa"></div>');let i=0;
+function runQuiz(qs){card(askHTML(G.act)+tempoHTML()+'<div class="qa" id="qa"></div>');bindTempo();let i=0;
   const step=()=>{rdots(i,qs.length);presentQ($('#qa'),qs[i],()=>{i++;if(i>=qs.length)actEnd();else step()})};step()}
 /* ================= НОВЫЕ ЗАДАНИЯ НА СКОРОСТЬ: набор меняется каждые 3 дня ================= */
 const RACE=[
