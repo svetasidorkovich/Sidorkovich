@@ -377,6 +377,31 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
 .heard{font-weight:800;color:var(--muted);min-height:1.4em;text-align:center;font-size:16px}
 .dlg{display:flex;align-items:flex-end;gap:10px;width:100%}
 .bub2{position:relative;background:#E9F7FF;border-radius:20px 20px 20px 4px;padding:12px 14px;font-family:var(--display);font-weight:700;font-size:23px;color:var(--ink);flex:1;min-width:0;margin-bottom:24px}
+
+#thinkO{position:absolute;inset:0;z-index:30;border-radius:inherit;background:rgba(255,255,255,.72);display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+#thinkO.on{display:flex;animation:pop .25s}
+#thinkO b{font-size:64px;line-height:1;animation:shake .5s}
+#thinkO span{font-family:var(--display);font-size:26px;color:var(--ink)}
+#thinkO small{font-weight:800;color:#E2483D;font-size:16px}
+#thinkO i{display:block;width:60%;height:10px;border-radius:5px;background:#FFC530;transform-origin:left;animation:thinkbar linear forwards}
+@keyframes thinkbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.surp{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;border-radius:20px;background:linear-gradient(135deg,#8B5CFF,#FF5FB0);color:#fff;font-weight:900;font-size:17px;text-align:left;box-shadow:inset 0 -5px 0 rgba(0,0,0,.15)}
+.surp .ic{font-size:36px;animation:jump 1.4s ease-in-out infinite}.surp small{display:block;font-weight:800;opacity:.9;font-size:13px}
+.item .newb{position:absolute;top:4px;right:4px;background:#FF5A5F;color:#fff;font-size:10px;font-weight:900;border-radius:8px;padding:1px 5px}
+.item{position:relative}
+
+.hero-w{isolation:isolate}
+.h-shoe{position:absolute;left:50%;bottom:-.02em;transform:translateX(-50%);display:flex;gap:.9em;font-size:.2em;line-height:1;pointer-events:none}
+.h-shoe b{font-weight:400}
+.h-wing{position:absolute;left:50%;top:.28em;transform:translateX(-50%);width:2.9em;display:flex;justify-content:space-between;font-size:.38em;line-height:1;z-index:-1;pointer-events:none;animation:flap 1.6s ease-in-out infinite}
+.h-wing b{font-weight:400}.h-wing .mir{transform:scaleX(-1)}
+@keyframes flap{0%,100%{transform:translateX(-50%) scaleX(1)}50%{transform:translateX(-50%) scaleX(1.08)}}
+.h-ride{position:absolute;left:50%;bottom:-.34em;transform:translateX(-50%);font-size:.5em;line-height:1;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.h-aura{position:absolute;left:-14%;right:-14%;top:-6%;bottom:2%;pointer-events:none;font-size:.17em}
+.h-aura i{position:absolute;font-style:normal;animation:twinkle 2.2s ease-in-out infinite}
+.h-aura i:nth-child(1){left:0;top:12%}.h-aura i:nth-child(2){right:0;top:30%;animation-delay:-.6s}.h-aura i:nth-child(3){left:6%;bottom:22%;animation-delay:-1.2s}.h-aura i:nth-child(4){right:4%;bottom:6%;animation-delay:-1.7s}
+@keyframes twinkle{0%,100%{opacity:.35;transform:scale(.7) translateY(0)}50%{opacity:1;transform:scale(1.15) translateY(-.3em)}}
+.h-badge{position:absolute;left:60%;top:66%;font-size:.16em;line-height:1;pointer-events:none}
 @media (max-width:440px){
   .rv-word{font-size:42px}
   .logo{font-size:23px}.bar{gap:5px}.iconbtn{width:36px;height:36px;font-size:16px}.chip{font-size:15px;padding:5px 9px 5px 6px}.chip i{font-size:16px}
@@ -531,7 +556,91 @@ const DECOR=[{id:'box',n:'Коробка',e:'📦',p:20},{id:'yoyo',n:'Йо-йо
 const SHOP={s:{n:'Цвет',L:SKINS,k:'skin'},h:{n:'Шапки',L:HATS,k:'hat'},g:{n:'Очки',L:GLS,k:'gl'},a:{n:'В лапки',L:ACCS,k:'acc'},p:{n:'Питомцы',L:PETS,k:'pet'},
  b:{n:'Фон домика',L:BGS,k:'bg'},r:{n:'Домик 🏠',L:DECOR,room:1},f:{n:'Кухня 🍎',L:FOODS,food:1}};
 const COLL=['s','h','g','a','p','b','r'];
-const collTotal=()=>COLL.reduce((a,t)=>a+SHOP[t].L.filter(x=>x.id&&(x.p||x.gift)).length,0),collHave=()=>S.own.filter(k=>{const [t,id]=k.split(':');return id&&COLL.includes(t)}).length;
+const collTotal=()=>COLL.reduce((a,t)=>a+SHOP[t].L.filter(x=>x.id&&!x.old&&(x.p||x.gift)).length,0),collHave=()=>S.own.filter(k=>{const [t,id]=k.split(':');const it=id&&COLL.includes(t)&&SHOP[t].L.find(x=>x.id===id);return it&&!it.old}).length;
+
+/* ---------- новый гардероб (ноябрь): старые вещи видны только тем, кто их купил ---------- */
+[[HATS,'h'],[GLS,'g'],[ACCS,'a'],[PETS,'p'],[DECOR,'r'],[BGS,'b']].forEach(([L,t])=>L.forEach(it=>{if(it.id&&!it.gift)it.old=1}));
+HATS.push(...[{id:'n_straw',n:'Клубничка',e:'🍓',p:35},{id:'n_tulip',n:'Тюльпан',e:'🌷',p:35},{id:'n_bug',n:'Божья коровка',e:'🐞',p:40},{id:'n_lemon',n:'Лимончик',e:'🍋',p:40},
+ {id:'n_frog',n:'Лягушонок',e:'🐸',p:55},{id:'n_crab',n:'Крабик',e:'🦀',p:55},{id:'n_donut',n:'Пончик',e:'🍩',p:60},{id:'n_feath',n:'Пёрышко',e:'🪶',p:60},
+ {id:'n_cloud',n:'Облачко',e:'☁️',p:70},{id:'n_bolt',n:'Молния',e:'⚡',p:80},{id:'n_sun',n:'Солнышко',e:'🌞',p:90},{id:'n_cake',n:'Тортик',e:'🍰',p:100},
+ {id:'n_target',n:'Мишень',e:'🎯',p:110},{id:'n_coral',n:'Коралл',e:'🪸',p:130,d:7},{id:'n_orb',n:'Волшебный шар',e:'🔮',p:180,d:10},{id:'n_whirl',n:'Звёздный вихрь',e:'💫',p:220,d:14},{id:'n_rosette',n:'Орден',e:'🏵️',p:260,d:18}]);
+GLS.push(...[{id:'n_hearts',n:'Сердечки',e:'💕',p:50},{id:'n_spark',n:'Искорки',e:'✨',p:50},{id:'n_bubl',n:'Пузырики',e:'🫧',p:60},{id:'n_loupe',n:'Лупа сыщика',e:'🔍',p:70},{id:'n_hyp',n:'Гипноз',e:'🌀',p:90,d:7},{id:'n_eye',n:'Глазастик',e:'👀',p:120,d:12}]);
+ACCS.push(...[{id:'n_pencil',n:'Карандаш',e:'✏️',p:30},{id:'n_crayon',n:'Мелок',e:'🖍️',p:30},{id:'n_cookie',n:'Печенька',e:'🍪',p:30},{id:'n_ruler',n:'Линейка',e:'📐',p:40},
+ {id:'n_bucket',n:'Ведёрко',e:'🪣',p:40},{id:'n_mara',n:'Маракас',e:'🪇',p:45},{id:'n_disc',n:'Летающий диск',e:'🥏',p:55},{id:'n_abacus',n:'Счёты',e:'🧮',p:60},
+ {id:'n_flask',n:'Колба',e:'🧪',p:60},{id:'n_bowl',n:'Кегли',e:'🎳',p:70},{id:'n_violin',n:'Скрипка',e:'🎻',p:80},{id:'n_sax',n:'Саксофон',e:'🎷',p:90},
+ {id:'n_skate',n:'Конёк',e:'⛸️',p:100},{id:'n_roll',n:'Ролики',e:'🛼',p:120},{id:'n_comp',n:'Компас',e:'🧭',p:110,d:7},{id:'n_lant',n:'Фонарик',e:'🏮',p:130,d:8},
+ {id:'n_map',n:'Карта сокровищ',e:'🗺️',p:150,d:10},{id:'n_disco',n:'Диско-шар',e:'🪩',p:200,d:14},{id:'n_alien',n:'Пришелец',e:'👾',p:250,d:18},{id:'n_medal',n:'Орден героя',e:'🎖️',p:300,d:22}]);
+PETS.push(...[{id:'n_duck',n:'Утёнок',e:'🦆',p:120},{id:'n_cater',n:'Гусеничка',e:'🐛',p:110},{id:'n_liz',n:'Ящерка',e:'🦎',p:150},{id:'n_puff',n:'Рыба-ёж',e:'🐡',p:160},
+ {id:'n_flam',n:'Фламинго',e:'🦩',p:200},{id:'n_giraf',n:'Жирафик',e:'🦒',p:220},{id:'n_zebra',n:'Зебра',e:'🦓',p:220},{id:'n_eleph',n:'Слонёнок',e:'🐘',p:250,d:7},
+ {id:'n_seal',n:'Тюлень',e:'🦭',p:260,d:10},{id:'n_otter',n:'Выдра',e:'🦦',p:280,d:12},{id:'n_sloth',n:'Ленивец',e:'🦥',p:300,d:14},{id:'n_peac',n:'Павлин',e:'🦚',p:350,d:16},
+ {id:'n_bronto',n:'Бронтозавр',e:'🦕',p:400,d:18},{id:'n_whale',n:'Кит',e:'🐳',p:450,d:21}]);
+DECOR.push(...[{id:'n_chair',n:'Стульчик',e:'🪑',p:30},{id:'n_case',n:'Чемодан',e:'🧳',p:40},{id:'n_tea',n:'Чайник',e:'🫖',p:45},{id:'n_win',n:'Окошко',e:'🪟',p:50},
+ {id:'n_vase',n:'Ваза',e:'🏺',p:60},{id:'n_radio',n:'Радио',e:'📻',p:70},{id:'n_bath',n:'Ванна',e:'🛁',p:90},{id:'n_scoot',n:'Самокат',e:'🛴',p:100},
+ {id:'n_boat',n:'Кораблик',e:'⛵',p:110},{id:'n_bike',n:'Велосипед',e:'🚲',p:120},{id:'n_canoe',n:'Лодочка',e:'🛶',p:140},{id:'n_joy',n:'Джойстик',e:'🕹️',p:150},
+ {id:'n_pc',n:'Компьютер',e:'🖥️',p:160},{id:'n_camp',n:'Палатка',e:'🏕️',p:180},{id:'n_fount',n:'Фонтан',e:'⛲',p:220,d:7},{id:'n_volc',n:'Вулкан',e:'🌋',p:240,d:10},
+ {id:'n_wheel',n:'Колесо обозрения',e:'🎡',p:260,d:12},{id:'n_coaster',n:'Американские горки',e:'🎢',p:300,d:14},{id:'n_palace',n:'Дворец',e:'🏯',p:350,d:21}]);
+BGS.push(...[{id:'n_meadow',n:'Цветочный луг',bg:'radial-gradient(circle at 20% 80%,#FF8FCB 0 3%,transparent 4%),radial-gradient(circle at 70% 85%,#FFE45C 0 3%,transparent 4%),linear-gradient(180deg,#BDEBFF 0 55%,#8EE07A 55%)',p:80},
+ {id:'n_sea2',n:'Подводный мир',bg:'radial-gradient(circle at 30% 30%,rgba(255,255,255,.5) 0 2%,transparent 3%),linear-gradient(180deg,#5CE1E6,#2F6BFF 70%,#E8C27A 70%)',p:100},
+ {id:'n_jungle',n:'Джунгли',bg:'linear-gradient(180deg,#9BE07A 0 20%,#3FAF5A 20% 60%,#1E7A44 60%)',p:110},
+ {id:'n_winter',n:'Зимняя сказка',bg:'radial-gradient(circle at 15% 20%,#fff 0 1.5%,transparent 2%),radial-gradient(circle at 60% 35%,#fff 0 1.5%,transparent 2%),linear-gradient(180deg,#B9D6FF 0 58%,#F4F8FF 58%)',p:120},
+ {id:'n_desert',n:'Пустыня',bg:'radial-gradient(circle at 80% 20%,#FFF3A0 0 7%,transparent 8%),linear-gradient(180deg,#FFD9A0 0 55%,#F2B35E 55%)',p:120},
+ {id:'n_sweet',n:'Сладкий город',bg:'repeating-linear-gradient(45deg,#FFD1E8 0 14px,#FFF3F9 14px 28px)',p:150,d:7},
+ {id:'n_aurora',n:'Северное сияние',bg:'radial-gradient(ellipse at 30% 10%,#6CF0C2 0,transparent 45%),radial-gradient(ellipse at 80% 20%,#B67CFF 0,transparent 40%),linear-gradient(180deg,#0B1D44,#3A3F96)',p:200,d:12},
+ {id:'n_sunset',n:'Пляж на закате',bg:'linear-gradient(180deg,#FFB86C 0 30%,#FF6A88 30% 55%,#5C8DF0 55% 75%,#FFE09A 75%)',p:220,d:16}]);
+SKINS.push(...[{id:'n_marm',n:'Мармелад',c:['#FF7EB6','#FFD84D'],p:90},{id:'n_wave',n:'Морская волна',c:['#4FD1C5','#2B7BB9'],p:100},{id:'n_cherry',n:'Вишнёвый',c:['#E8466A','#9E1B45'],p:110},
+ {id:'n_peach',n:'Персиковый',c:['#FFB38A','#FF7A59'],p:110},{id:'n_emer',n:'Изумрудный',c:['#2ECC71','#117A65'],p:140,d:7},{id:'n_ice',n:'Ледяной',c:['#E6F7FF','#7CC7FF'],p:160,d:10}]);
+const SURPRISE=50;
+
+
+/* ---------- гардероб: новая коллекция и новые категории ---------- */
+[[HATS,'h'],[GLS,'g'],[ACCS,'a'],[PETS,'p'],[DECOR,'r'],[BGS,'b']].forEach(([L,t])=>L.forEach(it=>{if(it.id&&!it.gift)it.old=1}));
+HATS.push(...[{id:'z_hibis',n:'Гибискус',e:'🌺',p:35},{id:'z_lotus',n:'Лотос',e:'🪷',p:35},{id:'z_maple',n:'Кленовый лист',e:'🍁',p:40},{id:'z_cact',n:'Кактусик',e:'🌵',p:45},
+ {id:'z_melon',n:'Арбузик',e:'🍉',p:50},{id:'z_coco',n:'Кокос',e:'🥥',p:55},{id:'z_pine',n:'Ананас',e:'🍍',p:60},{id:'z_chees',n:'Сырная шапка',e:'🧀',p:65},
+ {id:'z_pretz',n:'Крендель',e:'🥨',p:70},{id:'z_burg',n:'Бургер',e:'🍔',p:80},{id:'z_nest',n:'Гнёздышко',e:'🪺',p:90},{id:'z_bee',n:'Пчёлка',e:'🐝',p:100},
+ {id:'z_web',n:'Паутинка',e:'🕸️',p:120,d:7},{id:'z_puzz',n:'Пазлик',e:'🧩',p:140,d:10},{id:'z_cake',n:'Торт-шапка',e:'🎂',p:180,d:14},{id:'z_tent',n:'Шапито',e:'🎪',p:240,d:18}]);
+GLS.push(...[{id:'z_rainb',n:'Радужные',e:'🌈',p:60},{id:'z_diam',n:'Алмазные',e:'💎',p:90},{id:'z_donut',n:'Пончиковые',e:'🍩',p:70},{id:'z_flow',n:'Цветочные',e:'🌸',p:60},
+ {id:'z_stars',n:'Звёздные',e:'🌟',p:110,d:7},{id:'z_kiwi',n:'Киви-очки',e:'🥝',p:80}]);
+ACCS.push(...[{id:'z_dango',n:'Данго',e:'🍡',p:30},{id:'z_sorb',n:'Щербет',e:'🍧',p:35},{id:'z_shake',n:'Коктейль',e:'🥤',p:40},{id:'z_brush',n:'Кисточка',e:'🖌️',p:40},
+ {id:'z_tooth',n:'Зубная щётка',e:'🪥',p:45},{id:'z_bell',n:'Звоночек',e:'🛎️',p:50},{id:'z_magn',n:'Магнит',e:'🧲',p:60},{id:'z_photo',n:'Фотоаппарат',e:'📸',p:80},
+ {id:'z_mic',n:'Микрофон',e:'🎤',p:90},{id:'z_broom',n:'Волшебная метла',e:'🧹',p:110},{id:'z_scope',n:'Микроскоп',e:'🔬',p:130,d:7},{id:'z_horn',n:'Рожок',e:'📯',p:140,d:10},
+ {id:'z_accord',n:'Гармошка',e:'🪗',p:180,d:14},{id:'z_clap',n:'Кинохлопушка',e:'🎬',p:220,d:18}]);
+PETS.push(...[{id:'z_bunny',n:'Крольчонок',e:'🐇',p:110},{id:'z_cock',n:'Петушок',e:'🐓',p:120},{id:'z_beaver',n:'Бобрёнок',e:'🦫',p:150},{id:'z_badger',n:'Барсучок',e:'🦡',p:160},
+ {id:'z_goat',n:'Козлёнок',e:'🐐',p:170},{id:'z_swan',n:'Лебедь',e:'🦢',p:200},{id:'z_croc',n:'Крокодильчик',e:'🐊',p:220},{id:'z_kang',n:'Кенгуру',e:'🦘',p:240,d:7},
+ {id:'z_llama',n:'Лама',e:'🦙',p:260,d:10},{id:'z_deer',n:'Оленёнок',e:'🦌',p:280,d:12},{id:'z_monk',n:'Обезьянка',e:'🐵',p:300,d:14},{id:'z_lion',n:'Львёнок',e:'🦁',p:350,d:16},
+ {id:'z_tiger',n:'Тигрёнок',e:'🐯',p:380,d:18},{id:'z_shark',n:'Акулёнок',e:'🦈',p:450,d:21}]);
+DECOR.push(...[{id:'z_matr',n:'Матрёшка',e:'🪆',p:40},{id:'z_sunfl',n:'Подсолнух',e:'🌻',p:40},{id:'z_candle',n:'Свечка',e:'🕯️',p:45},{id:'z_books',n:'Книжки',e:'📚',p:50},
+ {id:'z_ladder',n:'Лесенка',e:'🪜',p:60},{id:'z_pump',n:'Тыква-фонарь',e:'🎃',p:70},{id:'z_dolls',n:'Куколки',e:'🎎',p:90},{id:'z_tree',n:'Ёлка',e:'🎄',p:120},
+ {id:'z_tract',n:'Трактор',e:'🚜',p:140},{id:'z_fire',n:'Пожарная машина',e:'🚒',p:160},{id:'z_race',n:'Гоночная машина',e:'🏎️',p:200,d:7},{id:'z_heli',n:'Вертолёт',e:'🚁',p:240,d:10},
+ {id:'z_hut',n:'Хижина',e:'🛖',p:280,d:14},{id:'z_star',n:'Звездопад-ночник',e:'🌠',p:320,d:18}]);
+BGS.push(...[{id:'z_clouds',n:'Облачное небо',bg:'radial-gradient(ellipse at 25% 30%,#fff 0 12%,transparent 13%),radial-gradient(ellipse at 70% 55%,#fff 0 10%,transparent 11%),linear-gradient(180deg,#8FD3FF,#CDEBFF)',p:80},
+ {id:'z_choco',n:'Шоколадная фабрика',bg:'repeating-linear-gradient(90deg,#8B5A3C 0 18px,#A06C48 18px 36px)',p:100},
+ {id:'z_icep',n:'Ледяной дворец',bg:'linear-gradient(135deg,#E8F7FF 0%,#A9DDF7 40%,#7CC4F0 70%,#E8F7FF 100%)',p:120},
+ {id:'z_autumn',n:'Осенний парк',bg:'radial-gradient(circle at 20% 70%,#FF8A3D 0 4%,transparent 5%),radial-gradient(circle at 75% 80%,#FFC530 0 4%,transparent 5%),linear-gradient(180deg,#FFE2B0 0 55%,#D9822B 55%)',p:130},
+ {id:'z_rose',n:'Розовый сад',bg:'radial-gradient(circle at 30% 75%,#FF5FA2 0 4%,transparent 5%),radial-gradient(circle at 65% 85%,#FF8FCB 0 4%,transparent 5%),linear-gradient(180deg,#FFE3F0 0 55%,#7BD389 55%)',p:150,d:7},
+ {id:'z_lava',n:'Вулканическая пещера',bg:'radial-gradient(circle at 50% 100%,#FFB347 0 18%,#E8461E 30%,transparent 45%),linear-gradient(180deg,#3B1F2B,#6B2E2E)',p:220,d:14}]);
+SKINS.push(...[{id:'z_mand',n:'Мандариновый',c:['#FFA62B','#F76B1C'],p:100},{id:'z_icecr',n:'Пломбир',c:['#FFE3EC','#FFB3C7'],p:110},
+ {id:'z_lime',n:'Лаймовый',c:['#C6F25E','#7DBA1B'],p:120},{id:'z_turq',n:'Бирюзовый',c:['#34E0D0','#0FA3B1'],p:130,d:7}]);
+// новые категории
+const SHOES=[{id:'',n:'Без обуви',e:'—',p:0},{id:'z_snk',n:'Кроссовки',e:'👟',p:40},{id:'z_boot',n:'Ботинки',e:'👞',p:45},{id:'z_sand',n:'Сандалии',e:'👡',p:50},
+ {id:'z_flat',n:'Балетки',e:'🥿',p:55},{id:'z_flip',n:'Шлёпки',e:'🩴',p:35},{id:'z_hike',n:'Походные ботинки',e:'🥾',p:70},{id:'z_wboot',n:'Сапожки',e:'👢',p:80},
+ {id:'z_socks',n:'Носочки',e:'🧦',p:30},{id:'z_point',n:'Пуанты',e:'🩰',p:110,d:7},{id:'z_iceb',n:'Коньки',e:'⛸️',p:140,d:10},{id:'z_rolls',n:'Ролики',e:'🛼',p:170,d:14}];
+const WINGS=[{id:'',n:'Ничего',e:'—',p:0},{id:'z_bfly',n:'Крылья бабочки',e:'🦋',p:90,pair:1},{id:'z_angel',n:'Крылышки',e:'🪽',p:150,pair:1},{id:'z_ball',n:'Воздушные шары',e:'🎈',p:70,pair:1},
+ {id:'z_kite',n:'Воздушный змей',e:'🪁',p:80},{id:'z_bag',n:'Рюкзачок',e:'🎒',p:60},{id:'z_rainb2',n:'Радуга',e:'🌈',p:160,d:7},{id:'z_feath2',n:'Перья павлина',e:'🪶',p:120,pair:1},
+ {id:'z_parach',n:'Парашют',e:'🪂',p:200,d:12},{id:'z_rock2',n:'Реактивный ранец',e:'🚀',p:260,d:16,pair:1}];
+const RIDES=[{id:'',n:'Пешком',e:'—',p:0},{id:'z_skate',n:'Скейтборд',e:'🛹',p:90},{id:'z_cloud',n:'Облачко',e:'☁️',p:120},{id:'z_turtle',n:'Черепаха-такси',e:'🐢',p:130},
+ {id:'z_scoot2',n:'Самокат',e:'🛴',p:100},{id:'z_wave',n:'Волна',e:'🌊',p:150,d:7},{id:'z_carpet',n:'Ковёр-самолёт',e:'🟪',p:180,d:10},{id:'z_ufo',n:'Летающая тарелка',e:'🛸',p:260,d:14},
+ {id:'z_whale2',n:'Кит',e:'🐳',p:300,d:18},{id:'z_uni',n:'Единорог',e:'🦄',p:380,d:21},{id:'z_drag',n:'Дракон',e:'🐉',p:450,d:25}];
+const AURAS=[{id:'',n:'Без волшебства',e:'—',p:0},{id:'z_spark',n:'Искорки',e:'✨',p:80},{id:'z_heart',n:'Сердечки',e:'💖',p:90},{id:'z_note',n:'Нотки',e:'🎵',p:90},
+ {id:'z_bubble',n:'Пузыри',e:'🫧',p:100},{id:'z_snow',n:'Снежинки',e:'❄️',p:110},{id:'z_petal',n:'Лепестки',e:'🌸',p:120},{id:'z_clover',n:'Клеверки',e:'🍀',p:130,d:7},
+ {id:'z_starz',n:'Звёзды',e:'⭐',p:160,d:10},{id:'z_whirl2',n:'Вихрь',e:'💫',p:200,d:14},{id:'z_firew',n:'Салют',e:'🎆',p:260,d:18}];
+const BADGES=[{id:'',n:'Без значка',e:'—',p:0},{id:'z_bheart',n:'Сердечко',e:'💗',p:30},{id:'z_bstar',n:'Звёздочка',e:'🌟',p:35},{id:'z_bflow',n:'Ромашка',e:'🌼',p:35},
+ {id:'z_bpaw',n:'Лапка',e:'🐾',p:40},{id:'z_bbolt',n:'Молния',e:'⚡',p:45},{id:'z_bclov',n:'Удача',e:'🍀',p:50},{id:'z_buni',n:'Единорожка',e:'🦄',p:60},
+ {id:'z_bdiam',n:'Кристалл',e:'🔷',p:70},{id:'z_bmedal',n:'Медалька',e:'🥇',p:120,d:10},{id:'z_btroph',n:'Кубок',e:'🏆',p:180,d:18}];
+{const tail={b:SHOP.b,r:SHOP.r,f:SHOP.f};delete SHOP.b;delete SHOP.r;delete SHOP.f;
+ Object.assign(SHOP,{o:{n:'Обувь',L:SHOES,k:'shoe'},w:{n:'За спиной',L:WINGS,k:'wing'},v:{n:'Катается',L:RIDES,k:'ride'},e:{n:'Волшебство',L:AURAS,k:'aura'},i:{n:'Значки',L:BADGES,k:'badge'}},tail);
+ COLL.push('o','w','v','e','i')}
+const newCatsOwn=()=>{['o:','w:','v:','e:','i:'].forEach(k=>{if(!S.own.includes(k))S.own.push(k)})};
+
 function findItem(key){const [t,id]=key.split(':');return SHOP[t]&&SHOP[t].L.find(x=>x.id===id)}
 function grantGifts(){const got=[];COLL.forEach(t=>SHOP[t].L.forEach(it=>{if(it.gift&&S.days[it.gift-1]&&!S.own.includes(t+':'+it.id)){S.own.push(t+':'+it.id);got.push(it)}}));if(got.length)save();return got}
 const FULLMAX=5;
@@ -636,13 +745,14 @@ const HERO_SVG=`<svg viewBox="0 0 120 130" aria-hidden="true">
 <g class="m m-open"><path d="M50 57 Q60 49 70 57 Q69 65 60 67 Q51 65 50 57Z" fill="#FFB020"/><path d="M52 71 Q60 69 68 71 Q64 83 60 83 Q56 83 52 71Z" fill="#E88A00"/><ellipse cx="60" cy="70" rx="6" ry="3.5" fill="#FF7A9C"/></g>
 <g class="m m-sad"><path d="M50 59 Q60 51 70 59 Q70 73 60 79 Q56 69 50 59Z" fill="#FFB020"/><path d="M35 34 L52 39 M85 34 L68 39" stroke="#1E2340" stroke-width="3" stroke-linecap="round"/></g>
 </svg>`;
-const heroHTML=(size,id='')=>`<div class="hero-w" ${id?`id="${id}"`:''} style="width:${size}px;height:${Math.round(size*1.08)}px;font-size:${size}px">${HERO_SVG}<span class="h-hat"></span><span class="h-gl"></span><span class="h-acc"></span><span class="h-pet"></span></div>`;
+const heroHTML=(size,id='')=>`<div class="hero-w" ${id?`id="${id}"`:''} style="width:${size}px;height:${Math.round(size*1.08)}px;font-size:${size}px">${HERO_SVG}<span class="h-hat"></span><span class="h-gl"></span><span class="h-acc"></span><span class="h-pet"></span><span class="h-shoe"></span><span class="h-wing"></span><span class="h-ride"></span><span class="h-aura"></span><span class="h-badge"></span></div>`;
 function paintHeroes(tr){tr=tr||{};const v=(t,k)=>tr[t]!==undefined?tr[t]:S[k];
   const sk=SKINS.find(x=>x.id===v('s','skin'))||SKINS[0],f=(L,id)=>{const x=L.find(y=>y.id===id);return x&&x.id?x.e:''};
-  const hat=f(HATS,v('h','hat')),gl=f(GLS,v('g','gl')),acc=f(ACCS,v('a','acc')),pet=f(PETS,v('p','pet'));
+  const shoe=f(SHOES,v('o','shoe')),wingIt=WINGS.find(y=>y.id===v('w','wing')),wing=f(WINGS,v('w','wing')),ride=f(RIDES,v('v','ride')),aura=f(AURAS,v('e','aura')),badge=f(BADGES,v('i','badge')),hat=f(HATS,v('h','hat')),gl=f(GLS,v('g','gl')),acc=f(ACCS,v('a','acc')),pet=f(PETS,v('p','pet'));
   $$('.hero-w').forEach(el=>{el.style.setProperty('--h1',sk.c[0]);el.style.setProperty('--h2',sk.c[1]);el.classList.toggle('golden',!!sk.gl);
     el.classList.toggle('hungry',S.full<=0&&el.id==='hHero');
-    el.querySelector('.h-hat').textContent=hat;el.querySelector('.h-gl').textContent=gl;el.querySelector('.h-acc').textContent=acc;el.querySelector('.h-pet').textContent=pet});
+    el.querySelector('.h-hat').textContent=hat;el.querySelector('.h-gl').textContent=gl;el.querySelector('.h-acc').textContent=acc;el.querySelector('.h-pet').textContent=pet;const X=(c,h)=>{const e=el.querySelector('.'+c);if(e)e.innerHTML=h};
+    X('h-shoe',shoe?`<b>${shoe}</b><b>${shoe}</b>`:'');X('h-wing',wing?(wingIt&&wingIt.pair?`<b>${wing}</b><b class="mir">${wing}</b>`:`<b></b><b>${wing}</b>`):'');X('h-ride',ride);X('h-aura',aura?`<i>${aura}</i><i>${aura}</i><i>${aura}</i><i>${aura}</i>`:'');X('h-badge',badge)});
 }
 function heroDo(el,st,ms=900){if(!el)return;el.classList.remove('eat','happy','sad');void el.offsetWidth;el.classList.add(st);clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove(st),ms)}
 
@@ -890,13 +1000,19 @@ function feed(fromEl,text){
   an.onfinish=()=>{f.remove();heroDo(hero,'eat',500);sfx.chomp();updCoins();bumpCoins()};
 }
 function correct(el,spoken,fast){
+  G.wr=0;
   G.combo++;let earn=1;
   if(fast){earn++;setTimeout(()=>toast('⚡ Быстро! +1','fast'),250)}
   if(G.combo%5===0){earn+=2;setTimeout(()=>toast('Серия! +2 🪙'),800);confetti(45)}
   S.coins+=earn;G.coins+=earn;save();sfx.ok();feed(el,spoken&&spoken.length<14?spoken:'');toast(pick(PRAISE));updCombo();
   if(spoken)setTimeout(()=>say(spoken),350);
 }
-function wrong(){G.am++;G.combo=0;updCombo();sfx.bad();toast(pick(OOPS),'oops');heroDo($('#gH'),'sad',800)}
+function wrong(){G.am++;G.combo=0;G.wr=(G.wr||0)+1;updCombo();sfx.bad();toast(pick(OOPS),'oops');heroDo($('#gH'),'sad',800);
+  const lost=Math.min(5,S.coins);if(lost>0){S.coins-=lost;G.coins=(G.coins||0)-lost;save();updCoins()}
+  think(Math.min(5000,1300+G.wr*900),lost)}
+function think(ms,lost){const c=$('#card');if(!c)return;let o=$('#thinkO');if(!o){o=document.createElement('div');o.id='thinkO';c.appendChild(o)}
+  o.innerHTML=`<b>🤔</b><span>Подумай…</span>${lost?`<small>−${lost} 🪙 за ошибку</small>`:''}<i style="animation-duration:${ms}ms"></i>`;o.classList.add('on');
+  clearTimeout(o._t);o._t=setTimeout(()=>{o.classList.remove('on')},ms);if(G)G.thinkUntil=performance.now()+ms}
 
 
 
@@ -928,7 +1044,7 @@ $('#backBtn').onclick=()=>{sfx.tap();toHome()};
 function showOv(h){$('#panel').innerHTML=h;$('#ov').hidden=false}
 function hideOv(){$('#ov').hidden=true}
 function itemIcon(tab,it){if(tab==='b')return `<span class="ic"><span class="sw" style="border-radius:10px;width:44px;background:${it.bg}"></span></span>`;return tab==='s'?`<span class="ic"><span class="sw" style="background:${it.rb?(it.id==='galaxy'?'radial-gradient(circle at 30% 30%,#fff 0 6%,#7B4DFF 30%,#2E1A8A)':'conic-gradient(#FF5A5F,#FFC530,#2FD07A,#12C6E0,#8B5CFF,#FF5FB0,#FF5A5F)'):`linear-gradient(${it.c[0]},${it.c[1]})`}"></span></span>`:`<span class="ic">${it.e}</span>`}
-function openShop(tab='s'){
+function openShop(tab='s'){newCatsOwn();
   const C=SHOP[tab],L=C.L,maxDone=Object.keys(S.days).length;
   const locked=it=>it.d&&maxDone<it.d;
   const total=collTotal(),have=collHave(),curBg=(BGS.find(x=>x.id===S.bg)||BGS[0]).bg;
@@ -936,11 +1052,11 @@ function openShop(tab='s'){
     <div class="status" style="justify-content:center"><div class="chip"><i>🪙</i><span class="coinN">${S.coins}</span></div>
     ${tab==='f'?`<div class="chip">Сытость: <span class="belly-m">${'🍎'.repeat(S.full)}${'▫️'.repeat(FULLMAX-S.full)}</span></div>`:`<div class="chip">🎒 ${have} из ${total}</div>`}</div>
     <div class="tabs">${Object.entries(SHOP).map(([k,c])=>`<button class="tab ${k===tab?'on':''}" data-t="${k}">${c.n}</button>`).join('')}</div>
-    <div class="shop-grid">${L.map(it=>{
+    ${C.food?"":`<button class="surp" id="surp"><span class="ic">🎁</span><span>Сюрприз за ${SURPRISE} 🪙<small>Случайная новая вещь, которой у тебя ещё нет!</small></span></button>`}<div class="shop-grid">${L.filter(it=>!it.old||S.own.includes(tab+':'+it.id)).map(it=>{
       if(C.food)return `<button class="item ${S.coins<it.p?'no':''}" data-id="${it.id}"><span class="ic">${it.e}</span>${it.n}<span class="pr">🪙 ${it.p} · +${it.f} 🍎</span></button>`;
       const own=S.own.includes(tab+':'+it.id),on=C.k&&S[C.k]===it.id,lk=!own&&locked(it);
       const pr=C.room?(own?'В домике ✓':lk?'🔒 после урока '+it.d:'🪙 '+it.p):on?(tab==='b'?'Выбран':'Надето'):own?(tab==='b'?'Выбрать':'Надеть'):it.gift?'🎁 за урок '+it.gift:lk?'🔒 после урока '+it.d:'🪙 '+it.p;
-      return `<button class="item ${on||(C.room&&own)?'on':''} ${!own&&(it.gift||S.coins<it.p||lk)?'no':''}" data-id="${it.id}">${itemIcon(tab,it)}${it.n}<span class="pr">${pr}</span></button>`}).join('')}</div>
+      return `<button class="item ${on||(C.room&&own)?'on':''} ${!own&&(it.gift||S.coins<it.p||lk)?'no':''}" data-id="${it.id}">${it.id&&String(it.id).startsWith('z_')&&!own?'<span class="newb">NEW</span>':''}${itemIcon(tab,it)}${it.n}<span class="pr">${pr}</span></button>`}).join('')}</div>
     <p id="shopMsg" style="margin:0;font-weight:800;color:var(--muted);min-height:1.4em">${tab==='f'?'Покорми Чирика, и он будет весёлым! Каждый день он немножко голодает.':''}</p>
     <div class="buy" id="buyBox" hidden><div id="buyQ"></div><div class="buyrow"><button class="bigbtn" id="buyYes">Купить</button><button class="bigbtn alt" id="buyNo">Отмена</button></div></div>
     <div class="btns" id="shopBtns"><button class="bigbtn" id="shopClose">Готово</button></div>`);
@@ -949,6 +1065,14 @@ function openShop(tab='s'){
   const ask=(q,yesTxt,onYes)=>{$('#buyQ').innerHTML=q;$('#buyYes').textContent=yesTxt;$('#buyBox').hidden=false;$('#shopBtns').hidden=true;
     $('#buyYes').onclick=onYes;$('#buyNo').onclick=()=>{sfx.tap();openShop(tab)};$('#buyBox').scrollIntoView({block:'nearest',behavior:'smooth'})};
   const noMoney=(it,what)=>{$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`${what} «${it.n}» нужно ещё ${it.p-S.coins} 🪙. Играй и собирай монетки!`};
+  if($('#surp'))$('#surp').onclick=()=>{sfx.tap();const md=Object.keys(S.days).length;
+    const pool=['h','g','a','p','o','w','v','e','i'].flatMap(t=>SHOP[t].L.filter(it=>it.id&&!it.old&&!it.gift&&!S.own.includes(t+':'+it.id)&&!(it.d&&md<it.d)).map(it=>[t,it]));
+    if(!pool.length){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent='Все доступные вещи уже твои! Новые откроются, когда пройдёшь больше дней 🔒';return}
+    if(S.coins<SURPRISE){$('#buyBox').hidden=true;$('#shopBtns').hidden=false;$('#shopMsg').textContent=`Для сюрприза нужно ещё ${SURPRISE-S.coins} 🪙. Играй и собирай монетки!`;return}
+    ask(`Открыть сюрприз за <b>${SURPRISE} 🪙</b>?<small>Останется ${S.coins-SURPRISE} 🪙</small>`,'Открыть 🎁',()=>{const [t,it]=pick(pool);
+      S.coins-=SURPRISE;S.own.push(t+':'+it.id);S[SHOP[t].k]=it.id;save();updCoins();sfx.coin();confetti(150);
+      showOv(`<h2>Сюрприз!</h2><div class="chest open" style="font-size:96px">${it.e}</div><p style="font-weight:900;font-size:22px;margin:0">${it.n}</p><p style="font-weight:800;color:var(--muted);margin:0">Уже надето! Можно поменять в гардеробе.</p><div class="btns"><button class="bigbtn" id="surpOk">Ура! 🎉</button></div>`);
+      say('Ура! Тебе выпало: '+it.n);$('#surpOk').onclick=()=>{sfx.tap();openShop(t)}})};
   $$('#panel .item').forEach(b=>b.onclick=()=>{const it=L.find(x=>x.id===b.dataset.id);
     $$('#panel .item').forEach(x=>x.classList.remove('try'));b.classList.add('try');
     if(C.food){sfx.tap();
