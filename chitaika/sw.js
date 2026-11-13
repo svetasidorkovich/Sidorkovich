@@ -1,5 +1,5 @@
 // Читайка: работа без интернета
-const CACHE='chitaika-v10';
+const CACHE='chitaika-v11';
 const FILES=['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png', 'fonts/balsamiq-sans-cyrillic-400-normal.woff2', 'fonts/balsamiq-sans-cyrillic-700-normal.woff2', 'fonts/balsamiq-sans-latin-400-normal.woff2', 'fonts/balsamiq-sans-latin-700-normal.woff2', 'fonts/nunito-cyrillic-600-normal.woff2', 'fonts/nunito-cyrillic-800-normal.woff2', 'fonts/nunito-cyrillic-900-normal.woff2', 'fonts/nunito-latin-600-normal.woff2', 'fonts/nunito-latin-800-normal.woff2', 'fonts/nunito-latin-900-normal.woff2'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

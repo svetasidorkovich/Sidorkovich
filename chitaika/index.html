@@ -362,6 +362,22 @@ body{background:#3CB878}
 .ad.now{background:#FFE66D}
 .house{border-style:dashed}
 
+.buk{font-size:30px;line-height:1.9;font-weight:900;text-align:center;color:var(--ink);background:#FFF8E1;border-radius:20px;padding:14px 12px;width:100%;word-spacing:10px}
+.buk .bw{white-space:nowrap;display:inline-block}
+.buk .sy{display:inline-block;padding:0 1px 2px;border-bottom:3px solid;border-radius:0 0 50% 50%/0 0 12px 12px;margin:0 1px}
+.buk .s0{color:#D6336C;border-color:#F59FC0}.buk .s1{color:#1C7ED6;border-color:#9CC8F5}
+.buk.plain .sy{color:var(--ink);border-color:transparent;margin:0;padding:0}
+.bkmode{align-self:center}
+.vlad .lstep{letter-spacing:2px}
+.revhint{margin:0;font-weight:900;color:var(--grass);text-align:center}
+.pl.tapme{cursor:pointer;box-shadow:0 0 0 3px #FFC530 inset;animation:pop .3s}.pl.tapme .m{color:#E67700;font-weight:900}
+.arch{display:flex;flex-direction:column;gap:8px;width:100%;max-height:55vh;overflow:auto}
+.archd{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border-radius:16px;background:var(--soft);font-weight:900;color:var(--ink)}
+.archd b{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(180deg,#FFF07A,#FFB21E);display:grid;place-items:center;font-size:18px}
+.archd span{flex:1;font-size:16px}.archd small{display:block;font-size:15px;margin-top:2px}.archd i{font-style:normal;font-size:12px;white-space:nowrap}
+body.w6 .sky{background:linear-gradient(170deg,#FFB3C7 0%,#FF6F91 45%,#3FBF6A 100%)}
+body.w7 .sky{background:radial-gradient(circle at 70% 15%,#FFE27A 0 4%,transparent 5%),linear-gradient(180deg,#5B3FA8 0%,#8E5BD6 55%,#F2B84B 100%)}
+
 #thinkO{position:absolute;inset:0;z-index:30;border-radius:inherit;background:rgba(255,255,255,.72);display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 #thinkO.on{display:flex;animation:pop .25s}
 #thinkO b{font-size:64px;line-height:1;animation:shake .5s}
@@ -647,11 +663,13 @@ let OLD={};try{OLD=JSON.parse(localStorage.getItem('chitaika-v2'))||{}}catch(e){
 S={days:{},coins:OLD.coins||0,sound:true,music:true,lower:OLD.lower!==undefined?OLD.lower:true,flashT:2500,rec:{},own:['s:blue','h:','g:','a:','p:','b:'],skin:'blue',hat:'',gl:'',prog:null,daily:false,time:{d:'',ms:0},tip:0,...S};
 ['a:','p:','b:'].forEach(k=>{if(!S.own.includes(k))S.own.push(k)});S.acc=S.acc||'';S.pet=S.pet||'';if(S.full===undefined){S.full=3;S.fullDay=''}
 // Перенос: первые 3 дня пройдены, куплены разноцветный цвет, очки и шапка ученика
+const _had=Object.keys(S.days||{}).length>0;if(!_had){S.seed1=1;S.seed2=1;S.seed3=1}
 if(!S.seed1){for(let i=0;i<3;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-08'};
   ['s:rainbow','h:grad','g:g1'].forEach(k=>{if(!S.own.includes(k))S.own.push(k)});S.skin='rainbow';S.hat='grad';S.gl='g1';
   if(S.prog&&S.prog.d<3)S.prog=null;S.seed1=1}
 // Озвучка снова включена по умолчанию
 if(!S.seed2){for(let i=0;i<14;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-11'};if(S.prog&&S.prog.d<14)S.prog=null;S.seed2=1}
+if(!S.seed3){for(let i=0;i<18;i++)if(!S.days[i])S.days[i]={stars:3,date:'2026-11-13'};if(S.prog&&S.prog.d<18)S.prog=null;S.seed3=1}
 if(!S.voice2){S.voiceOn=true;S.voice2=1}
 if(!S.speedV2){S.flashT=Math.max(2500,S.flashT||0);S.speedV2=1}
 if(S.voiceOn===undefined){S.voiceOn=false;S.voiceName=''}
@@ -775,22 +793,23 @@ function setWorld(d){const w=worldOf(d);document.body.className=w.c+(S.voiceOn?'
 function renderHome(){
   const cd=curDay(),done=doneCount();setWorld(cd);updCoins();
   $('#homeHero').innerHTML=heroHTML(118,'hHero');
-  const msg=done===DAYS.length?'Ты прошёл все 30 дней! Ты <b>Король Чтения</b>! Можно переиграть любой день и собрать все звёзды.':
+  const msg=done===DAYS.length?'Ты прошёл все 50 дней! Ты <b>Король Чтения</b>! Можно переиграть любой день и собрать все звёзды.':
     S.days[cd-1]&&!unlocked(cd)?'Сегодня ты уже позанимался. Новый день откроется <b>завтра</b>! А пока можно переиграть пройденные.':
     done===0&&S.tip===0?TIPS[0]:TIPS[S.tip%TIPS.length];
   $('#say').innerHTML=S.full<=0?'Я проголодался 🥺 Покорми меня! Нажми 👕 и загляни на <b>Кухню</b>.':msg;
   const total=collTotal(),have=collHave();
   $('#status').innerHTML=`<button class="chip" id="feedChip">Сытость: <span class="belly-m">${'🍎'.repeat(S.full)}${'▫️'.repeat(FULLMAX-S.full)}</span></button><button class="chip" id="collChip">🎒 Коллекция: ${have} из ${total}</button>`;
   $('#feedChip').onclick=()=>{sfx.tap();openShop('f')};$('#collChip').onclick=()=>{sfx.tap();openShop('h')};
+  $('#status').insertAdjacentHTML('beforeend','<button class="chip" id="archChip">📚 Пройденное</button>');$('#archChip').onclick=()=>{sfx.tap();openArchive()};
   const bg=(BGS.find(x=>x.id===S.bg)||BGS[0]).bg,dec=DECOR.filter(x=>S.own.includes('r:'+x.id));
   $('#house').style.background=bg;
   $('#house').innerHTML=`<span class="house-h">🏠 Домик Няма</span>${dec.length?`<span class="house-items">${dec.map((x,i)=>`<span style="animation-delay:${-i*.4}s">${x.e}</span>`).join('')}</span>`:'<span class="house-empty">Пока пусто. Нажми, чтобы купить Няму мебель и игрушки!</span>'}`;
   $('#house').onclick=()=>{sfx.tap();openShop('r')};
   const ms=todayMs();$('#ringHome').innerHTML=ringHTML(ms);
-  $('#todayTx').innerHTML=ms>=15*60000?`Сегодня уже 15 минут! 🎉<small>Отличная работа. Пройдено дней: ${done} из 30</small>`:
-    `Сегодня: ${Math.floor(ms/60000)} из 15 минут<small>Пройдено дней: ${done} из 30 · ⭐ ${Object.values(S.days).reduce((a,b)=>a+b.stars,0)}</small>`;
+  $('#todayTx').innerHTML=ms>=15*60000?`Сегодня уже 15 минут! 🎉<small>Отличная работа. Пройдено дней: ${done} из 50</small>`:
+    `Сегодня: ${Math.floor(ms/60000)} из 15 минут<small>Пройдено дней: ${done} из 50 · ⭐ ${Object.values(S.days).reduce((a,b)=>a+b.stars,0)}</small>`;
   const can=unlocked(cd)&&!(done===DAYS.length);
-  $('#playBtn').innerHTML=done===DAYS.length?`Выбрать день на карте<small>Все 30 дней пройдены 👑</small>`:can?
+  $('#playBtn').innerHTML=done===DAYS.length?`Выбрать день на карте<small>Все 50 дней пройдены 👑</small>`:can?
     `▶ Играть: день ${cd+1}<small>${DAYS[cd].t}${S.prog&&S.prog.d===cd?' · продолжить':''}</small>`:`Завтра новый день!<small>День ${cd+1}: ${DAYS[cd].t}</small>`;
   $('#playBtn').onclick=()=>{sfx.tap();if(can)openDay(cd);else document.querySelector('.node.cur,.node.done')?.scrollIntoView({behavior:'smooth',block:'center'})};
   const m=$('#map');m.innerHTML='';
@@ -817,7 +836,7 @@ function learnedCl(d){const s=new Set();for(let k=0;k<=d;k++)(DAYS[k].cl||[]).fo
 function matchW(w,D){const rs=runs(w);if(!rs.length)return false;
   if(D.cl&&rs.some(r=>D.cl.some(c=>r.s.includes(c))))return true;
   switch(D.mode){case'mid':return rs.some(r=>r.i>0&&r.end<w.length&&isV(w[r.end]));case'end':return rs.some(r=>r.end===w.length||w.slice(r.end)==='Ь');
-    case'ccc':return rs.some(r=>r.s.length>=3);case'long':return w.length>=7;case'all':return true}return false}
+    case'ccc':return rs.some(r=>r.s.length>=3);case'long':return w.length>=7;case'vf':return isV(w[0])&&isC(w[1]);case'all':return true}return false}
 function dayPool(d){const D=DAYS[d];let p=WORDS.filter(([,w])=>matchW(w,D));
   if(p.length<10){const lc=learnedCl(d);p=p.concat(shuffle(WORDS.filter(x=>!p.includes(x)&&runs(x[1]).some(r=>lc.some(c=>r.s.includes(c))))).slice(0,10-p.length))}
   if(p.length<10)p=p.concat(shuffle(WORDS.filter(x=>!p.includes(x)&&runs(x[1]).length)).slice(0,10-p.length));return p}
@@ -843,6 +862,9 @@ function openDay(d){
     <button class="bigbtn" id="goDay">${G.ai>0?'Продолжить ▶':'Начать! ▶'}</button>
     ${G.ai>0?'<button class="bigbtn alt" id="restartDay">Начать день сначала</button>':''}`);
   $('#goDay').onclick=()=>{sfx.tap();startAct()};
+  if(S.days[d]){$('#card .plan').insertAdjacentHTML('beforebegin','<p class="revhint">День пройден ✓ Нажми на любое задание, чтобы повторить только его!</p>');
+    $$('#card .pl').forEach((el,k)=>{el.classList.add('tapme');el.querySelector('.m').textContent='повторить ▶';el.onclick=()=>{sfx.tap();G.ai=k;G.single=true;startAct()}});
+    $('#goDay').textContent='Пройти весь день ▶'}
   if($('#restartDay'))$('#restartDay').onclick=()=>{S.prog=null;save();G.ai=0;G.mist=0;sfx.tap();startAct()};
 }
 function startAct(){
@@ -856,14 +878,14 @@ function startAct(){
 function actEnd(forced){
   stopAll();rdots(0,0);
   const st=forced||(G.am<=1?3:G.am<=3?2:1);G.mist+=G.am;G.ai++;
-  S.prog={d:G.d,ai:G.ai,mist:G.mist};save();actsBar();
-  const last=G.ai>=G.plan.length;
+  if(!G.single){S.prog={d:G.d,ai:G.ai,mist:G.mist};save()}actsBar();
+  const last=!G.single&&G.ai>=G.plan.length;
   card(`<div class="intro"><div id="aHero">${heroHTML(110)}</div><h2>${pick(['Задание выполнено!','Получилось!','Вот это да!'])}</h2>
     <div class="bigstars">${[1,2,3].map(k=>`<span class="${k<=st?'':'dim'}">⭐</span>`).join('')}</div>
-    <p>${last?'Все задания дня пройдены! Тебя ждёт сундук!':`Осталось заданий: ${G.plan.length-G.ai}`}</p></div>
-    <button class="bigbtn" id="nextAct">${last?'Открыть сундук 🎁':'Дальше ▶'}</button>`);
+    <p>${G.single?'Молодец! Можно повторить ещё что-нибудь.':last?'Все задания дня пройдены! Тебя ждёт сундук!':`Осталось заданий: ${G.plan.length-G.ai}`}</p></div>
+    <button class="bigbtn" id="nextAct">${G.single?'К заданиям дня ↩':last?'Открыть сундук 🎁':'Дальше ▶'}</button>`);
   paintHeroes();heroDo($('#aHero .hero-w'),'happy',1200);sfx.win();if(st===3)confetti(70);
-  $('#nextAct').onclick=()=>{sfx.tap();if(last)finishDay();else startAct()};
+  $('#nextAct').onclick=()=>{sfx.tap();if(G.single){openDay(G.d);return}if(last)finishDay();else startAct()};
 }
 function updCombo(){const c=$('#combo');if(G&&G.combo>=2){c.hidden=false;c.textContent=`🔥 ${G.combo} подряд`;c.classList.remove('hot');void c.offsetWidth;c.classList.add('hot')}else c.hidden=true}
 function toast(t,cls=''){const d=document.createElement('div');d.className='toast '+cls;d.textContent=t;$('#card').appendChild(d);setTimeout(()=>d.remove(),1200)}
@@ -1056,7 +1078,7 @@ Object.assign(ACT,{
  tongue:{n:'Скороговорки',i:'👅',ask:'Прочитай скороговорку вслух три раза: медленно, быстрее и очень быстро!',min:3}});
 const ROT=[['fill','tapcl','memory','snake','fall','review'],['fix','tongue','fill','fall','memory','review'],['tapcl','snake','fix','ladder','tongue','review'],
  ['memory','fill','fall','fix','snake','review'],['snake','tapcl','tongue','memory','fix','review'],['fall','ladder','fill','tapcl','tongue','review']];
-function planFor(d){const D=DAYS[d];if(D.boss===5)return['tapcl','memory','tongue','boss'];if(D.boss)return['fill','snake','fall','boss'];return ROT[Math.floor(d/3)%ROT.length]}
+function planForOld(d){const D=DAYS[d];if(D.boss===5)return['tapcl','memory','tongue','boss'];if(D.boss)return['fill','snake','fall','boss'];return ROT[Math.floor(d/3)%ROT.length]}
 const ONSETS=['БЛ','ПЛ','КЛ','ГЛ','ФЛ','СЛ','БР','ПР','КР','ГР','ДР','ТР','ВР','СТ','СК','СП','СН','СМ','СВ','ЗВ','ЗМ','ШК','ШЛ','ГН','КН','ДВ','ПТ','ПЧ','ЛК','НТ','РТ','СТР','СКР','СПР','НГВ'];
 const GOODON=new Set(['БЛ','ПЛ','КЛ','ГЛ','ФЛ','СЛ','БР','ПР','КР','ГР','ДР','ТР','ВР','СТ','СК','СП','СН','СМ','СВ','ЗВ','ЗМ','ШК','ШЛ','ГН','КН','ДВ','ПТ','ПЧ','ТВ','ЗД','ЧК','СТР','СКР','СПР']);
 function sylls(w){const vi=[];[...w].forEach((c,k)=>{if(isV(c))vi.push(k)});if(vi.length<2)return[w];const out=[];let start=0;
@@ -1139,6 +1161,145 @@ RUN.tongue=()=>{const list=shuffle(TWISTERS).slice(0,4);let i=0;
       const nb=$$('#card .tsteps button')[k];if(nb)nb.disabled=false;
       if(k===3){G.combo++;updCombo();correct(b,'',false);heroDo($('#gH'),'happy',1000);i++;nxt(i,list.length,step)}})};
   step()};
+
+/* ================= БУКВАРЬ, «ГЛАСНАЯ ВПЕРЕДИ», 50 ДНЕЙ, ПОВТОР ПРОЙДЕННОГО ================= */
+Object.assign(ACT,{
+ bukvar:{n:'Букварь',i:'📘',ask:'Прочитай вслух по слогам. Потом нажми «Прочитал!» и ответь на вопрос',min:3},
+ vfirst:{n:'Гласная впереди',i:'🍉',ask:'Слово начинается с гласной. Читай ступеньки: гласная, слог с ней, потом всё слово!',min:3},
+ vpick:{n:'Смотри на начало',i:'🔎',ask:'Как правильно написано слово? Смотри внимательно на начало!',min:2}});
+
+// слова, которые начинаются с гласной (деление для чтения: гласная забирает соседку)
+const VW=[['🍉','АР-БУЗ'],['🏝️','ОС-ТРОВ'],['🦆','УТ-КА'],['🎄','ЁЛ-КА'],['🪟','ОК-НО'],['🍎','ЯБ-ЛО-КО'],['☁️','ОБ-ЛА-КО'],['🪡','ИГ-ЛА'],
+ ['🌸','АС-ТРА'],['✨','ИС-КРА'],['🐑','ОВ-ЦА'],['🧸','ИГ-РУШ-КА'],['🐙','ОСЬ-МИ-НОГ'],['🍳','ОМ-ЛЕТ'],['📔','АЛЬ-БОМ'],['📺','ЭК-РАН'],
+ ['🧊','АЙС-БЕРГ'],['🍦','ЭС-КИ-МО'],['🥚','ЯЙ-ЦО'],['🦃','ИН-ДЮК'],['🧝','ЭЛЬФ'],['💎','АЛ-МАЗ'],['📡','АН-ТЕН-НА'],['🎪','ЯР-МАР-КА'],
+ ['🎼','ОР-КЕСТР'],['🧑‍🚀','АС-ТРО-НАВТ']];
+VW.forEach(([e,s])=>{const w=s.replace(/-/g,'');if(!WORDS.some(x=>x[1]===w))WORDS.push([e,w])});
+const VWW=VW.map(([e,s])=>[e,s.replace(/-/g,''),s]);
+
+// Предложения в духе букваря Жуковой: буквы появляются в том же порядке. Тексты свои.
+// st: 1 — до Т, 2 — +З Й Г, 3 — +В Д Б, 4 — +Ж Е Ь, 5 — +Я Ю Ё, 6 — все буквы
+const BUK=[
+ [1,'У Ми-лы кот. Кот спит у ок-на.','Кто спит у окна?','🐱',['🐶','🐭']],
+ [1,'Ма-ша ку-пи-ла ли-мон.','Что купила Маша?','🍋',['🍌','🍎']],
+ [1,'Па-па и Са-ша у мос-та. Там плыл сом.','Кто плыл?','🐟',['🐸','🐢']],
+ [1,'У сос-ны ли-са. Ли-са ры-ла нор-ку.','Кто у сосны?','🦊',['🐺','🐻']],
+ [1,'Ни-на ку-ша-ла ка-шу.','Что кушала Нина?','🥣',['🍕','🍰']],
+ [1,'У Ри-ты шар. Шар лоп-нул.','Что лопнуло?','🎈',['⚽','🪁']],
+ [1,'Ут-ром Ро-ма ку-пил мо-ло-ко.','Что купил Рома?','🥛',['🧃','☕']],
+ [1,'Мыш-ка ук-ра-ла сыр.','Что украла мышка?','🧀',['🍞','🥕']],
+ [1,'Ан-на кор-ми-ла кош-ку.','Кого кормила Анна?','🐱',['🐶','🐦']],
+ [1,'У Ла-ры ма-лыш. Ма-лыш спит.','Кто спит?','👶',['👵','👮']],
+ [2,'У Зи-ны зонт. Зонт си-ний.','Что у Зины?','☂️',['🧢','👜']],
+ [2,'Зай-ка ус-нул у сос-ны.','Кто уснул у сосны?','🐰',['🦊','🐻']],
+ [2,'У Гу-ли гу-си. Гу-си га-га-га!','Кто у Гули?','🪿',['🐔','🦆']],
+ [2,'Ко-за за-шла на гор-ку.','Кто зашёл на горку?','🐐',['🐄','🐑']],
+ [2,'Зи-ма. У Ти-мы сан-ки.','Что у Тимы?','🛷',['🚲','🛴']],
+ [2,'Гри-ша ку-шал гру-шу.','Что кушал Гриша?','🍐',['🍎','🍋']],
+ [2,'Гро-за. Гром гро-мок.','Какая погода?','⛈️',['☀️','🌈']],
+ [2,'Гном Гош-ка иг-рал у гор-ки.','Кто играл у горки?','🧙',['🤖','👸']],
+ [3,'У до-ма рос дуб. Там си-дит со-ва.','Кто там сидит?','🦉',['🐿️','🐦']],
+ [3,'Во-ва и Да-ша ку-пи-ли ба-на-ны.','Что купили Вова и Даша?','🍌',['🍎','🍇']],
+ [3,'Ко-ро-ва да-ла мо-ло-ко.','Кто дал молоко?','🐄',['🐐','🐑']],
+ [3,'Бо-ба бил в ба-ра-бан.','Во что бил Боба?','🥁',['🎺','🎸']],
+ [3,'Вол-ки вы-ли у до-ро-ги.','Кто выл у дороги?','🐺',['🦊','🐻']],
+ [3,'Ди-ма ло-вил ры-бу.','Что ловил Дима?','🐟',['🦀','🐸']],
+ [3,'У Ва-ри бу-сы и бант.','Что у Вари?','🎀',['🧢','👓']],
+ [3,'Дра-кон спал у бо-ло-та.','Кто спал у болота?','🐉',['🦖','🐊']],
+ [4,'В ле-су жил мед-ведь.','Кто жил в лесу?','🐻',['🐺','🦊']],
+ [4,'Жук сел на лист. Жук жуж-жит.','Кто сел на лист?','🪲',['🐞','🐝']],
+ [4,'Весь день лил дождь.','Какая погода?','🌧️',['☀️','❄️']],
+ [4,'Ле-на кор-ми-ла ло-шадь.','Кого кормила Лена?','🐴',['🐄','🐷']],
+ [4,'Е-ле-на ук-ра-си-ла ель.','Что украсила Елена?','🎄',['🌳','🌵']],
+ [4,'Ма-ша пи-шет в тет-ра-ди.','Где пишет Маша?','📓',['📺','🧸']],
+ [4,'Ве-тер шу-мел в ле-су.','Что шумело в лесу?','🌬️',['🌊','🔥']],
+ [4,'Сне-жин-ки ле-те-ли и кру-жи-лись.','Что летело?','❄️',['🍂','🌸']],
+ [5,'Ё-жик нёс яб-ло-ко.','Что нёс ёжик?','🍎',['🍄','🍐']],
+ [5,'Ю-ля на-де-ла юб-ку.','Что надела Юля?','👗',['👖','🧥']],
+ [5,'Я-ша ка-тал-ся на лы-жах.','На чём катался Яша?','🎿',['🛷','⛸️']],
+ [5,'Зме-я спря-та-лась под ка-мень.','Кто спрятался?','🐍',['🦎','🐢']],
+ [5,'На ре-ке лёд. Де-ти ка-та-ют-ся.','Что на реке?','🧊',['🌊','🛶']],
+ [5,'Клён рос у до-ро-ги. Лис-тья жёл-ты-е.','Какое дерево росло?','🍁',['🌲','🌴']],
+ [5,'Ю-ра лю-бит мо-ро-же-но-е.','Что любит Юра?','🍦',['🍕','🥕']],
+ [5,'Ёл-ка в иг-руш-ках и ог-нях.','Что в игрушках?','🎄',['🌳','🏠']],
+ [6,'Цып-лё-нок пьёт во-ду.','Кто пьёт воду?','🐥',['🐔','🦆']],
+ [6,'Ще-нок ве-се-ло ви-ля-ет хвос-ти-ком.','Кто виляет хвостиком?','🐶',['🐱','🐰']],
+ [6,'Фи-лин си-дит на вет-ке но-чью.','Кто сидит на ветке?','🦉',['🐦','🐿️']],
+ [6,'Де-ти съе-ли все пи-рож-ки.','Что съели дети?','🥟',['🍰','🍌']],
+ [6,'Фла-мин-го сто-ит на од-ной но-ге.','Кто стоит на одной ноге?','🦩',['🐧','🦆']],
+ [6,'Ма-ма ва-рит щи.','Что варит мама?','🍲',['🍰','🍕']],
+ [6,'Чай го-ря-чий. По-дуй на чай!','Что горячее?','☕',['🍦','🧃']],
+ [6,'На фер-ме жи-вут ов-цы и ко-ро-вы.','Кто живёт на ферме?','🐑',['🦁','🐧']],
+ [6,'В цир-ке смеш-ной кло-ун.','Кто в цирке?','🤡',['👮','🧑‍🚒']],
+ [6,'Ча-сы ти-ка-ют на сте-не.','Что тикает на стене?','🕰️',['📺','💡']]];
+const BUK_ABC=['АУОИЫЭМСХШЛНРКПТ','ЗЙГ','ВДБ','ЖЕЬ','ЯЮЁ','ЧФЦЩЪ'];
+function bukStage(d){const D=DAYS[d];return D.st||(d<24?1:2)}
+function bukHTML(t){let k=0;return t.split(' ').map(w=>`<span class="bw">${w.split('-').map(s=>`<span class="sy s${(k++)%2}">${s}</span>`).join('')}</span>`).join(' ')}
+const bukPlain=t=>t.replace(/-/g,'');
+
+RUN.bukvar=()=>{const stg=bukStage(G.d),cur=shuffle(BUK.filter(x=>x[0]===stg)),old=shuffle(BUK.filter(x=>x[0]<stg));
+  const list=cur.slice(0,old.length?3:4).concat(old.slice(0,1)).slice(0,4);let i=0;
+  const step=()=>{rdots(i,list.length);const [,t,q,e,d]=list[i];
+    card(askHTML('bukvar')+`<div class="buk" id="bk">${bukHTML(t)}</div><button class="chip bkmode" id="bkMode">Читать слитно</button>
+      <div class="qa" id="qa"><button class="bigbtn" id="bkRead">Прочитал! ✅</button></div>`);
+    $('#bkMode').onclick=()=>{sfx.tap();const p=$('#bk').classList.toggle('plain');$('#bkMode').textContent=p?'Читать по слогам':'Читать слитно'};
+    $('#bkRead').onclick=()=>{sfx.tap();say(bukPlain(t),1);$('#bk').classList.add('plain');$('#bkMode').textContent='Читать по слогам';
+      presentQ($('#qa'),{top:`<div class="storyq">${q}</div>`,opts:shuffle([e,...d]).map(x=>({v:x,l:x,c:'emo'})),cols:'three',ans:e,spoken:''},()=>{i++;if(i<list.length)step();else actEnd()});
+      later(()=>say(q),1800)}};
+  step()};
+
+// ступеньки: А → АР → АР-БУЗ → АРБУЗ
+function vSteps(s){const parts=s.split('-'),out=[{t:parts[0][0],h:parts[0][0]}];
+  if(parts[0].length>1)out.push({t:parts[0],h:parts[0][0]+`<span class="n">${parts[0].slice(1)}</span>`});
+  for(let k=1;k<parts.length;k++)out.push({t:parts.slice(0,k+1).join('-'),h:parts.slice(0,k).join('-')+`-<span class="n">${parts[k]}</span>`});
+  if(parts.length>1)out.push({t:parts.join(''),h:parts.join('')});return out}
+RUN.vfirst=()=>{const words=shuffle(VWW).slice(0,5);seen(words.map(([e,w])=>[e,w]));let i=0;
+  const word=()=>{rdots(i,words.length);const [e,w,s]=words[i],st=vSteps(s);
+    card(askHTML('vfirst')+`<div class="ladder vlad" id="lad"></div><div class="lhint">Гласная забирает соседку: <b>А</b> → <b>АР</b>. Потом читай дальше без остановки.</div>`);
+    let k=0;G.lad={st,e,w};
+    const add=()=>{const box=$('#lad');if(k>0)box.insertAdjacentHTML('beforeend','<div class="arrow">▼</div>');
+      const b=document.createElement('button');b.className='lstep cur';b.innerHTML=F(st[k].h);box.appendChild(b);const sx=st[k];
+      b.onclick=()=>{if(b.classList.contains('read'))return say(sx.t.replace(/-/g,' '));b.classList.remove('cur');b.classList.add('read');sfx.step(k);say(sx.t.replace(/-/g,' '));k++;
+        if(k<st.length)later(add,300);else{box.insertAdjacentHTML('beforeend',`<div class="pic">${e}</div>`);G.combo++;S.coins++;G.coins++;save();sfx.ok();feed(b,w);toast(pick(PRAISE));updCombo();
+          later(()=>{i++;if(i<words.length)word();else actEnd()},1700)}}};
+    add()};
+  word()};
+function vWrongs(w){const out=new Set();const c1=w[1],c2=w[2];
+  out.add(w[1]+w[0]+w.slice(2));                                   // АРБУЗ → РАБУЗ
+  if(isC(c2))out.add(w[0]+c2+c1+w.slice(3));                        // → АБРУЗ
+  if(isC(c2))out.add(w.slice(0,2)+w[0]+w.slice(2));                 // → АРАБУЗ
+  out.add(w[0]+w.slice(2));                                         // → АБУЗ
+  out.delete(w);return shuffle([...out]).slice(0,3)}
+RUN.vpick=()=>{const ws=shuffle(VWW).slice(0,7);seen(ws.map(([e,w])=>[e,w]));
+  runQuiz(ws.map(([e,w])=>({top:`<div class="pic">${e}</div>`,opts:shuffle([w,...vWrongs(w)]).map(x=>({v:x,l:F(x)})),cols:w.length>6?'one':'',ans:w,spoken:w,fast:7000})))};
+
+/* ---------- 50 дней ---------- */
+const PB1=['bukvar','vfirst','fill','bukvar','vpick','review'],PB2=['vfirst','vpick','bukvar','snake','vfirst','review'],PB3=['bukvar','tapcl','vfirst','bukvar','memory','review'];
+const PBOSS=['vfirst','bukvar','vpick','boss'];
+DAYS[29]={t:'Клякса-хитрюга',mode:'all',p:'BOSS',boss:4};
+DAYS.push(
+ {t:'Букварь: первые предложения',mode:'all',st:1,plan:PB1},{t:'Гласная впереди: АР, ОС, УТ',mode:'vf',st:1,plan:PB2},{t:'Букварь: М, Л, Н, Р, К, П, Т',mode:'all',st:1,plan:PB3},
+ {t:'Букварь: З, Й, Г',mode:'all',st:2,plan:PB1},{t:'Гласная впереди: ЁЛ, ОК, ИГ',mode:'vf',st:2,plan:PB2},{t:'Букварь: зимние истории',mode:'all',st:2,plan:PB3},
+ {t:'Клякса в Букваре',mode:'vf',st:2,p:'BOSS',boss:3,plan:PBOSS},
+ {t:'Букварь: В, Д, Б',mode:'all',st:3,plan:PB1},{t:'Длинные слова с гласной',mode:'vf',st:3,plan:PB2},{t:'Букварь: про лес',mode:'all',st:3,plan:PB3},
+ {t:'Букварь: Ж, Е, Ь',mode:'all',st:4,plan:PB1},{t:'Гласная впереди: повторяем',mode:'vf',st:4,plan:PB2},{t:'Букварь: Я, Ю, Ё',mode:'all',st:5,plan:PB3},
+ {t:'Клякса-великан',mode:'all',st:5,p:'BOSS',boss:4,plan:PBOSS},
+ {t:'Букварь: Ч, Ф, Ц, Щ',mode:'all',st:6,plan:PB1},{t:'Читаем бегло',mode:'all',st:6,plan:PB2},{t:'Самые трудные слова',mode:'long',st:6,plan:PB3},
+ {t:'Букварь: весь алфавит',mode:'all',st:6,plan:PB1},{t:'Генеральная репетиция',mode:'all',st:6,plan:PB2},
+ {t:'Праздник чтения!',mode:'all',st:6,p:'FIN',boss:5,plan:['bukvar','vfirst','tongue','boss']});
+WORLDS.length=0;WORLDS.push({n:'Волшебный лес',e:'🍄',a:0,b:6,c:'w1',d:['🍄','🌲','🦔','🍂','🌰']},{n:'Подводное царство',e:'🐙',a:7,b:13,c:'w2',d:['🐙','🐠','🫧','🐚','🪸']},
+ {n:'Страна динозавров',e:'🦕',a:14,b:20,c:'w3',d:['🦕','🌋','🦖','🌴','🥚']},{n:'Северное сияние',e:'🌌',a:21,b:27,c:'w4',d:['❄️','🌌','🐧','⛄','✨']},
+ {n:'Радужный город',e:'🌈',a:28,b:36,c:'w5',d:['🌈','🎡','🎈','🏙️','🎆']},{n:'Арбузный остров',e:'🍉',a:37,b:43,c:'w6',d:['🍉','🌴','🦜','🐚','🍹']},
+ {n:'Замок Короля Слов',e:'🏰',a:44,b:49,c:'w7',d:['👑','🏰','📘','💎','🎉']});
+function planFor(d){const D=DAYS[d];if(D.plan)return D.plan;const p=planForOld(d).slice();
+  if(d>=18&&!D.boss)p[1]=Math.floor(d/3)%2?'bukvar':'vfirst';return p}
+
+/* ---------- повтор пройденного ---------- */
+function openArchive(){const done=Object.keys(S.days).map(Number).sort((a,b)=>a-b);
+  showOv(`<h2>📚 Пройденное</h2><p style="margin:0;font-weight:800;color:var(--muted)">Нажми на день, а потом на любое задание, чтобы повторить его.</p>
+    <div class="arch">${done.length?done.map(d=>`<button class="archd" data-d="${d}"><b>${DAYS[d].boss?(DAYS[d].boss===5?'👑':'🏆'):d+1}</b><span>${DAYS[d].t}<small>${planFor(d).map(a=>ACT[a].i).join(' ')}</small></span><i>${'⭐'.repeat(S.days[d].stars)}</i></button>`).join(''):'<p>Пока ничего не пройдено.</p>'}</div>
+    <div class="btns"><button class="bigbtn" id="archClose">Закрыть</button></div>`);
+  $$('#panel .archd').forEach(b=>b.onclick=()=>{sfx.tap();hideOv();openDay(+b.dataset.d)});
+  $('#archClose').onclick=()=>{sfx.tap();hideOv()}}
 
 /* ---------- конец дня ---------- */
 function finishDay(){
@@ -1226,7 +1387,7 @@ function openInfo(){
   const wk=[['Неделя 1','БЛ, ПЛ, КЛ, ГЛ, ФЛ, СЛ, потом БР, ПР, КР, ГР. В конце битва с Кляксой.'],['Неделя 2','ДР, ТР, ВР, «Л или Р?», СТ, СК, СП, СН, СМ, СВ. Битва.'],
     ['Неделя 3','ЗВ, ЗМ, ШЛ, ГН, КН, ДВ, ШК, ЧК. Стечения в середине и в конце слова. Битва.'],['Неделя 4','Три согласных (СТР, СКР, СПР), длинные слова, фразы, истории, скорость. Битва.'],['Дни 29–30','Повторение и праздничный финал с короной.']];
   showOv(`<h2>Для родителей</h2><div class="info">
-    <p>Тренажёр рассчитан на <b>30 дней по ~15 минут</b>. Каждый день состоит из 5–6 мини-игр и идёт от простого к сложному.</p>
+    <p>Тренажёр рассчитан на <b>50 дней по ~15 минут</b>. Каждый день состоит из 5–6 мини-игр и идёт от простого к сложному.</p>
     <div class="weeks">${wk.map(([a,b])=>`<div><b>${a}.</b> ${b}</div>`).join('')}</div>
     <h3>Как читать БЛ, КР, СТ</h3>
     <p>Ребёнок спотыкается, потому что читает согласные по отдельности и вставляет лишнюю гласную: «БО-ЛОК». Помогает такой приём: найти гласную, согласную перед ней читать вместе с ней (<span class="ex">ЛО</span>), а первую согласную тянуть и «приклеить» (<span class="ex">ббб…ЛО → БЛО → БЛОК</span>). Этому учит «Лесенка».</p>
@@ -1251,7 +1412,7 @@ function openInfo(){
   if($('#voiceSel'))$('#voiceSel').onchange=e=>{S.voiceName=e.target.value;save();loadVoice();say('Привет! Я Ням. Давай читать!',1)};
   if($('#voiceTry'))$('#voiceTry').onclick=()=>say('Привет! Я Ням. Давай читать!',1);
   $('#resetB').onclick=e=>{if(!resetArm){resetArm=true;e.target.textContent='Точно? Нажмите ещё раз';e.target.style.background='#FFD9D6';setTimeout(()=>{resetArm=false},3000);return}
-    const keep={sound:S.sound,music:S.music,lower:S.lower,voiceOn:S.voiceOn,voiceName:S.voiceName};S={days:{},coins:0,flashT:2500,speedV2:1,seed1:1,voice2:1,full:3,fullDay:todayStr(),acc:'',pet:'',seed2:1,rec:{},own:['s:blue','h:','g:','a:','p:','b:'],skin:'blue',hat:'',gl:'',bg:'',prog:null,daily:S.daily,time:{d:'',ms:0},tip:0,...keep};save();resetArm=false;hideOv();renderHome()};
+    const keep={sound:S.sound,music:S.music,lower:S.lower,voiceOn:S.voiceOn,voiceName:S.voiceName};S={days:{},coins:0,flashT:2500,speedV2:1,seed1:1,voice2:1,full:3,fullDay:todayStr(),acc:'',pet:'',seed2:1,seed3:1,rec:{},own:['s:blue','h:','g:','a:','p:','b:'],skin:'blue',hat:'',gl:'',bg:'',prog:null,daily:S.daily,time:{d:'',ms:0},tip:0,...keep};save();resetArm=false;hideOv();renderHome()};
   $('#infoClose').onclick=()=>{hideOv();renderHome()};
 }
 $('#shopBtn').onclick=()=>{sfx.tap();openShop()};
